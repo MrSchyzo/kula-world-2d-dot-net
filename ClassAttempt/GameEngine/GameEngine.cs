@@ -38,7 +38,7 @@ namespace GameEngine
     public class GameScreen : IIndipendentlyAnimable
     {
         #region Variabili private: mappa
-        private SortedDictionary<Pair<int>, GameBlock> blocks;
+        private SortedDictionary<Pair<int>, Block> blocks;
         private SortedDictionary<Pair<int>, SortedDictionary<KulaLevel.Orientation, GameSurface>> surfaces;
         private SortedDictionary<Pair<int>, GamePlaceable> placeables;
         private SortedDictionary<Pair<int>, GameEnemy> enemies;
@@ -177,7 +177,7 @@ namespace GameEngine
             bgImage = new Bitmap(1, 1);
             sounds = new SortedDictionary<string, SoundMediaPlayer>();
             images = new SortedDictionary<string, Bitmap>();
-            blocks = new SortedDictionary<Pair<int>, GameBlock>();
+            blocks = new SortedDictionary<Pair<int>, Block>();
             surfaces = new SortedDictionary<Pair<int>, SortedDictionary<KulaLevel.Orientation, GameSurface>>();
             placeables = new SortedDictionary<Pair<int>, GamePlaceable>();
             enemies = new SortedDictionary<Pair<int>, GameEnemy>();
@@ -282,7 +282,7 @@ namespace GameEngine
         private void drawRemainingBlocks(Rectangle bounds, Graphics e)
         {
             //TOCHECK and REDO: draw blocks
-            int k = blocks.Values.ToList<GameBlock>().Count<GameBlock>(x => !x.IsTouched);
+            int k = blocks.Values.ToList<Block>().Count<Block>(x => !x.IsTouched);
             GameApp.DrawPromptTextInBox(
                 e,
                 "Blocks to go: \n" + k,
@@ -340,7 +340,7 @@ namespace GameEngine
             #endregion
 
             #region Blocchi
-            foreach (GameBlock b in blocks.Values)
+            foreach (Block b in blocks.Values)
             {
                 if (b != null)
                     if (!enhanced || EngUtils.Distance(b.Center, ball.Center) <= maxDis)
@@ -486,7 +486,7 @@ namespace GameEngine
             else if (!isBonus)
                 ball.SetState(BallState.Bonused, false);
 
-            foreach(GameBlock b in blocks.Values)
+            foreach(Block b in blocks.Values)
                 b.Update(thisTime, ball);
 
             foreach(SortedDictionary<KulaLevel.Orientation, GameSurface> a in surfaces.Values)
@@ -503,7 +503,7 @@ namespace GameEngine
             #region Collisione con il resto degli attori
             foreach(Pair<int> tile in collisionControlArea(ball))
             {
-                GameBlock gb;
+                Block gb;
                 if (blocks.TryGetValue(tile, out gb))
                     gb.CollidesWithBall(thisTime, ball);
             }
@@ -567,7 +567,7 @@ namespace GameEngine
                 levelLoss(DeathType.TimeOut, "Time out!");
             else
             {
-                List<GameBlock> gbList = blocks.Values.ToList<GameBlock>();
+                List<Block> gbList = blocks.Values.ToList<Block>();
                 if (!gbList.Exists(x => !x.IsTouched) && isBonus)
                     levelWin();
             }
@@ -877,7 +877,7 @@ namespace GameEngine
             //Pair<int> high = new Pair<int>((int)(highBlock.X / EngineConst.BlockWidth), (int)(highBlock.Y / EngineConst.BlockWidth));
             //Pair<int> low = new Pair<int>((int)(lowBlock.X / EngineConst.BlockWidth), (int)(lowBlock.Y / EngineConst.BlockWidth));
 
-            GameBlock gb;
+            Block gb;
             if (blocks.TryGetValue(high, out gb) && gb.IsEnabled)
                 return 1;
             else if (blocks.TryGetValue(low, out gb) && gb.IsEnabled)
@@ -913,7 +913,7 @@ namespace GameEngine
 ;
             Pair<int> block = new Pair<int>(ballX + (int)(off.X), ballY + (int)(off.Y));
 
-            GameBlock gb;
+            Block gb;
             return blocks.TryGetValue(block, out gb) && gb.IsEnabled;
         }
         #endregion
