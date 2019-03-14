@@ -67,16 +67,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animators.cs" />
-    <Compile Include="Blocks.cs" />
+    <Compile Include="Animators\AlternateAnimator.cs" />
+    <Compile Include="Animators\XYTextureRotationAnimator.cs" />
+    <Compile Include="Animators\LinearBoundedAnimator.cs" />
+    <Compile Include="Animators\LinearUnboundedAnimator.cs" />
+    <Compile Include="Animators\MultiAnimator.cs" />
+    <Compile Include="Animators\ParabolicToLinearAnimator.cs" />
+    <Compile Include="Animators\ParabolicUnboundedAnimator.cs" />
+    <Compile Include="Animators\QuarterRotationAnimator.cs" />
+    <Compile Include="Animators\SinusoidalAnimator.cs" />
+    <Compile Include="Animators\SteadyAnimator.cs" />
+    <Compile Include="Animators\Animator.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\DestructibleBlock.cs" />
+    <Compile Include="Blocks\FireBlock.cs" />
+    <Compile Include="Blocks\IceBlock.cs" />
+    <Compile Include="Blocks\IndestructibleBlock.cs" />
+    <Compile Include="Blocks\IntermittentBlock.cs" />
+    <Compile Include="Blocks\NormalBlock.cs" />
+    <Compile Include="Blocks\TransparentBlock.cs" />
     <Compile Include="EngineConst.cs" />
     <Compile Include="GameActorsSupers.cs" />
     <Compile Include="GameBall.cs" />
     <Compile Include="GameEngine.cs" />
+    <Compile Include="Surfaces\GameSurface.cs" />
     <Compile Include="Placeables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Surfaces.cs" />
+    <Compile Include="Surfaces\GameContactSurface.cs" />
+    <Compile Include="Surfaces\G_Exit.cs" />
+    <Compile Include="Surfaces\G_Fire.cs" />
+    <Compile Include="Surfaces\G_GroundForced.cs" />
+    <Compile Include="Surfaces\G_Ice.cs" />
+    <Compile Include="Surfaces\G_Ramp.cs" />
+    <Compile Include="Surfaces\G_Spikes.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
