@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace GameEngine.Surfaces
 {
-    public abstract class GameContactSurface : GameSurface
+    public abstract class ContactSurface : Surface
     {
         protected SurfType type;
         protected Color surfColor;
@@ -17,7 +17,7 @@ namespace GameEngine.Surfaces
             else if (type == SurfType.Ice)
                 return BallState.Sliding;
             else
-                throw new Exception("In GameContactSurface.surface2state(...) the input type is unexpected.");
+                throw new Exception("In ContactSurface.surface2state(...) the input type is unexpected.");
         }
 
         protected void affectBall(Ball b, long thisTime)

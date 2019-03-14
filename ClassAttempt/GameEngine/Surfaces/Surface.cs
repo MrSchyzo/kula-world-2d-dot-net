@@ -6,7 +6,7 @@ using System.Drawing.Drawing2D;
 
 namespace GameEngine.Surfaces
 {
-    public abstract class GameSurface : Actor
+    public abstract class Surface : Actor
     {
         protected Bitmap toDraw;
         protected float dimX = 64;

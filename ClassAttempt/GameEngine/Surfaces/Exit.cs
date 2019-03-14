@@ -3,12 +3,12 @@ using System.Drawing;
 
 namespace GameEngine.Surfaces
 {
-    public class G_Exit : GameSurface
+    public class Exit : Surface
     {
         private static Color noExit = Color.FromArgb(200, Color.Red);
         private static Color yesExit = Color.FromArgb(200, Color.LimeGreen);
 
-        public G_Exit(int idxX, int idxY, KulaLevel.Orientation o)
+        public Exit(int idxX, int idxY, KulaLevel.Orientation o)
         {
             surfacesPhysicInit(EngineConst.BlockWidth, 8, -RotationUtilities.getAngleFromDownOrientation(o));
             PointF newCenter = suggestedCenter(idxX, idxY, o);

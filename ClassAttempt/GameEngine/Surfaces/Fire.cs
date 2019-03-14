@@ -3,13 +3,13 @@ using System.Drawing;
 
 namespace GameEngine.Surfaces
 {
-    public class G_Ice : GameContactSurface
+    public class Fire : ContactSurface
     {
-        public G_Ice(int idxX, int idxY, KulaLevel.Orientation o)
+        public Fire(int idxX, int idxY, KulaLevel.Orientation o)
         {
-            surfacesPhysicInit(EngineConst.BlockWidth, 8, -RotationUtilities.getAngleFromDownOrientation(o));
-            surfColor = Color.FromArgb(200, Color.Azure);
-            type = SurfType.Ice;
+            surfacesPhysicInit(EngineConst.BlockWidth * 0.875f, 6, -RotationUtilities.getAngleFromDownOrientation(o));
+            surfColor = Color.FromArgb(200, Color.Firebrick);
+            type = SurfType.Fire;
             PointF newCenter = suggestedCenter(idxX, idxY, o);
             startingX = newCenter.X;
             startingY = newCenter.Y;

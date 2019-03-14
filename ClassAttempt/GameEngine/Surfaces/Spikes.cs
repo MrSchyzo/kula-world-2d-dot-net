@@ -3,9 +3,9 @@ using System.Drawing;
 
 namespace GameEngine.Surfaces
 {
-    public class G_Spikes : GameSurface
+    public class Spikes : Surface
     {
-        public G_Spikes(int idxX, int idxY, KulaLevel.Orientation o, Bitmap img)
+        public Spikes(int idxX, int idxY, KulaLevel.Orientation o, Bitmap img)
         {
             surfacesPhysicInit(EngineConst.BlockWidth * 0.875f, 24, -RotationUtilities.getAngleFromDownOrientation(o));
             surfacesDrawInit(img, (int)(EngineConst.BlockWidth * 0.875f), 24);
