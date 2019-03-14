@@ -1,15 +1,11 @@
-﻿using GameUtils;
+﻿using GameEngine.Animators;
+using GameUtils;
 using LevelsStructure;
-using MultimediaClasses;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace GameEngine
 {
@@ -235,10 +231,10 @@ namespace GameEngine
 
         #region Animatori
         private XYTextureRotationAnimator xyrotatorAnim;
-        private S_Animator lifeAnim;
-        private S_Animator rotAnim;
-        private S_Animator scaleXAnim;
-        private S_Animator scaleYAnim;
+        private Animator lifeAnim;
+        private Animator rotAnim;
+        private Animator scaleXAnim;
+        private Animator scaleYAnim;
         #endregion
 
         #region Hash di utilità per le collisioni
