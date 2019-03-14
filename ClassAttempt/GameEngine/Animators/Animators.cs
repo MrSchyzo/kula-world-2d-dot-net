@@ -3,12 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace GameEngine
+namespace GameEngine.Animators
 {
     #region Animatori singoli indipendenti
     #region S_Animator: superclasse per animazioni di un singolo valore
@@ -687,6 +683,5 @@ namespace GameEngine
 
     }
     #endregion
-   
     #endregion
 }
