@@ -1,27 +1,12 @@
 ﻿using GameLoadingScreens;
 using GameUtils;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Media;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows.Forms;
-using System.Xml;
 using UIEssentials;
-using WMPLib;
 
 namespace GameCore
-{ 
+{
     /// <summary>
     /// Classe che rappresenta il gioco.
     /// </summary>

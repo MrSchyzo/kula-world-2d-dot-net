@@ -1,207 +1,17 @@
-﻿using GameUtils;
-using LevelsStructure;
-using MultimediaClasses;
+﻿using GameEngine.Animators;
+using GameEngine.Enumerations;
+using GameUtils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace GameEngine
 {
-    #region RotationUtilities: utilità per le rotazioni
-    /// <summary>
-    /// Classe utilità per le rotazioni
-    /// </summary>
-    public class RotationUtilities
-    {
-        /// <summary>
-        /// Restituisce la matrice di rotazione rispetto all'orientamento "down".
-        /// </summary>
-        /// <param name="o">Orientamento dato</param>
-        /// <returns></returns>
-        public static Matrix getRotationFromDownOrientation(KulaLevel.Orientation o)
-        {
-            Matrix m = new Matrix();
-            switch(o)
-            {
-                #region Caso UP
-                case (KulaLevel.Orientation.Up):
-                    {
-                        m.Rotate(180.0f, MatrixOrder.Append);
-                        break;
-                    }
-                #endregion
-                #region Caso LEFT
-                case (KulaLevel.Orientation.Left):
-                    {
-                        m.Rotate(90.0f, MatrixOrder.Append);
-                        break;
-                    }
-                #endregion
-                #region Caso RIGHT
-                case (KulaLevel.Orientation.Right):
-                    {
-                        m.Rotate(-90.0f, MatrixOrder.Append);
-                        break;
-                    }
-                #endregion
-                #region Default case
-                default:
-                    {
-                        break;
-                    }
-                #endregion
-            }
-            return m;
-        }
-
-        /// <summary>
-        /// Restituisce un rettangolo contenente i 4 vertici trasformati di un dato rettangolo.
-        /// </summary>
-        /// <param name="input">Rettangolo in input</param>
-        /// <param name="m">Matrice di trasformazione</param>
-        /// <returns></returns>
-        public static RectangleF TransformRectangle(RectangleF input, Matrix m)
-        {
-            RectangleF res = new RectangleF();
-            if (input != null)
-            {
-                PointF[] coords = new PointF[4];
-                coords[0] = new PointF(input.Location.X, input.Location.Y);
-                coords[1] = new PointF(coords[0].X + input.Width, coords[0].Y);
-                coords[2] = new PointF(coords[0].X + input.Width, coords[0].Y + input.Height);
-                coords[3] = new PointF(coords[0].X, coords[0].Y + input.Height);
-                m.TransformPoints(coords);
-                float minX = float.MaxValue;
-                float minY = float.MaxValue;
-                float maxX = float.MinValue;
-                float maxY = float.MinValue;
-                foreach(PointF p in coords)
-                {
-                    if (p.X < minX)
-                        minX = p.X;
-                    else if (p.X > maxX)
-                        maxX = p.X;
-
-                    if (p.Y < minY)
-                        minY = p.Y;
-                    else if (p.Y > maxY)
-                        maxY = p.Y;
-                }
-                res = new RectangleF(minX, minY, maxX - minX, maxY - minY);
-            }
-            return res;
-        }
-
-        /// <summary>
-        /// Restituisce l'angolo assoluto di rotazione rispetto all'orientamento "down".
-        /// </summary>
-        /// <param name="o">Orientamento dato</param>
-        /// <returns></returns>
-        public static float getAngleFromDownOrientation(KulaLevel.Orientation o)
-        {
-            if (o == KulaLevel.Orientation.Left)
-                return -90f;
-            else if (o == KulaLevel.Orientation.Right)
-                return 90f;
-            else if (o == KulaLevel.Orientation.Up)
-                return 180f;
-            else
-                return 0f;
-        }
-    }
-    #endregion
-
-    #region CollisionUtil: utilità per gestire le collisioni
-    /// <summary>
-    /// Classe utilità per gestire le collisioni
-    /// </summary>
-    public class CollisionUtil
-    {
-        /// <summary>
-        /// Cerca di approssimare in maniera primitiva la collisione tra un cerchio ed un rettangolo: richiede che il rettangolo ed
-        /// il cerchio siano nello stesso spazio di coordinate.
-        /// </summary>
-        /// <param name="dots">Numero di approssimazioni</param>
-        /// <param name="circleCenter">Centro del cerchio</param>
-        /// <param name="radium">Raggio del cerchio</param>
-        /// <param name="rect">Rettangolo con cui fare il test delle collisioni</param>
-        /// <returns></returns>
-        public static bool CircleIntersectsRectangle(int dots, PointF circleCenter, float radium, RectangleF rect)
-        {
-            if (circleCenter != null && rect != null && dots > 0)
-            {
-                float cX = circleCenter.X;
-                float cY = circleCenter.Y;
-                float delta = 360f / ((float)dots);
-                float angle = 0f;
-                bool isHit = false;
-                while (!isHit && angle < 360f)
-                {
-                    float dx = (float)Math.Sin(angle) * radium;
-                    float dy = (float)Math.Cos(angle) * radium;
-                    isHit = rect.Contains(cX + dx, cY + dy);
-                    angle += delta;
-                    if (isHit)
-                        Console.Write("");//Line("Collision at: (" + (cX + dx) + ", " + (cY + dy) + ")");
-                }
-                return isHit;
-            }
-            else if (dots <= 0)
-                throw new ArgumentException();
-            else
-                throw new NullReferenceException();
-        }
-    }
-    #endregion
-
-    #region Enum utili per il gioco: Command, BallState, SurfType, DeathType
-    public enum Command
-    {
-        Left,
-        Right,
-        Jump,
-        Nothing
-    }
-
-    public enum BallState
-    {
-        Rolling = 1,
-        Flying = 2,
-        ChangingFace = 4,
-        Burning = 8,
-        Sliding = 16,
-        NeedToCenter = 32,
-        GroundForced = 64,
-        Bonused = 128,
-        GoingToVertex = 256,
-        Exiting = 512,
-        ViewMore = 1024
-    }
-
-    public enum SurfType
-    {
-        Fire,
-        Ice,
-        Forced
-    }
-
-    public enum DeathType
-    {
-        Spiked,
-        Captured,
-        Fire,
-        Fell,
-        TimeOut,
-        Retry
-    }
-    #endregion
-
+    /**
+     * Marco, 4y after says: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+     */
     public class Ball
     {
         #region Variabili di stato della palla: posizione, rotazione, vita, velocità, stato e texture
@@ -215,8 +25,8 @@ namespace GameEngine
         float rotaz = 90f;
         private bool toTheLeft = false;
         #endregion
-        private double startingX = EngineConst.BlockWidth / 2f;
-        private double startingY = EngineConst.BlockWidth / 2f;
+        private double startingX = Constants.BlockWidth / 2f;
+        private double startingY = Constants.BlockWidth / 2f;
         private float startingRot = 0;
         private double centerX;
         private double centerY;
@@ -235,10 +45,10 @@ namespace GameEngine
 
         #region Animatori
         private XYTextureRotationAnimator xyrotatorAnim;
-        private S_Animator lifeAnim;
-        private S_Animator rotAnim;
-        private S_Animator scaleXAnim;
-        private S_Animator scaleYAnim;
+        private Animator lifeAnim;
+        private Animator rotAnim;
+        private Animator scaleXAnim;
+        private Animator scaleYAnim;
         #endregion
 
         #region Hash di utilità per le collisioni
@@ -250,7 +60,7 @@ namespace GameEngine
         {
             get
             {
-                return EngineConst.BlockWidth / 4f;
+                return Constants.BlockWidth / 4f;
             }
         }
         public float ScaleX
@@ -324,8 +134,8 @@ namespace GameEngine
                 !isThisStateAlso(state, BallState.GroundForced) &&
                 !isThisStateAlso(state, BallState.ChangingFace);
             bool goodPosition = false;
-            int relativeX = getRelativeX(thisTime) - ((int)(EngineConst.BlockWidth / 2f));
-            float maxRegion = ((int)(EngineConst.BlockWidth / 2f)) - EngineConst.BlockWidth * EngineConst.JumpableBlockRatio;
+            int relativeX = getRelativeX(thisTime) - ((int)(Constants.BlockWidth / 2f));
+            float maxRegion = ((int)(Constants.BlockWidth / 2f)) - Constants.BlockWidth * Constants.JumpableBlockRatio;
             goodPosition = Math.Abs(maxRegion) >= Math.Abs(relativeX);
             return goodState && goodPosition;
         }
@@ -336,8 +146,8 @@ namespace GameEngine
                 !isThisStateAlso(state, BallState.GroundForced) &&
                 !isThisStateAlso(state, BallState.ChangingFace);
             bool goodPosition = false;
-            int relativeX = getRelativeX(thisTime) - ((int)(EngineConst.BlockWidth / 2f));
-            float maxRegion = ((int)(EngineConst.BlockWidth / 2f)) - EngineConst.BlockWidth * EngineConst.JumpableBlockRatio * 2;
+            int relativeX = getRelativeX(thisTime) - ((int)(Constants.BlockWidth / 2f));
+            float maxRegion = ((int)(Constants.BlockWidth / 2f)) - Constants.BlockWidth * Constants.JumpableBlockRatio * 2;
             goodPosition = Math.Abs(maxRegion) >= Math.Abs(relativeX);
             return goodState && goodPosition;
         }
@@ -381,8 +191,8 @@ namespace GameEngine
                     rotAnim = new LinearBoundedAnimator(
                         (double)rot, 
                         thisTime, 
-                        (double)-(rotaz / (EngineConst.SecsToChangeFace*1000)), 
-                        (long)(EngineConst.SecsToChangeFace * 1000)
+                        (double)-(rotaz / (Constants.SecsToChangeFace*1000)), 
+                        (long)(Constants.SecsToChangeFace * 1000)
                         );
 
                     phase = 1;
@@ -441,9 +251,9 @@ namespace GameEngine
                     new ParabolicToLinearAnimator(
                         Math.Round(centerY),
                         thisTime,
-                        EngineConst.GravityY,
+                        Constants.GravityY,
                         xyrotatorAnim.GetAnimation(1).GetCurrentSpeed(thisTime),
-                        EngineConst.MaxVerticalSpeed
+                        Constants.MaxVerticalSpeed
                         )
                     );
                 state |= BallState.Flying;
@@ -477,7 +287,7 @@ namespace GameEngine
                 return false;
             }
             if (!isThisStateAlso(state, BallState.Burning))
-                lifeAnim = new LinearBoundedAnimator(life, thisTime, 0.1 / EngineConst.SecsToChill, 100, 0);
+                lifeAnim = new LinearBoundedAnimator(life, thisTime, 0.1 / Constants.SecsToChill, 100, 0);
             return true;
         }
         private void centeringControl(long thisTime)
@@ -499,8 +309,8 @@ namespace GameEngine
                    );
             }
             #endregion
-            int relativeX = getRelativeX(thisTime) - ((int)(EngineConst.BlockWidth/2f));
-            float maxRegion = EngineConst.BlockWidth * EngineConst.JumpableBlockRatio;
+            int relativeX = getRelativeX(thisTime) - ((int)(Constants.BlockWidth/2f));
+            float maxRegion = Constants.BlockWidth * Constants.JumpableBlockRatio;
             if (Math.Abs(maxRegion) > Math.Abs(relativeX) && !isThisStateAlso(state, BallState.Sliding) && !isGoingToMove)
                 blockAll(thisTime);
             if (!game.CheckBlock(0, 1))
@@ -508,11 +318,11 @@ namespace GameEngine
         }
         private void changingFaceControl(long thisTime)
         {
-            float bw = EngineConst.BlockWidth / 2;
+            float bw = Constants.BlockWidth / 2;
             int maxRange = 23; //Variabile per vedere quando iniziare il cambio di faccia
 
             int relX = getRelativeX(thisTime) - (int)(bw);
-            float maxR = bw * (EngineConst.JumpableBlockRatio * 4); //Questo serve per allineare a 16 e 48 pt
+            float maxR = bw * (Constants.JumpableBlockRatio * 4); //Questo serve per allineare a 16 e 48 pt
             double d = xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime);
             if (d > 0 && relX > maxRange && game.CheckBlocks(false) != 0)
             {
@@ -587,11 +397,11 @@ namespace GameEngine
             #region Ricreo la texture della palla e la sua luce
             if (finalTex != null)
                 finalTex.Dispose();
-            finalTex = new Bitmap(srcTex, new Size((int)(EngineConst.BlockWidth / 2f),(int)(EngineConst.BlockWidth / 2f)));
+            finalTex = new Bitmap(srcTex, new Size((int)(Constants.BlockWidth / 2f),(int)(Constants.BlockWidth / 2f)));
 
             if (finalLight != null)
                 finalLight.Dispose();
-            finalLight = new Bitmap(srcLight, new Size((int)(EngineConst.BlockWidth / 2f), (int)(EngineConst.BlockWidth / 2f)));
+            finalLight = new Bitmap(srcLight, new Size((int)(Constants.BlockWidth / 2f), (int)(Constants.BlockWidth / 2f)));
             #endregion
 
             #region Preparo il contesto grafico per ricreare la texture, clippando pure (evito di disegnare rettangoli)
@@ -632,10 +442,10 @@ namespace GameEngine
             PointF[] dir = new PointF[1] { new PointF(1, 0) };
             m.TransformPoints(dir);
 
-            PointF tileBall = new PointF(Center.X % EngineConst.BlockWidth, Center.Y % EngineConst.BlockWidth);
+            PointF tileBall = new PointF(Center.X % Constants.BlockWidth, Center.Y % Constants.BlockWidth);
 
             int ret = (int)Math.Round(MatrixUtils.ScalarProduct(tileBall, dir[0]));
-            while (ret < 0) ret += (int)EngineConst.BlockWidth;
+            while (ret < 0) ret += (int)Constants.BlockWidth;
 
             return ret;
         }
@@ -710,9 +520,9 @@ namespace GameEngine
                    new ParabolicToLinearAnimator(
                        Math.Round(centerY + offs.Y),
                        thisTime,
-                       EngineConst.GravityY,
-                       EngineConst.NormalJumpYSpeed,
-                       EngineConst.MaxVerticalSpeed
+                       Constants.GravityY,
+                       Constants.NormalJumpYSpeed,
+                       Constants.MaxVerticalSpeed
                        )
                 );
                 #endregion
@@ -722,7 +532,7 @@ namespace GameEngine
                     new LinearBoundedAnimator(
                         Math.Round(centerX + offs.X),
                         thisTime,
-                        d * EngineConst.NormalJumpXSpeed,
+                        d * Constants.NormalJumpXSpeed,
                         475
                         )
                     );
@@ -807,7 +617,7 @@ namespace GameEngine
                         Matrix m = new Matrix();
                         m.Rotate(-this.rot);
 
-                        PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(0, EngineConst.BlockWidth / 4f)));
+                        PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(0, Constants.BlockWidth / 4f)));
 
                         #region Modifico il movimento della palla nella rotazione attorno al vertice
                         xyrotatorAnim.ChangeAnimator(
@@ -815,10 +625,10 @@ namespace GameEngine
                             new QuarterRotationAnimator(
                                 Math.Round(centerX + off.X),
                                 thisTime,
-                                (long)(EngineConst.SecsToChangeFace * 1000),
+                                (long)(Constants.SecsToChangeFace * 1000),
                                 rotaz > 0,
                                 true,
-                                EngineConst.BlockWidth / 4f
+                                Constants.BlockWidth / 4f
                                 )
                                 );
 
@@ -827,10 +637,10 @@ namespace GameEngine
                             new QuarterRotationAnimator(
                                 Math.Round(centerY + off.Y),
                                 thisTime,
-                                (long)(EngineConst.SecsToChangeFace * 1000),
+                                (long)(Constants.SecsToChangeFace * 1000),
                                 rotaz > 0,
                                 false,
-                                EngineConst.BlockWidth / 4f
+                                Constants.BlockWidth / 4f
                                 )
                                 );
                         xyrotatorAnim.ChangeAnimator(
@@ -844,8 +654,8 @@ namespace GameEngine
                         rotAnim = new LinearBoundedAnimator(
                         Math.Round(rot),
                         thisTime,
-                        (double)-(rotaz / (EngineConst.SecsToChangeFace * 1000)),
-                        (long)(EngineConst.SecsToChangeFace * 1000)
+                        (double)-(rotaz / (Constants.SecsToChangeFace * 1000)),
+                        (long)(Constants.SecsToChangeFace * 1000)
                         );
                         phase = 1;
                         lastMoment = cf_timer.ElapsedMilliseconds;
@@ -856,7 +666,7 @@ namespace GameEngine
                 else if (phase == 1)
                 {
                     long now = cf_timer.ElapsedMilliseconds;
-                    if (now - lastMoment > EngineConst.SecsToChangeFace * 1000)
+                    if (now - lastMoment > Constants.SecsToChangeFace * 1000)
                     {
                         float speed = 0.256f;
                         this.ChangeGravity((float)Math.Round(rot), thisTime);
@@ -932,8 +742,8 @@ namespace GameEngine
         public void Draw(Graphics e)
         {
             #region Preparo le coordinate per la palla e la sua regione di disegno
-            float x = EngineConst.BlockWidth * EngineConst.ViewportXTiles * EngineConst.ViewportBallXRatio;
-            float y = EngineConst.BlockWidth * EngineConst.ViewportYTiles * EngineConst.ViewportBallYRatio;
+            float x = Constants.BlockWidth * Constants.ViewportXTiles * Constants.ViewportBallXRatio;
+            float y = Constants.BlockWidth * Constants.ViewportYTiles * Constants.ViewportBallYRatio;
             RectangleF b = new RectangleF(x - Radium + (2 - 2 * scaleX) * Radium, y - Radium + (2 - 2 * scaleY) * Radium, 2 * scaleX * Radium, 2 * scaleY * Radium);
             #endregion
             #region Preparo la texture della palla.
@@ -1061,9 +871,9 @@ namespace GameEngine
                 new ParabolicToLinearAnimator(
                     Math.Round(centerY + offset.Y), 
                     thisTime, 
-                    EngineConst.GravityY, 
+                    Constants.GravityY, 
                     xyrotatorAnim.GetAnimation(1).GetCurrentSpeed(thisTime), 
-                    EngineConst.MaxVerticalSpeed
+                    Constants.MaxVerticalSpeed
                     )
                     );
             xyrotatorAnim.BindTextureRotationToMovement(true);
@@ -1087,9 +897,9 @@ namespace GameEngine
                 new ParabolicToLinearAnimator(
                     Math.Round(centerY + offset.Y),
                     thisTime,
-                    EngineConst.GravityY,
+                    Constants.GravityY,
                     Math.Max(speed, 0.064),
-                    EngineConst.MaxVerticalSpeed
+                    Constants.MaxVerticalSpeed
                     )
                 );
             xyrotatorAnim.ChangeAnimator(
@@ -1155,9 +965,9 @@ namespace GameEngine
                    new ParabolicToLinearAnimator(
                        Math.Round(centerY + offs.Y),
                        thisTime,
-                       EngineConst.GravityY,
-                       EngineConst.RampJumpYSpeed,
-                       EngineConst.MaxVerticalSpeed
+                       Constants.GravityY,
+                       Constants.RampJumpYSpeed,
+                       Constants.MaxVerticalSpeed
                        )
                 );
                 #endregion
@@ -1167,7 +977,7 @@ namespace GameEngine
                     new LinearBoundedAnimator(
                         Math.Round(centerX + offs.X),
                         thisTime,
-                        d * EngineConst.RampJumpXSpeed,
+                        d * Constants.RampJumpXSpeed,
                         670
                         )
                     );
@@ -1218,7 +1028,7 @@ namespace GameEngine
                                 new LinearBoundedAnimator(
                                     l,
                                     thisTime,
-                                    -83 * 0.001 / EngineConst.SecsToDieBurnt,
+                                    -83 * 0.001 / Constants.SecsToDieBurnt,
                                     l,
                                     0
                                     );

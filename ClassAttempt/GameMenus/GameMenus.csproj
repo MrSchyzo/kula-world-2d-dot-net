@@ -34,9 +34,6 @@
     <Reference Include="GameEngine">
       <HintPath>..\GameEngine\bin\Release\GameEngine.dll</HintPath>
     </Reference>
-    <Reference Include="GameLoadingScreens">
-      <HintPath>..\GameLoadingScreens\bin\Release\GameLoadingScreens.dll</HintPath>
-    </Reference>
     <Reference Include="GameMetadata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\GameMetadata\bin\Release\GameMetadata.dll</HintPath>
@@ -71,6 +68,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameLoadingScreens.cs" />
     <Compile Include="GameMenus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,7 +1,5 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using GameCore;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using System.IO;
@@ -17,15 +15,14 @@ public class Sandbox
         Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
         Console.WriteLine(Directory.GetCurrentDirectory());
         KulaGame g = new KulaGame(f);
-        /*try 
+        try 
         {
             g.Begin();
         }
         catch(Exception e)
         {
             MessageBox.Show(e.Message + "\n\nStack trace:\n" + e.StackTrace, e.Source + " exception!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }*/
-        g.Begin();
+        }
         
     }
 }
