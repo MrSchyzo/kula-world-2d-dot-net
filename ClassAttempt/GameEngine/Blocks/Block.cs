@@ -1,4 +1,5 @@
-﻿using GameUtils;
+﻿using GameEngine.Enumerations;
+using GameUtils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -60,9 +61,9 @@ namespace GameEngine.Blocks
         /// <param name="thisTime">Tempo in cui cercare la collisione</param>
         /// <param name="b">Palla da testare per le collisioni</param>
         /// <returns></returns>
-        protected KeyValuePair<BlockReact, float> ballCollision(long thisTime, Ball b)
+        protected KeyValuePair<BlockReaction, float> ballCollision(long thisTime, Ball b)
         {
-            BlockReact res = BlockReact.None;
+            BlockReaction res = BlockReaction.None;
             float offset = 0;
             if (doITouchTheBall(b) && isEnabled)
             {
@@ -80,32 +81,32 @@ namespace GameEngine.Blocks
                 {
                     offset = -Constants.BlockWidth * 0.75f - (rotBall.Y - Center.Y);
                     if (b.IsStateAlso(BallState.Flying))
-                        res = BlockReact.Land;
+                        res = BlockReaction.Land;
                     else
-                        res = BlockReact.MoveTo;
+                        res = BlockReaction.MoveTo;
                     layingBall = b;
                 }
                 else if (overY && !moreXthanY)
                 {
                     if (b.IsStateAlso(BallState.Flying))
-                        res = BlockReact.BounceDown;
+                        res = BlockReaction.BounceDown;
                     offset = Constants.BlockWidth * 0.75f - (rotBall.Y - Center.Y) + 1;
                 }
                 else if (underX)
                 {
                     if (b.IsStateAlso(BallState.Flying))
-                        res = BlockReact.BounceLeft;
+                        res = BlockReaction.BounceLeft;
                     offset = -Constants.BlockWidth * 0.75f - (rotBall.X - Center.X) - 1;
                 }
                 else if (overX)
                 {
                     if (b.IsStateAlso(BallState.Flying))
-                        res = BlockReact.BounceRight;
+                        res = BlockReaction.BounceRight;
                     offset = Constants.BlockWidth * 0.75f - (rotBall.X - Center.X) + 1;
                 }
                 else if (inX && inY)
                 {
-                    res = BlockReact.Die;
+                    res = BlockReaction.Die;
                 }
                 Console.Write("");//Line("There was an interaction: " + res.ToString() + ", with offset of " + offset.ToString() + " units.");
             }
@@ -113,7 +114,7 @@ namespace GameEngine.Blocks
                 layingBall = NullBall;
             
             
-            return new KeyValuePair<BlockReact, float>(res, offset);
+            return new KeyValuePair<BlockReaction, float>(res, offset);
         }
 
         public override void Reset(long thisTime)

@@ -4,16 +4,7 @@ using System.Drawing;
 
 namespace GameEngine
 {
-
-    public enum GameState
-    {
-        InGame,
-        Exit,
-        Death
-    }
-
-    #region EngUtils: utilità varie del motore
-    public class EngUtils
+    public class Utilities
     {
         public static bool IncludesAllTheOnesOf(int thisInt, int also)
         {
@@ -29,5 +20,4 @@ namespace GameEngine
             return Math.Sqrt((aX - bX) * (aX - bX) + (aY - bY) * (aY - bY));
         }
     }
-    #endregion
 }

@@ -1,5 +1,6 @@
 ﻿using GameEngine.Animators;
 using GameEngine.Blocks;
+using GameEngine.Enumerations;
 using GameEngine.Placeables;
 using GameEngine.Placeables.Valuables;
 using GameEngine.Surfaces;
@@ -21,20 +22,6 @@ using UIEssentials;
 
 namespace GameEngine
 {
-    public enum GameScreenState
-    {
-        ToSearch,
-        ToBuild,
-        InGame,
-        InPrompt
-    }
-
-    public enum PromptType
-    {
-        Retry, //Premi qualsiasi tasto per riprovare (vinto/perso in prova, perso in partita normale)
-        GoNext, //Premi qualsiasi tasto per continuare (vinto/perso in bonus, vinto in partita normale)
-        End //Non ci sono più livelli da fare o game over
-    }
 
     public class GameScreen : IIndipendentlyAnimable
     {
@@ -302,7 +289,7 @@ namespace GameEngine
                 {
                     if (gs != null)
                     {
-                        if (!enhanced || EngUtils.Distance(gs.Center, ball.Center) <= maxDis)
+                        if (!enhanced || Utilities.Distance(gs.Center, ball.Center) <= maxDis)
                             gs.Draw(e, ball);
                     }
                 }
@@ -310,19 +297,19 @@ namespace GameEngine
             foreach (Block b in blocks.Values)
             {
                 if (b != null)
-                    if (!enhanced || EngUtils.Distance(b.Center, ball.Center) <= maxDis)
+                    if (!enhanced || Utilities.Distance(b.Center, ball.Center) <= maxDis)
                         b.Draw(e, ball);
             }
             foreach (Placeable p in placeables.Values)
             {
                 if (p != null)
-                    if (!enhanced || EngUtils.Distance(p.Center, ball.Center) <= maxDis)
+                    if (!enhanced || Utilities.Distance(p.Center, ball.Center) <= maxDis)
                         p.Draw(e, ball);
             }
             foreach (GameEnemy en in enemies.Values)
             {
                 if (en != null)
-                    if (!enhanced)// or EngUtils.Distance(en.Center, ball.Center) <= maxDis)
+                    if (!enhanced)// or Utilities.Distance(en.Center, ball.Center) <= maxDis)
                         en.Draw(e, ball);
             }
         }

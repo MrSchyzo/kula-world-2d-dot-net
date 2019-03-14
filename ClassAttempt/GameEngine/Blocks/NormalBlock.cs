@@ -1,4 +1,5 @@
-﻿using GameUtils;
+﻿using GameEngine.Enumerations;
+using GameUtils;
 using System;
 using System.Drawing;
 

@@ -6,16 +6,6 @@ using System.Threading.Tasks;
 
 namespace GameEngine
 {
-    public enum BlockReact
-    {
-        Land,
-        BounceLeft,
-        BounceRight,
-        MoveTo,
-        BounceDown,
-        None,
-        Die
-    }
 
     #region Superclasse Actor: da cui discendono i blocchi, i piazzabili, le superfici e i nemici
     public abstract class Actor

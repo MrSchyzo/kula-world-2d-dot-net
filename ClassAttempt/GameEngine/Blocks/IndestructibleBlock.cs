@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GameEngine.Enumerations;
+using System.Collections.Generic;
 
 namespace GameEngine.Blocks
 {
@@ -8,8 +9,8 @@ namespace GameEngine.Blocks
 
         public override void CollidesWithBall(long thisTime, Ball b)
         {
-            KeyValuePair<BlockReact, float> hit = ballCollision(thisTime, b);
-            if (hit.Key == BlockReact.Land)
+            KeyValuePair<BlockReaction, float> hit = ballCollision(thisTime, b);
+            if (hit.Key == BlockReaction.Land)
             {
                 b.Land(hit.Value, thisTime);
                 if (b.IsStateAlso(BallState.Bonused) && mustSound && !isTouched)
@@ -20,13 +21,13 @@ namespace GameEngine.Blocks
                     
                 isTouched = true;
             }
-            else if (hit.Key == BlockReact.BounceDown)
+            else if (hit.Key == BlockReaction.BounceDown)
                 b.BounceDown(hit.Value, thisTime);
-            else if (hit.Key == BlockReact.BounceLeft || hit.Key == BlockReact.BounceRight)
+            else if (hit.Key == BlockReaction.BounceLeft || hit.Key == BlockReaction.BounceRight)
                 b.BounceLateral(hit.Value, thisTime);
-            else if (hit.Key == BlockReact.Die)
+            else if (hit.Key == BlockReaction.Die)
                 b.Die(DeathType.Captured, thisTime);
-            else if (hit.Key == BlockReact.MoveTo)
+            else if (hit.Key == BlockReaction.MoveTo)
             {
                 if (b.IsStateAlso(BallState.Bonused) && mustSound && !isTouched)
                 {

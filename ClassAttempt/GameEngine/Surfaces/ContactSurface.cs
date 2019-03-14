@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameEngine.Enumerations;
+using System;
 using System.Drawing;
 
 namespace GameEngine.Surfaces

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using GameEngine.Enumerations;
+using System.Drawing;
 
 namespace GameEngine.Blocks
 {
@@ -15,7 +16,7 @@ namespace GameEngine.Blocks
         public override void Draw(Graphics e, Ball b)
         {
             int alpha;
-            float dist = (float)EngUtils.Distance(Center, b.Center);
+            float dist = (float)Utilities.Distance(Center, b.Center);
             if (dist > 192)
                 alpha = 0;
             else

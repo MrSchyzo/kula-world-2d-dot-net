@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,6 +80,10 @@
     <Compile Include="Animators\SinusoidalAnimator.cs" />
     <Compile Include="Animators\SteadyAnimator.cs" />
     <Compile Include="Animators\Animator.cs" />
+    <Compile Include="Enumerations\BallState.cs" />
+    <Compile Include="Enumerations\Command.cs" />
+    <Compile Include="Enumerations\DeathType.cs" />
+    <Compile Include="Enumerations\BlockReaction.cs" />
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\DestructibleBlock.cs" />
     <Compile Include="Blocks\FireBlock.cs" />
@@ -87,10 +93,11 @@
     <Compile Include="Blocks\NormalBlock.cs" />
     <Compile Include="Blocks\TransparentBlock.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="EngineConst.cs" />
     <Compile Include="GameActorsSupers.cs" />
     <Compile Include="GameBall.cs" />
     <Compile Include="GameEngine.cs" />
+    <Compile Include="Enumerations\GameState.cs" />
+    <Compile Include="Enumerations\GameScreenState.cs" />
     <Compile Include="Placeables\Placeable.cs" />
     <Compile Include="Placeables\Valuables\Bronze.cs" />
     <Compile Include="Placeables\Valuables\Diamond.cs" />
@@ -106,6 +113,7 @@
     <Compile Include="Placeables\Valuables\Silver.cs" />
     <Compile Include="Placeables\SlowPill.cs" />
     <Compile Include="Placeables\Valuables\Valuable.cs" />
+    <Compile Include="Enumerations\PromptType.cs" />
     <Compile Include="Surfaces\ContactSurface.cs" />
     <Compile Include="Surfaces\Exit.cs" />
     <Compile Include="Surfaces\Fire.cs" />
@@ -115,6 +123,8 @@
     <Compile Include="Surfaces\Ramp.cs" />
     <Compile Include="Surfaces\Spikes.cs" />
     <Compile Include="Surfaces\Surface.cs" />
+    <Compile Include="Enumerations\SurfType.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
