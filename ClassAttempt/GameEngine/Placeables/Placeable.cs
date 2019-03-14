@@ -1,4 +1,5 @@
 ﻿using GameEngine.Animators;
+using GameEngine.Utils;
 using GameUtils;
 using System;
 using System.Drawing;
@@ -88,7 +89,7 @@ namespace GameEngine.Placeables
 
         protected bool doITouchBall(Ball b)
         {
-            return CollisionUtil.CircleIntersectsRectangle(30, b.Center, b.Radium, getBounds());
+            return CollisionUtilities.CircleIntersectsRectangle(30, b.Center, b.Radium, getBounds());
         }
 
         public override void Update(long thisTime, Ball b)

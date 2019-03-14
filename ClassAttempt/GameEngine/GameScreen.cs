@@ -4,6 +4,7 @@ using GameEngine.Enumerations;
 using GameEngine.Placeables;
 using GameEngine.Placeables.Valuables;
 using GameEngine.Surfaces;
+using GameEngine.Utils;
 using GameMetadata;
 using GameUtils;
 using LevelsStructure;
@@ -289,7 +290,7 @@ namespace GameEngine
                 {
                     if (gs != null)
                     {
-                        if (!enhanced || Utilities.Distance(gs.Center, ball.Center) <= maxDis)
+                        if (!enhanced || MiscUtilities.Distance(gs.Center, ball.Center) <= maxDis)
                             gs.Draw(e, ball);
                     }
                 }
@@ -297,19 +298,19 @@ namespace GameEngine
             foreach (Block b in blocks.Values)
             {
                 if (b != null)
-                    if (!enhanced || Utilities.Distance(b.Center, ball.Center) <= maxDis)
+                    if (!enhanced || MiscUtilities.Distance(b.Center, ball.Center) <= maxDis)
                         b.Draw(e, ball);
             }
             foreach (Placeable p in placeables.Values)
             {
                 if (p != null)
-                    if (!enhanced || Utilities.Distance(p.Center, ball.Center) <= maxDis)
+                    if (!enhanced || MiscUtilities.Distance(p.Center, ball.Center) <= maxDis)
                         p.Draw(e, ball);
             }
             foreach (GameEnemy en in enemies.Values)
             {
                 if (en != null)
-                    if (!enhanced)// or Utilities.Distance(en.Center, ball.Center) <= maxDis)
+                    if (!enhanced)// or MiscUtilities.Distance(en.Center, ball.Center) <= maxDis)
                         en.Draw(e, ball);
             }
         }

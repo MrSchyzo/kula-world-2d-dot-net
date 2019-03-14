@@ -1,11 +1,11 @@
 ﻿using GameEngine.Enumerations;
+using GameEngine.Utils;
 using System.Drawing;
 
 namespace GameEngine.Blocks
 {
     public class TransparentBlock : IndestructibleBlock
     {
-        
         public TransparentBlock(int idX, int idY)
         {
             blockPositioning(idX, idY);
@@ -16,7 +16,7 @@ namespace GameEngine.Blocks
         public override void Draw(Graphics e, Ball b)
         {
             int alpha;
-            float dist = (float)Utilities.Distance(Center, b.Center);
+            float dist = (float)MiscUtilities.Distance(Center, b.Center);
             if (dist > 192)
                 alpha = 0;
             else

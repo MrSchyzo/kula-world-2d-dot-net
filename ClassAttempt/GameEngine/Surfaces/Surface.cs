@@ -1,4 +1,5 @@
-﻿using GameUtils;
+﻿using GameEngine.Utils;
+using GameUtils;
 using LevelsStructure;
 using System;
 using System.Drawing;
@@ -81,7 +82,7 @@ namespace GameEngine.Surfaces
         protected bool doITouchTheBall(Ball b)
         {
             bool landImpliesFly = !isLandingNeeded || (Math.Round(b.Rotation).Equals(Math.Round(perspective)));
-            bool touch = CollisionUtil.CircleIntersectsRectangle(360, b.Center, b.Radium, bounds());
+            bool touch = CollisionUtilities.CircleIntersectsRectangle(360, b.Center, b.Radium, bounds());
             return isEnabled && touch && landImpliesFly;
         }
 

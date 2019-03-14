@@ -1,4 +1,5 @@
 ﻿using GameEngine.Enumerations;
+using GameEngine.Utils;
 using LevelsStructure;
 using System.Drawing;
 
@@ -8,9 +9,9 @@ namespace GameEngine.Surfaces
     {
         public Ice(int idxX, int idxY, KulaLevel.Orientation o)
         {
+            type = SurfType.Ice;
             surfacesPhysicInit(Constants.BlockWidth, 8, -RotationUtilities.getAngleFromDownOrientation(o));
             surfColor = Color.FromArgb(200, Color.Azure);
-            type = SurfType.Ice;
             PointF newCenter = suggestedCenter(idxX, idxY, o);
             startingX = newCenter.X;
             startingY = newCenter.Y;

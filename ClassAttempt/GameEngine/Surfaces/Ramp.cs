@@ -1,4 +1,5 @@
-﻿using LevelsStructure;
+﻿using GameEngine.Utils;
+using LevelsStructure;
 using System.Drawing;
 
 namespace GameEngine.Surfaces

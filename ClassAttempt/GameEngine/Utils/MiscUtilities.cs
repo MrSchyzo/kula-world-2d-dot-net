@@ -1,10 +1,9 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 
-namespace GameEngine
+namespace GameEngine.Utils
 {
-    public class Utilities
+    public class MiscUtilities
     {
         public static bool IncludesAllTheOnesOf(int thisInt, int also)
         {

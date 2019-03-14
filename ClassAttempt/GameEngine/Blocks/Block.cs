@@ -1,4 +1,5 @@
 ﻿using GameEngine.Enumerations;
+using GameEngine.Utils;
 using GameUtils;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace GameEngine.Blocks
         protected bool doITouchTheBall(Ball b)
         {
             RectangleF block = new RectangleF(currentX - 1f, currentY - 1f, Constants.BlockWidth + 2f, Constants.BlockWidth + 2f);
-            return CollisionUtil.CircleIntersectsRectangle(30, b.Center, b.Radium, block);
+            return CollisionUtilities.CircleIntersectsRectangle(30, b.Center, b.Radium, block);
         }
 
         /// <summary>

@@ -1,7 +1,6 @@
 ﻿using GameEngine.Animators;
 using GameEngine.Enumerations;
 using GameUtils;
-using LevelsStructure;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,155 +9,9 @@ using System.Drawing.Drawing2D;
 
 namespace GameEngine
 {
-    #region RotationUtilities: utilità per le rotazioni
-    /// <summary>
-    /// Classe utilità per le rotazioni
-    /// </summary>
-    public class RotationUtilities
-    {
-        /// <summary>
-        /// Restituisce la matrice di rotazione rispetto all'orientamento "down".
-        /// </summary>
-        /// <param name="o">Orientamento dato</param>
-        /// <returns></returns>
-        public static Matrix getRotationFromDownOrientation(KulaLevel.Orientation o)
-        {
-            Matrix m = new Matrix();
-            switch(o)
-            {
-                #region Caso UP
-                case (KulaLevel.Orientation.Up):
-                    {
-                        m.Rotate(180.0f, MatrixOrder.Append);
-                        break;
-                    }
-                #endregion
-                #region Caso LEFT
-                case (KulaLevel.Orientation.Left):
-                    {
-                        m.Rotate(90.0f, MatrixOrder.Append);
-                        break;
-                    }
-                #endregion
-                #region Caso RIGHT
-                case (KulaLevel.Orientation.Right):
-                    {
-                        m.Rotate(-90.0f, MatrixOrder.Append);
-                        break;
-                    }
-                #endregion
-                #region Default case
-                default:
-                    {
-                        break;
-                    }
-                #endregion
-            }
-            return m;
-        }
-
-        /// <summary>
-        /// Restituisce un rettangolo contenente i 4 vertici trasformati di un dato rettangolo.
-        /// </summary>
-        /// <param name="input">Rettangolo in input</param>
-        /// <param name="m">Matrice di trasformazione</param>
-        /// <returns></returns>
-        public static RectangleF TransformRectangle(RectangleF input, Matrix m)
-        {
-            RectangleF res = new RectangleF();
-            if (input != null)
-            {
-                PointF[] coords = new PointF[4];
-                coords[0] = new PointF(input.Location.X, input.Location.Y);
-                coords[1] = new PointF(coords[0].X + input.Width, coords[0].Y);
-                coords[2] = new PointF(coords[0].X + input.Width, coords[0].Y + input.Height);
-                coords[3] = new PointF(coords[0].X, coords[0].Y + input.Height);
-                m.TransformPoints(coords);
-                float minX = float.MaxValue;
-                float minY = float.MaxValue;
-                float maxX = float.MinValue;
-                float maxY = float.MinValue;
-                foreach(PointF p in coords)
-                {
-                    if (p.X < minX)
-                        minX = p.X;
-                    else if (p.X > maxX)
-                        maxX = p.X;
-
-                    if (p.Y < minY)
-                        minY = p.Y;
-                    else if (p.Y > maxY)
-                        maxY = p.Y;
-                }
-                res = new RectangleF(minX, minY, maxX - minX, maxY - minY);
-            }
-            return res;
-        }
-
-        /// <summary>
-        /// Restituisce l'angolo assoluto di rotazione rispetto all'orientamento "down".
-        /// </summary>
-        /// <param name="o">Orientamento dato</param>
-        /// <returns></returns>
-        public static float getAngleFromDownOrientation(KulaLevel.Orientation o)
-        {
-            if (o == KulaLevel.Orientation.Left)
-                return -90f;
-            else if (o == KulaLevel.Orientation.Right)
-                return 90f;
-            else if (o == KulaLevel.Orientation.Up)
-                return 180f;
-            else
-                return 0f;
-        }
-    }
-    #endregion
-
-    #region CollisionUtil: utilità per gestire le collisioni
-    /// <summary>
-    /// Classe utilità per gestire le collisioni
-    /// </summary>
-    public class CollisionUtil
-    {
-        /// <summary>
-        /// Cerca di approssimare in maniera primitiva la collisione tra un cerchio ed un rettangolo: richiede che il rettangolo ed
-        /// il cerchio siano nello stesso spazio di coordinate.
-        /// </summary>
-        /// <param name="dots">Numero di approssimazioni</param>
-        /// <param name="circleCenter">Centro del cerchio</param>
-        /// <param name="radium">Raggio del cerchio</param>
-        /// <param name="rect">Rettangolo con cui fare il test delle collisioni</param>
-        /// <returns></returns>
-        public static bool CircleIntersectsRectangle(int dots, PointF circleCenter, float radium, RectangleF rect)
-        {
-            if (circleCenter != null && rect != null && dots > 0)
-            {
-                float cX = circleCenter.X;
-                float cY = circleCenter.Y;
-                float delta = 360f / ((float)dots);
-                float angle = 0f;
-                bool isHit = false;
-                while (!isHit && angle < 360f)
-                {
-                    float dx = (float)Math.Sin(angle) * radium;
-                    float dy = (float)Math.Cos(angle) * radium;
-                    isHit = rect.Contains(cX + dx, cY + dy);
-                    angle += delta;
-                    if (isHit)
-                        Console.Write("");//Line("Collision at: (" + (cX + dx) + ", " + (cY + dy) + ")");
-                }
-                return isHit;
-            }
-            else if (dots <= 0)
-                throw new ArgumentException();
-            else
-                throw new NullReferenceException();
-        }
-    }
-
-#endregion
-
-
+    /**
+     * Marco, 4y after says: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+     */
     public class Ball
     {
         #region Variabili di stato della palla: posizione, rotazione, vita, velocità, stato e texture
