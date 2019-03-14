@@ -34,12 +34,6 @@
     <OutputPath>bin\a\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameLoadingScreens">
-      <HintPath>..\GameLoadingScreens\bin\Release\GameLoadingScreens.dll</HintPath>
-    </Reference>
-    <Reference Include="GameMenus">
-      <HintPath>..\GameMenus\bin\Release\GameMenus.dll</HintPath>
-    </Reference>
     <Reference Include="GameUtils">
       <HintPath>..\GameUtils\bin\Release\GameUtils.dll</HintPath>
     </Reference>
@@ -71,6 +65,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameMenus\GameMenus.csproj">
+      <Project>{a4208f15-284b-4e42-9434-e97bc7ec184a}</Project>
+      <Name>GameMenus</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -58,7 +58,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'a|AnyCPU'">
     <OutputPath>bin\a\</OutputPath>
@@ -107,6 +107,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassAttempt\GameCore.csproj">
+      <Project>{2fda2a1c-b1af-47a7-9f17-7a99b3659cc0}</Project>
+      <Name>GameCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
