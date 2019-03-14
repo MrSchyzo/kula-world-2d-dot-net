@@ -76,7 +76,7 @@ namespace GameEngine.Placeables
 
         protected PointF suggestedCenter(int idxX, int idxY, float perspective)
         {
-            float d = EngineConst.BlockWidth;
+            float d = Constants.BlockWidth;
             PointF off = new PointF(0, (d - dimX)/2.0f - 4.0f);
             Matrix m = new Matrix();
             m.Rotate(-perspective);

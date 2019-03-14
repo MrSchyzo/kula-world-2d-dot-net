@@ -25,10 +25,10 @@ namespace GameEngine.Blocks
 
         public override void Draw(Graphics e, Ball b)
         {
-            e.DrawImage(mainTex, new RectangleF(currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth));
+            e.DrawImage(mainTex, new RectangleF(currentX, currentY, Constants.BlockWidth, Constants.BlockWidth));
             if (isTouched && b.IsStateAlso(BallState.Bonused))
-                e.FillRectangle(new SolidBrush(bonusColor), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
-            e.DrawRectangle(colBorder(Color.Black), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
+                e.FillRectangle(new SolidBrush(bonusColor), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
+            e.DrawRectangle(colBorder(Color.Black), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
         }
 
         public override void Update(long thisTime, Ball b)

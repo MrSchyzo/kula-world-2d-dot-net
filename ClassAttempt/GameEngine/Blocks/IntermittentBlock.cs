@@ -52,12 +52,12 @@ namespace GameEngine.Blocks
             if (isEnabled)
             {
                 Color c = Color.FromArgb(180 - alpha, Color.White);
-                Rectangle block = new Rectangle((int)currentX, (int)currentY, (int)EngineConst.BlockWidth, (int)EngineConst.BlockWidth);
+                Rectangle block = new Rectangle((int)currentX, (int)currentY, (int)Constants.BlockWidth, (int)Constants.BlockWidth);
                 GameApp.DrawAlphaImage(e, alpha, mainTex, block);
-                e.FillRectangle(new SolidBrush(c), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
+                e.FillRectangle(new SolidBrush(c), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
                 if (isTouched && b.IsStateAlso(BallState.Bonused))
-                    e.FillRectangle(new SolidBrush(bonusColor), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
-                e.DrawRectangle(colBorder(Color.Gray), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
+                    e.FillRectangle(new SolidBrush(bonusColor), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
+                e.DrawRectangle(colBorder(Color.Gray), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
             }
         }
     }

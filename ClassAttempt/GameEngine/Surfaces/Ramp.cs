@@ -7,8 +7,8 @@ namespace GameEngine.Surfaces
     {
         public Ramp(int idxX, int idxY, KulaLevel.Orientation o, Bitmap img)
         {
-            surfacesPhysicInit(EngineConst.BlockWidth * 0.5f, 32, -RotationUtilities.getAngleFromDownOrientation(o));
-            surfacesDrawInit(img, (int)EngineConst.BlockWidth, 32);
+            surfacesPhysicInit(Constants.BlockWidth * 0.5f, 32, -RotationUtilities.getAngleFromDownOrientation(o));
+            surfacesDrawInit(img, (int)Constants.BlockWidth, 32);
             PointF newCenter = suggestedCenter(idxX, idxY, o);
             startingX = newCenter.X;
             startingY = newCenter.Y;

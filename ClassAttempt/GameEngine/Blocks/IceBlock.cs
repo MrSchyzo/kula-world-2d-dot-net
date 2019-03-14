@@ -11,8 +11,8 @@ namespace GameEngine.Blocks
         public override void Draw(Graphics e, Ball b)
         {
             base.Draw(e, b);
-            e.FillRectangle(new SolidBrush(Color.FromArgb(200, 100, 200, 255)), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
-            e.DrawRectangle(colBorder(Color.Azure), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
+            e.FillRectangle(new SolidBrush(Color.FromArgb(200, 100, 200, 255)), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
+            e.DrawRectangle(colBorder(Color.Azure), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
         }
     }
 }

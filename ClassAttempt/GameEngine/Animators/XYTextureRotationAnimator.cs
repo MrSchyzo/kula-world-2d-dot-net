@@ -92,7 +92,7 @@ namespace GameEngine.Animators
         public double CalcolateTexRot(long thisTime)
         {
             if (bindTexRotToMovement)
-                return startTexRot + ((CalculateX(thisTime, false) - startX)/(2.0*Math.PI*EngineConst.BlockWidth/4.0)) * 360.0;
+                return startTexRot + ((CalculateX(thisTime, false) - startX)/(2.0*Math.PI*Constants.BlockWidth/4.0)) * 360.0;
             else
                 return animTexRot.CalculateValue(thisTime);
         }

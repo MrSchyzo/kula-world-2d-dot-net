@@ -86,6 +86,7 @@
     <Compile Include="Blocks\IntermittentBlock.cs" />
     <Compile Include="Blocks\NormalBlock.cs" />
     <Compile Include="Blocks\TransparentBlock.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="EngineConst.cs" />
     <Compile Include="GameActorsSupers.cs" />
     <Compile Include="GameBall.cs" />

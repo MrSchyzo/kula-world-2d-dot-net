@@ -15,8 +15,8 @@ namespace GameEngine.Blocks
         public override void Draw(Graphics e, Ball b)
         {
             base.Draw(e, b);
-            e.DrawImage(fireTex, new RectangleF(currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth));
-            e.DrawRectangle(colBorder(Color.DarkRed), currentX, currentY, EngineConst.BlockWidth, EngineConst.BlockWidth);
+            e.DrawImage(fireTex, new RectangleF(currentX, currentY, Constants.BlockWidth, Constants.BlockWidth));
+            e.DrawRectangle(colBorder(Color.DarkRed), currentX, currentY, Constants.BlockWidth, Constants.BlockWidth);
         }
     }
 }

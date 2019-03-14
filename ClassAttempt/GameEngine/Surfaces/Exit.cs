@@ -10,7 +10,7 @@ namespace GameEngine.Surfaces
 
         public Exit(int idxX, int idxY, KulaLevel.Orientation o)
         {
-            surfacesPhysicInit(EngineConst.BlockWidth, 8, -RotationUtilities.getAngleFromDownOrientation(o));
+            surfacesPhysicInit(Constants.BlockWidth, 8, -RotationUtilities.getAngleFromDownOrientation(o));
             PointF newCenter = suggestedCenter(idxX, idxY, o);
             startingX = newCenter.X;
             startingY = newCenter.Y;

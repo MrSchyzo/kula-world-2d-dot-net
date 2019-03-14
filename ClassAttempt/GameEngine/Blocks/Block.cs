@@ -20,8 +20,8 @@ namespace GameEngine.Blocks
 
         protected void blockPositioning(int idX, int idY)
         {
-            float startX = idX * EngineConst.BlockWidth;
-            float startY = idY * EngineConst.BlockWidth;
+            float startX = idX * Constants.BlockWidth;
+            float startY = idY * Constants.BlockWidth;
             startingX = startX;
             startingY = startY;
             currentX = startingX;
@@ -42,13 +42,13 @@ namespace GameEngine.Blocks
         {
             get
             {
-                return new PointF(currentX + EngineConst.BlockWidth / 2, currentY + EngineConst.BlockWidth / 2);
+                return new PointF(currentX + Constants.BlockWidth / 2, currentY + Constants.BlockWidth / 2);
             }
         }
 
         protected bool doITouchTheBall(Ball b)
         {
-            RectangleF block = new RectangleF(currentX - 1f, currentY - 1f, EngineConst.BlockWidth + 2f, EngineConst.BlockWidth + 2f);
+            RectangleF block = new RectangleF(currentX - 1f, currentY - 1f, Constants.BlockWidth + 2f, Constants.BlockWidth + 2f);
             return CollisionUtil.CircleIntersectsRectangle(30, b.Center, b.Radium, block);
         }
 
@@ -69,16 +69,16 @@ namespace GameEngine.Blocks
                 Matrix m = new Matrix();
                 m.RotateAt(b.Rotation, Center);
                 PointF rotBall = MatrixUtils.TransformPointF(m, b.Center);
-                bool underX = rotBall.X < Center.X - EngineConst.BlockWidth / 2;
-                bool underY = rotBall.Y < Center.Y - EngineConst.BlockWidth / 2;
-                bool overX = rotBall.X > Center.X + EngineConst.BlockWidth / 2;
-                bool overY = rotBall.Y > Center.Y + EngineConst.BlockWidth / 2;
+                bool underX = rotBall.X < Center.X - Constants.BlockWidth / 2;
+                bool underY = rotBall.Y < Center.Y - Constants.BlockWidth / 2;
+                bool overX = rotBall.X > Center.X + Constants.BlockWidth / 2;
+                bool overY = rotBall.Y > Center.Y + Constants.BlockWidth / 2;
                 bool inX = !(underX || overX);
                 bool inY = !(underY || overY);
                 bool moreXthanY = Math.Abs(rotBall.X - Center.X) > Math.Abs(rotBall.Y - Center.Y);
                 if (inX && underY)
                 {
-                    offset = -EngineConst.BlockWidth * 0.75f - (rotBall.Y - Center.Y);
+                    offset = -Constants.BlockWidth * 0.75f - (rotBall.Y - Center.Y);
                     if (b.IsStateAlso(BallState.Flying))
                         res = BlockReact.Land;
                     else
@@ -89,19 +89,19 @@ namespace GameEngine.Blocks
                 {
                     if (b.IsStateAlso(BallState.Flying))
                         res = BlockReact.BounceDown;
-                    offset = EngineConst.BlockWidth * 0.75f - (rotBall.Y - Center.Y) + 1;
+                    offset = Constants.BlockWidth * 0.75f - (rotBall.Y - Center.Y) + 1;
                 }
                 else if (underX)
                 {
                     if (b.IsStateAlso(BallState.Flying))
                         res = BlockReact.BounceLeft;
-                    offset = -EngineConst.BlockWidth * 0.75f - (rotBall.X - Center.X) - 1;
+                    offset = -Constants.BlockWidth * 0.75f - (rotBall.X - Center.X) - 1;
                 }
                 else if (overX)
                 {
                     if (b.IsStateAlso(BallState.Flying))
                         res = BlockReact.BounceRight;
-                    offset = EngineConst.BlockWidth * 0.75f - (rotBall.X - Center.X) + 1;
+                    offset = Constants.BlockWidth * 0.75f - (rotBall.X - Center.X) + 1;
                 }
                 else if (inX && inY)
                 {

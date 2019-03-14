@@ -24,7 +24,7 @@ namespace GameEngine.Blocks
                 alpha = 125;
             using (Pen p = colBorder(Color.FromArgb(alpha, 255, 255, 255)))
             {
-                float bw = EngineConst.BlockWidth;
+                float bw = Constants.BlockWidth;
                 e.FillRectangle(new SolidBrush(Color.FromArgb(alpha, 200, 200, 200)), currentX, currentY, bw, bw);
                 e.DrawRectangle(p, currentX, currentY, bw, bw);
             }

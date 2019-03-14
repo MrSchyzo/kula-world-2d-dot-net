@@ -294,7 +294,7 @@ namespace GameEngine
                 tilesRange = 1;
             tilesRange += 1;
 
-            float maxDis = tilesRange * EngineConst.BlockWidth;
+            float maxDis = tilesRange * Constants.BlockWidth;
 
             foreach (SortedDictionary<KulaLevel.Orientation, Surface> a in surfaces.Values)
             {
@@ -332,15 +332,15 @@ namespace GameEngine
             float
                 vpWidth = this.clipRegion.Width,
                 vpHeight = this.clipRegion.Height,
-                worldvpWidth = EngineConst.ViewportXTiles * EngineConst.BlockWidth,
-                worldvpHeight = EngineConst.ViewportYTiles * EngineConst.BlockWidth,
+                worldvpWidth = Constants.ViewportXTiles * Constants.BlockWidth,
+                worldvpHeight = Constants.ViewportYTiles * Constants.BlockWidth,
                 ratioX = (vpWidth / worldvpWidth),
                 ratioY = (vpHeight / worldvpHeight),
-                imageTilesDimension = (float)Math.Sqrt(EngineConst.ViewportXTiles * EngineConst.ViewportXTiles + EngineConst.ViewportYTiles * EngineConst.ViewportYTiles),
-                imageTileX = -(imageTilesDimension - EngineConst.ViewportXTiles) / 2.0f,
-                imageTileY = -(imageTilesDimension - EngineConst.ViewportYTiles) / 2.0f,
-                worldCenterX = worldvpWidth * EngineConst.ViewportBallXRatio,
-                worldCenterY = worldvpHeight * EngineConst.ViewportBallYRatio,
+                imageTilesDimension = (float)Math.Sqrt(Constants.ViewportXTiles * Constants.ViewportXTiles + Constants.ViewportYTiles * Constants.ViewportYTiles),
+                imageTileX = -(imageTilesDimension - Constants.ViewportXTiles) / 2.0f,
+                imageTileY = -(imageTilesDimension - Constants.ViewportYTiles) / 2.0f,
+                worldCenterX = worldvpWidth * Constants.ViewportBallXRatio,
+                worldCenterY = worldvpHeight * Constants.ViewportBallYRatio,
                 offX = ball.Center.X - worldCenterX,
                 offY = ball.Center.Y - worldCenterY;
             Matrix m = new Matrix();
@@ -350,10 +350,10 @@ namespace GameEngine
             e.DrawImage(
                 bgImage,
                 new RectangleF(
-                    imageTileX * EngineConst.BlockWidth,
-                    imageTileY * EngineConst.BlockWidth,
-                    imageTilesDimension * EngineConst.BlockWidth,
-                    imageTilesDimension * EngineConst.BlockWidth
+                    imageTileX * Constants.BlockWidth,
+                    imageTileY * Constants.BlockWidth,
+                    imageTilesDimension * Constants.BlockWidth,
+                    imageTilesDimension * Constants.BlockWidth
                     )
                     );
             m.Reset();
@@ -399,7 +399,7 @@ namespace GameEngine
         }
         private List<Pair<int>> collisionControlArea(Ball b)
         {
-            Point ballTilePos = new Point((int)(b.Center.X / EngineConst.BlockWidth), (int)(b.Center.Y / EngineConst.BlockWidth));
+            Point ballTilePos = new Point((int)(b.Center.X / Constants.BlockWidth), (int)(b.Center.Y / Constants.BlockWidth));
             List<Pair<int>> ret = new List<Pair<int>>();
             for (int i = -1; i < 2; i++)
                 for (int j = -1; j < 2; j++)
@@ -717,8 +717,8 @@ namespace GameEngine
             float checkOffsetX = 1f;
             float checkOffsetY = 1f;
 
-            int ballX = ((int)ball.Center.X) / ((int)EngineConst.BlockWidth);
-            int ballY = ((int)ball.Center.Y) / ((int)EngineConst.BlockWidth);
+            int ballX = ((int)ball.Center.X) / ((int)Constants.BlockWidth);
+            int ballY = ((int)ball.Center.Y) / ((int)Constants.BlockWidth);
 
             if (ballX <= 0 && ball.Center.X < 0) ballX -= 1;
             if (ballY <= 0 && ball.Center.Y < 0) ballY -= 1;
@@ -739,8 +739,8 @@ namespace GameEngine
             //Console.WriteLine("HighBlock + " + offH +" @" + highBlock);
             //Console.WriteLine("LowBlock + " + offL + " @" + lowBlock);
 
-            //Pair<int> high = new Pair<int>((int)(highBlock.X / EngineConst.BlockWidth), (int)(highBlock.Y / EngineConst.BlockWidth));
-            //Pair<int> low = new Pair<int>((int)(lowBlock.X / EngineConst.BlockWidth), (int)(lowBlock.Y / EngineConst.BlockWidth));
+            //Pair<int> high = new Pair<int>((int)(highBlock.X / Constants.BlockWidth), (int)(highBlock.Y / Constants.BlockWidth));
+            //Pair<int> low = new Pair<int>((int)(lowBlock.X / Constants.BlockWidth), (int)(lowBlock.Y / Constants.BlockWidth));
 
             Block gb;
             if (blocks.TryGetValue(high, out gb) && gb.IsEnabled)
@@ -763,8 +763,8 @@ namespace GameEngine
             float checkOffsetX = fromBallX;
             float checkOffsetY = fromBallY;
 
-            int ballX = ((int)ball.Center.X) / ((int)EngineConst.BlockWidth);
-            int ballY = ((int)ball.Center.Y) / ((int)EngineConst.BlockWidth);
+            int ballX = ((int)ball.Center.X) / ((int)Constants.BlockWidth);
+            int ballY = ((int)ball.Center.Y) / ((int)Constants.BlockWidth);
 
             if (ballX <= 0 && ball.Center.X < 0) ballX -= 1;
             if (ballY <= 0 && ball.Center.Y < 0) ballY -= 1;
@@ -897,7 +897,7 @@ namespace GameEngine
                 throw new Exception("In creating level, block overlays weren't found");
             foreach (KulaLevel.Block b in lvl.Blocks)
             {
-                float bw = EngineConst.BlockWidth;
+                float bw = Constants.BlockWidth;
                 string tipo = TileConverter.FromByteSpecificType(KulaLevel.TileType.Block, b.Type);
                 if (compareType(tipo, "Normal"))
                 {
@@ -951,7 +951,7 @@ namespace GameEngine
 
             foreach (KulaLevel.Placeable p in lvl.Placeables)
             {
-                float bw = EngineConst.BlockWidth;
+                float bw = Constants.BlockWidth;
                 float persp = -RotationUtilities.getAngleFromDownOrientation(p.Orientation);
                 if (TileConverter.FromByteSpecificType(p.TileType, p.Type) == "Bronze Coin")
                     placeables.Add(new Pair<int>(p.X, p.Y), new Bronze(p.X, p.Y, persp, element<Bitmap>(0, texs)));
@@ -1081,7 +1081,7 @@ namespace GameEngine
             roundTime = (int)lvl.StartingSeconds * 1000;
             remainingTime = (int)lvl.StartingSeconds * 1000;
             roundPenalty = lvl.LossPenalty;
-            lvlBounds = new RectangleF(-320, -320, (lvl.Width + 10) * EngineConst.BlockWidth, (lvl.Height + 10) * EngineConst.BlockWidth);
+            lvlBounds = new RectangleF(-320, -320, (lvl.Width + 10) * Constants.BlockWidth, (lvl.Height + 10) * Constants.BlockWidth);
             remainingKeys = keys;
             timeCounter = new LinearBoundedAnimator(remainingTime, 0, -1, 120 * 1000, 0);
             if (!isBonus)

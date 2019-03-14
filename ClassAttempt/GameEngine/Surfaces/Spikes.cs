@@ -7,8 +7,8 @@ namespace GameEngine.Surfaces
     {
         public Spikes(int idxX, int idxY, KulaLevel.Orientation o, Bitmap img)
         {
-            surfacesPhysicInit(EngineConst.BlockWidth * 0.875f, 24, -RotationUtilities.getAngleFromDownOrientation(o));
-            surfacesDrawInit(img, (int)(EngineConst.BlockWidth * 0.875f), 24);
+            surfacesPhysicInit(Constants.BlockWidth * 0.875f, 24, -RotationUtilities.getAngleFromDownOrientation(o));
+            surfacesDrawInit(img, (int)(Constants.BlockWidth * 0.875f), 24);
             PointF newCenter = suggestedCenter(idxX, idxY, o);
             startingX = newCenter.X;
             startingY = newCenter.Y;

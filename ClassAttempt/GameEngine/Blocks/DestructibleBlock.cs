@@ -42,7 +42,7 @@ namespace GameEngine.Blocks
                 {
                     b.PlaySound("DestructibleBlock");
                     isDestroying = true;
-                    //scaleAnim = new LinearBoundedAnimator(scale, thisTime, -0.001f / EngineConst.DestructionTime, 1, 0);
+                    //scaleAnim = new LinearBoundedAnimator(scale, thisTime, -0.001f / Constants.DestructionTime, 1, 0);
                     scaleAnim = new ParabolicUnboundedAnimator(scale, thisTime, 1f / 750000f, -7f / 3000f);
                 }
                 
@@ -65,7 +65,7 @@ namespace GameEngine.Blocks
                 {
                     b.PlaySound("DestructibleBlock");
                     isDestroying = true;
-                    //scaleAnim = new LinearBoundedAnimator(scale, thisTime, -0.001f / EngineConst.DestructionTime, 1, 0);
+                    //scaleAnim = new LinearBoundedAnimator(scale, thisTime, -0.001f / Constants.DestructionTime, 1, 0);
                     scaleAnim = new ParabolicUnboundedAnimator(scale, thisTime, 1f / 750000f, -7f / 3000f);
                 }
             }
@@ -96,7 +96,7 @@ namespace GameEngine.Blocks
             if (isEnabled && scale > 0)
             {
                 PointF ul = new PointF(scale*(currentX - Center.X) + Center.X, scale*(currentY - Center.Y) + Center.Y);
-                SizeF sz = new SizeF(scale*EngineConst.BlockWidth, scale*EngineConst.BlockWidth);
+                SizeF sz = new SizeF(scale*Constants.BlockWidth, scale*Constants.BlockWidth);
                 RectangleF block = new RectangleF(ul, sz);
                 e.DrawImage(mainTex, block);
                 e.DrawImage(destructTex, block);

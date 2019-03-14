@@ -53,7 +53,7 @@ namespace GameEngine.Surfaces
         protected PointF suggestedCenter(int idxX, int idxY, KulaLevel.Orientation o)
         {
             
-            float d = EngineConst.BlockWidth;
+            float d = Constants.BlockWidth;
             PointF off = new PointF(0, -d / 2.0f);
 
             Matrix m = new Matrix();
