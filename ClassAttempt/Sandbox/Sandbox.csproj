@@ -75,10 +75,6 @@
     <Compile Include="CodeFile1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ClassAttempt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ClassAttempt\bin\Release\ClassAttempt.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
