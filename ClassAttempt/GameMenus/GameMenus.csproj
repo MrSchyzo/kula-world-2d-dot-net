@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GameMenus</RootNamespace>
     <AssemblyName>GameMenus</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,12 +29,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\GameMenus.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameEngine">
-      <HintPath>..\GameEngine\bin\Release\GameEngine.dll</HintPath>
-    </Reference>
     <Reference Include="GameMetadata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\GameMetadata\bin\Release\GameMetadata.dll</HintPath>
@@ -63,14 +62,21 @@
     <Reference Include="UIEssentials">
       <HintPath>..\UIEssentials\bin\Release\UIEssentials.dll</HintPath>
     </Reference>
-    <Reference Include="UIMainClasses">
-      <HintPath>..\UIMainClasses\bin\Release\UIMainClasses.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLoadingScreens.cs" />
     <Compile Include="GameMenus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngine\GameEngine.csproj">
+      <Project>{b8b6f867-870c-4cfd-a453-f76a66f7ac1f}</Project>
+      <Name>GameEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIMainClasses\UIMainClasses.csproj">
+      <Project>{59d2b1b4-5625-4a8f-a877-9022b1e0d5b2}</Project>
+      <Name>UIMainClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

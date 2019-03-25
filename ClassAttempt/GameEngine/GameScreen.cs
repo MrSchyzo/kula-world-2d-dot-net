@@ -243,7 +243,7 @@ namespace GameEngine
         private void drawRemainingBlocks(Rectangle bounds, Graphics e)
         {
             //TOCHECK and REDO: draw blocks
-            int k = blocks.Values.ToList<Block>().Count<Block>(x => !x.IsTouched);
+            int k = blocks.Values.ToList().Count(x => !x.IsTouched);
             GameApp.DrawPromptTextInBox(
                 e,
                 "Blocks to go: \n" + k,
