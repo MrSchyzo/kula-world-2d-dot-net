@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ResourcesBasics.cs" />
+    <Compile Include="ResourceDirectory.cs" />
+    <Compile Include="ResourceItem.cs" />
+    <Compile Include="ResourceInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -59,9 +59,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UIEssentials.cs">
+    <Compile Include="GameViewport.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="IIndipendentlyAnimable.cs" />
+    <Compile Include="KeyboardMouseEventArgs.cs" />
+    <Compile Include="KeyboardMouseEventBundle.cs" />
+    <Compile Include="KeyboardMouseEventID.cs" />
+    <Compile Include="MenuItem.cs" />
+    <Compile Include="SceneContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

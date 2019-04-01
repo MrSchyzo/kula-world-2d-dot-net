@@ -64,8 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameLoadingScreens.cs" />
-    <Compile Include="GameMenus.cs" />
+    <Compile Include="BeginScreen.cs" />
+    <Compile Include="LoadingScreen.cs" />
+    <Compile Include="GameMainMenu.cs" />
+    <Compile Include="PauseMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,30 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ResourcesBasics
 {
     #region ResourceItem: Classe basilare per creare file "logici"
-    /// <summary>
-    /// Classe principale per incorporare una risorsa: è possibile caricarne e scaricarne il contenuto.
-    /// </summary>
-    public abstract class ResourceItem
-    {
-        /// <summary>
-        /// Carica il contenuto indicato dalla stringa. Se fosse già stata caricata un'altra risorsa, quest'ultima viene scaricata.
-        /// </summary>
-        /// <param name="Path">Stringa che indica il percorso in cui ottenere la risorsa.</param>
-        /// <returns>true se e solo se il caricamento va a buon fine.</returns>
-        public abstract bool Load(string Path);
-
-        /// <summary>
-        /// Scarica il contenuto attualmente caricato. Se non c'è contenuto caricato, questo metodo non fa nulla.
-        /// </summary>
-        public abstract void Unload();
-    }
     #endregion
 
     #region ResourceDirectory: Classe che implementa un meccanismo non gerarchico di directory logiche che conterranno ResourceItem
@@ -287,56 +268,6 @@ namespace ResourcesBasics
             else
                 return null;
         }
-    }
-    #endregion
-
-    #region ResourceInfo: classe che incorpora tutte le informazioni per il caricamento di una singola risorsa
-    /// <summary>
-    /// ResourceInfo: classe che incorpora tutte le informazioni per il caricamento di una singola risorsa
-    /// </summary>
-    public class ResourceInfo
-    {
-        private string LogDir;
-        private string ResName;
-        private string FilePath;
-
-        /// <summary>
-        /// Restituisce un oggetto resourceinfo.
-        /// </summary>
-        /// <param name="logicdir">Nome della directory logica.</param>
-        /// <param name="resourcename">Nome della risorsa da inserire.</param>
-        /// <param name="filepath">Nome intero (path + filename) del file da inserire come risorsa.</param>
-        public ResourceInfo(string logicdir, string resourcename, string filepath)
-        {
-            LogDir = logicdir;
-            ResName = resourcename;
-            FilePath = filepath;
-        }
-
-        /// <summary>
-        /// Restituisce il nome della directory logica in cui si vuole inserire la risorsa.
-        /// </summary>
-        public string LogicDirectory
-        {
-            get { return LogDir; }
-        }
-
-        /// <summary>
-        /// Restituisce il nome della risorsa che si vuole inserire.
-        /// </summary>
-        public string ResourceName
-        {
-            get { return ResName; }
-        }
-
-        /// <summary>
-        /// Restituisce il nome completo (path + filename) del file da inserire nella risorsa.
-        /// </summary>
-        public string RealFilePath
-        {
-            get { return FilePath; }
-        }
-
     }
     #endregion
 }

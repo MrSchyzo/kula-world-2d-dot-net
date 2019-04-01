@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MultimediaClasses.cs" />
+    <Compile Include="SoundMediaPlayer.cs" />
+    <Compile Include="PlayerArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundMediaPlayerOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="WMPLib">

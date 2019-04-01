@@ -49,7 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameUtils.cs" />
+    <Compile Include="DoubleSlider.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="FileNames.cs" />
+    <Compile Include="GameApp.cs" />
+    <Compile Include="GameConstraints.cs" />
+    <Compile Include="Interaction.cs" />
+    <Compile Include="IntSlider.cs" />
+    <Compile Include="MatrixUtils.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

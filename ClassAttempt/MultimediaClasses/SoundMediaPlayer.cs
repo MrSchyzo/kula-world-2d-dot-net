@@ -1,44 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WMPLib;
 
 namespace MultimediaClasses
 {
+
     #region Oggetto per il worker del soundmediaplayer
-    enum SoundMediaPlayerOperation
-    {
-        ChangeVolume,
-        Stop,
-        Play,
-        PlayLooping,
-        Pause
-    }
-    
-    class PlayerArgs
-    {
-        /// <summary>
-        /// Volume da impostare nel soundmediaplayer
-        /// </summary>
-        public int Volume { get; set; }
-        /// <summary>
-        /// Tipo di operazione da effettuare
-        /// </summary>
-        public SoundMediaPlayerOperation Operation { get; set; }
-        /// <summary>
-        /// Inizializza una classe utile per il backgroundworker presente nel soundmediaplayer
-        /// </summary>
-        /// <param name="vol"></param>
-        /// <param name="onlyadjust"></param>
-        public PlayerArgs(int vol, SoundMediaPlayerOperation op)
-        {
-            Volume = vol;
-            Operation = op;
-        }
-    }
     #endregion
 
     #region SoundMediaPlayer: Classe che incorpora un WMP con l'interfaccia simile a quella del SoundPlayer del framework .NET
