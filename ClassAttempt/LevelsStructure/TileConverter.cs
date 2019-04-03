@@ -4,11 +4,6 @@ using System.Linq;
 
 namespace LevelsStructure
 {
-
-    
-    
-
-    
     /// <summary>
     /// Classe statica utilizzata per convertire tipi specifici di tile da stringhe a byte e viceversa.
     /// </summary>

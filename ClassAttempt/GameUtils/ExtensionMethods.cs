@@ -3,7 +3,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GameUtils
 {
-    
     /// <summary>
     /// Classe statica che contiene un metodo per fare la deep copy di oggetti serializzabili.
     /// </summary>

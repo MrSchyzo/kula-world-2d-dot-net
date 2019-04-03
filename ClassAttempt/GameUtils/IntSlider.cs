@@ -2,10 +2,6 @@
 
 namespace GameUtils
 {
-    
-    
-
-    
     /// <summary>
     /// Classe che rappresenta uno slider che resta tra un massimo ed un minimo. Si può incrementare e decrementare di una quantità fissa.
     /// La quantità di aumento e diminuzione è definita al momento della costruzione dell'oggetto.

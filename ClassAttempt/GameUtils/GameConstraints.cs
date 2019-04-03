@@ -2,10 +2,6 @@
 
 namespace GameUtils
 {
-    
-    
-
-    
     /// <summary>
     /// Contiene costanti utili per la localizzazione (a partire dalla cartella dell'applicazione) delle risorse di gioco.
     /// </summary>

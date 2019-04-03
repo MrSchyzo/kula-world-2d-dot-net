@@ -3,14 +3,6 @@ using ResourcesBasics;
 
 namespace ResourceItems
 {
-
-    
-
-    
-    
-    
-
-    
     public class HighScoresResourceItem : ResourceItem
     {
         private Highscores scores = null;

@@ -2,7 +2,6 @@
 
 namespace GameUtils
 {
-    
     /// <summary>
     /// Questa classe rappresenta una coppia immutabile di valori generici.
     /// </summary>

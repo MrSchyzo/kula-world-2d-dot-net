@@ -4,8 +4,6 @@ using System.Windows.Forms;
 
 namespace GameUtils
 {
-
-    
     public static class Interaction
     {
         /// <summary>

@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 namespace LevelsStructure
 {
-    
     /// <summary>
     /// Questa classe rappresenta un calco per creare i livelli di gioco, basandosi su due file che contengono informazioni.
     /// La classe è pure serializzabile, così è possibile salvarne lo stato.
