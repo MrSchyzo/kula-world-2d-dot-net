@@ -16,7 +16,7 @@ using UIEssentials;
 namespace GameLoadingScreens
 {
 
-    #region LoadingScreen: Classe che rappresenta la schermata di caricamento intragioco: è delegata al caricamento delle risorse necessarie al gioco.
+    
     /// <summary>
     /// Questa classe rappresenta una schermata di caricamento, è questa che si occupa del caricamento delle risorse che non sono presenti.
     /// </summary>
@@ -37,7 +37,7 @@ namespace GameLoadingScreens
         private bool allOk = false;
         private long lastMoment = 0;
 
-        #region Metodi di utilità
+        
         /// <summary>
         /// Stampa alla console il messaggio indicato in input. Funziona solo se la variabile interna "inDebug" è true.
         /// </summary>
@@ -54,9 +54,9 @@ namespace GameLoadingScreens
             Thread.Sleep((int)remaining);
             allOk = true;
         }
-        #endregion
+        
 
-        #region Metodi privati per gestire gli eventi del worker: Inizia lavoro, lavoro completato
+        
         private void loader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             Thread t = new Thread(waitTime);
@@ -84,9 +84,9 @@ namespace GameLoadingScreens
                 table.ProcessBonusLevel();
             }
         }
-        #endregion
+        
 
-        #region Metodi privati di disegno: drawBackground, drawStatusBar
+        
         private void drawBackground(Graphics e)
         {
             if (definitiveBg != null && clipRegion != null)
@@ -97,7 +97,7 @@ namespace GameLoadingScreens
         {
             if (clipRegion != null)
             {
-                #region Modo senza il metodo zoomedAndSizedRectangleOf
+                
                 /*int clipW = clipRegion.Width;
                 int clipH = clipRegion.Height;
 
@@ -107,7 +107,7 @@ namespace GameLoadingScreens
                 int barY = 3 * ((clipH - barH) / 4);
 
                 Rectangle bar = new Rectangle(barX, barY, barW, barH);*/
-                #endregion
+                
 
                 Rectangle bar = GameApp.zoomedAndSizedRectangleOf(clipRegion, 0.5f, 0.8f, 0.3f, 0.0625f, true);
 
@@ -139,9 +139,9 @@ namespace GameLoadingScreens
                 GC.Collect();
             }
         }
-        #endregion
+        
 
-        #region Metodi privati per le oscillazioni di background
+        
         private double Periodize(long x, double period)
         {
             return GameApp.Periodize(x, period);
@@ -152,9 +152,9 @@ namespace GameLoadingScreens
             offsetX = Math.Cos(Periodize(x, periodX));
             offsetY = -Math.Cos(Periodize(x, periodY));
         }
-        #endregion
+        
 
-        #region Metodi ereditati dalla superclasse IIndipendentlyAnimable
+        
         /// <summary>
         /// Aggiorna lo stato della schermata di caricamento.
         /// </summary>
@@ -286,9 +286,9 @@ namespace GameLoadingScreens
         {
             base.Dispose();
         }
-        #endregion
+        
 
-        #region Costruttori
+        
         private void ConstructorsMutualPart(SceneContainer sc)
         {
             Container = sc;
@@ -345,7 +345,7 @@ namespace GameLoadingScreens
         {
             ConstructorsMutualPart(sc);
         }
-        #endregion
+        
     }
-    #endregion
+    
 }

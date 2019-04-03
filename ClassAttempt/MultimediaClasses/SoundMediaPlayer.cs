@@ -5,10 +5,10 @@ using WMPLib;
 namespace MultimediaClasses
 {
 
-    #region Oggetto per il worker del soundmediaplayer
-    #endregion
+    
+    
 
-    #region SoundMediaPlayer: Classe che incorpora un WMP con l'interfaccia simile a quella del SoundPlayer del framework .NET
+    
     /// <summary>
     /// Classe che incorpora un WindowsMediaPlayer con le principali caratteristiche di un SoundPlayer
     /// </summary>
@@ -17,7 +17,7 @@ namespace MultimediaClasses
         private WindowsMediaPlayer audio;
         private BackgroundWorker player;
         string path;
-        #region Metodi privati di controllo
+        
         private bool isEmpty()
         {
             return (path == null);
@@ -42,9 +42,9 @@ namespace MultimediaClasses
             }
             return (rdy);
         }
-        #endregion
+        
 
-        #region Metodi privati di costruzione
+        
         private void ConstructorsMutualPart()
         {
             path = null;
@@ -67,9 +67,9 @@ namespace MultimediaClasses
 
             player.DoWork += player_DoWork;
         }
-        #endregion
+        
 
-        #region Metodi per il lavoro in background
+        
         void player_DoWork(object sender, DoWorkEventArgs e)
         {
             if (e != null && e.Argument != null)
@@ -219,9 +219,9 @@ namespace MultimediaClasses
                 }
             }
         }
-        #endregion
+        
 
-        #region Costruttori
+        
         /// <summary>
         /// Inizializza un riproduttore audio senza riferimenti.
         /// </summary>
@@ -253,9 +253,9 @@ namespace MultimediaClasses
                 }
             }
         }
-        #endregion
+        
 
-        #region Metodi pubblici
+        
         /// <summary>
         /// Carica il file presente nel pathname identificato dalla proprietà SoundLocation.
         /// </summary>
@@ -416,7 +416,7 @@ namespace MultimediaClasses
                 player.RunWorkerAsync(new PlayerArgs(v, SoundMediaPlayerOperation.ChangeVolume));
             return true;
         }
-        #endregion
+        
     }
-    #endregion
+    
 }

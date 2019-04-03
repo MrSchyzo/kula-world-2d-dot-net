@@ -1,6 +1,6 @@
 ﻿namespace ResourcesBasics
 {
-    #region ResourceInfo: classe che incorpora tutte le informazioni per il caricamento di una singola risorsa
+    
     /// <summary>
     /// ResourceInfo: classe che incorpora tutte le informazioni per il caricamento di una singola risorsa
     /// </summary>
@@ -48,5 +48,5 @@
         }
 
     }
-    #endregion
+    
 }

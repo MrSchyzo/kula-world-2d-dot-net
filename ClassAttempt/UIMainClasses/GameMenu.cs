@@ -14,13 +14,13 @@ using UIEssentials;
 
 namespace UIMainClasses
 {
-    #region GameMenu: Superclasse per indicare un blueprint di un menù di gioco a lista.
+    
     /// <summary>
     /// Questa classe rappresenta un blueprint per i menù di gioco, come quello di pausa e quello principale.
     /// </summary>
     public class GameMenu : IIndipendentlyAnimable
     {
-        #region Variabili protected visibili alle sottoclassi
+        
         /// <summary>
         /// Menu di livello più alto
         /// </summary>
@@ -94,9 +94,9 @@ namespace UIMainClasses
         /// Riferimento alla schermata di gioco, così da poterci interagire.
         /// </summary>
         protected GameScreen game;
-        #endregion
+        
 
-        #region Metodi di utilità
+        
         /// <summary>
         /// Stampa alla console il messaggio indicato in input. Funziona solo se la variabile interna "inDebug" è true.
         /// </summary>
@@ -128,9 +128,9 @@ namespace UIMainClasses
             else
                 return null;
         }
-        #endregion
+        
 
-        #region Metodi per il disegno del menù
+        
         /// <summary>
         /// Aggiorna il layer del testo.
         /// </summary>
@@ -366,9 +366,9 @@ namespace UIMainClasses
                 e.DrawImage(cursor, new RectangleF(curX, curY, curW, curH));
             }
         }
-        #endregion
+        
 
-        #region Metodo di utilità per i costruttori.
+        
         /// <summary>
         /// Metodo per inizializzare in maniera standard un GameMenu. (Inizializza lo stato del menù)
         /// </summary>
@@ -405,7 +405,7 @@ namespace UIMainClasses
             root.NewDirectory(curName);
             this.loadMediaFiles(curName, curPath + @"\");
             Bitmap a;
-            #region Carico il background.
+            
             try
             {
                 a = ((ImageResourceItem)(root.GetFile(curName, "Background.bmp"))).Content;
@@ -416,8 +416,8 @@ namespace UIMainClasses
             {
                 Console.WriteLine("Errore nel caricamento dello sfondo di un menù! \n " + e.ToString() + "\n");
             }
-            #endregion
-            #region Carico il cursore.
+            
+            
             try
             {
                 a = ((ImageResourceItem)(root.GetFile(curName, "Cursor.png"))).Content;
@@ -428,8 +428,8 @@ namespace UIMainClasses
             {
                 Console.WriteLine("Errore nel caricamento di uno del cursore di un menù! \n " + e.ToString() + "\n");
             }
-            #endregion
-            #region Carico l'intestazione
+            
+            
             try
             {
                 a = ((ImageResourceItem)(root.GetFile(curName, "Header.png"))).Content;
@@ -440,8 +440,8 @@ namespace UIMainClasses
             {
                 Console.WriteLine("Errore nel caricamento dell'intestazione di un menù! \n " + e.ToString() + "\n");
             }
-            #endregion
-            #region Carico la musica di sottofondo
+            
+            
             try
             {
                 this.BackgroundMusic = ((SoundResourceItem)(root.GetFile(curName, "BackgroundMusic.mp3"))).Content;
@@ -451,8 +451,8 @@ namespace UIMainClasses
             {
                 Console.WriteLine("Errore nel caricamento della musica di sottofondo di un menù! \n " + e.ToString() + "\n");
             }
-            #endregion
-            #region Carico il suono di selezione
+            
+            
             try
             {
                 this.selectSound = ((SoundResourceItem)(root.GetFile(curName, "Sound.wav"))).Content;
@@ -461,12 +461,12 @@ namespace UIMainClasses
             {
                 Console.WriteLine("Errore nel caricamento del suono di selezione di un menù! \n " + e.ToString() + "\n");
             }
-            #endregion
+            
             GC.Collect();
         }
-        #endregion
+        
 
-        #region Costruttori.
+        
         /// <summary>
         /// Inizializza il menù partendo dalla lista di menuitem data in input (viene passato SOLO il riferimento di tale lista!).
         /// </summary>
@@ -522,9 +522,9 @@ namespace UIMainClasses
         {
             //Niente.
         }
-        #endregion
+        
 
-        #region Metodi protetti per la manipolazione del menù
+        
         /// <summary>
         /// Sposta il puntatore alla voce precedente
         /// </summary>
@@ -611,9 +611,9 @@ namespace UIMainClasses
             pointer = 0;
             updateText();
         }
-        #endregion
+        
 
-        #region Metodi di utilità per il menù
+        
         /// <summary>
         /// (Overridabile): Compie un'azione in funzione al menuitem aperto.
         /// </summary>
@@ -631,9 +631,9 @@ namespace UIMainClasses
             if (selectSound != null)
                 selectSound.Play(this.container.VolumeFX);
         }
-        #endregion
         
-        #region Gestori degli eventi KeyUp, KeyDown, MouseUp, MouseDown, MouseMove, MouseWheel
+        
+        
         /// <summary>
         /// Gestisce la pressione di un tasto della tastiera
         /// </summary>
@@ -792,9 +792,9 @@ namespace UIMainClasses
         {
             //Non faccio nulla
         }
-        #endregion
+        
 
-        #region Metodi ereditati dalla class IIndipendentlyAnimable
+        
         /// <summary>
         /// Avvia l'elaborazione dello stato della scena.
         /// </summary>
@@ -938,9 +938,9 @@ namespace UIMainClasses
             long now = timer.ElapsedMilliseconds;
             cursorPosition = (1 + (Math.Sin(Periodize(now)))) / 2.0;
         }
-        #endregion
+        
 
-        #region Proprietà tipiche del menù
+        
         /// <summary>
         /// Restituisce o imposta il numero
         /// </summary>
@@ -977,7 +977,7 @@ namespace UIMainClasses
                 selectSound.Load();
             }
         }
-        #endregion
+        
     }
-    #endregion
+    
 }

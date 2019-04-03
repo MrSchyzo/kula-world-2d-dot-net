@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace GameUtils
 {
-    #region GameConstraints: classe statica che restituisce costanti utili per il gioco.
-    #endregion
+    
+    
 
-    #region GameApp: Classe statica per avere qualche metodo di utilità generale
+    
     /// <summary>
     /// Contiene metodi utili a tutte le classi
     /// </summary>
@@ -257,5 +257,5 @@ namespace GameUtils
             sf.Dispose();
         }
     }
-    #endregion
+    
 }

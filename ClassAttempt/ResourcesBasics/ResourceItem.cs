@@ -1,6 +1,6 @@
 ﻿namespace ResourcesBasics
 {
-    #region ResourceItem: Classe basilare per creare file "logici"
+    
     /// <summary>
     /// Classe principale per incorporare una risorsa: è possibile caricarne e scaricarne il contenuto.
     /// </summary>
@@ -18,5 +18,5 @@
         /// </summary>
         public abstract void Unload();
     }
-    #endregion
+    
 }

@@ -2,7 +2,7 @@
 
 namespace GameEngine.Placeables.Valuables
 {
-    #region Classi di tutti i "valuables"
+    
     public class Silver : Valuable
     {
         public Silver(int idX, int idY, float persp, Bitmap tex)
@@ -12,5 +12,5 @@ namespace GameEngine.Placeables.Valuables
             sound = "Coin";
         }
     }
-    #endregion
+    
 }

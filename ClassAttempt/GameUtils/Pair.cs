@@ -2,7 +2,7 @@
 
 namespace GameUtils
 {
-    #region Pair<T>: Coppia immutabile di valori generici (è pure comparabile)
+    
     /// <summary>
     /// Questa classe rappresenta una coppia immutabile di valori generici.
     /// </summary>
@@ -55,5 +55,5 @@ namespace GameUtils
                 return compare;
         }
     }
-    #endregion
+    
 }

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ResourceItems
 {
-    #region ImageResourceItem: classe che incorpora un'immagine nei file "logici".
+    
     /// <summary>
     /// ResourceItem specializzato nel trattare Bitmaps: è possibile caricare e scaricare un'immagine, oltre che a consultare il contenuto.
     /// Il caricamento della risorsa è sincrono!
@@ -117,5 +117,5 @@ namespace ResourceItems
             }
         }
     }
-    #endregion
+    
 }

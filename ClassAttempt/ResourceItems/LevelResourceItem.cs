@@ -7,7 +7,7 @@ using GameUtils;
 
 namespace ResourceItems
 {
-    #region LevelResourceItem: classe che incorpora un KulaLevel nei file "logici"
+    
     /// <summary>
     /// Classe che incorpora un oggetto KulaLevel come una risorsa: il caricamento della risorsa è sincrono!
     /// </summary>
@@ -83,5 +83,5 @@ namespace ResourceItems
             }
         }
     }
-    #endregion
+    
 }

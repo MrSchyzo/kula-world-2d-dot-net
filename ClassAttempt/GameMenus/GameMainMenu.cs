@@ -14,18 +14,18 @@ using UIMainClasses;
 
 namespace GameMenus
 {
-    #region GameMainMenu: Classe che rappresenta il menù principale del gioco
+    
     /// <summary>
     /// Classe che rappresenta il menù principale del gioco. Sarà questa classe a caricare automaticamente molte risorse multimediali delle
     /// altre scene.
     /// </summary>
     public class GameMainMenu : GameMenu
     {
-        #region Variabile privata
+        
         private static string tryFileName = null;
         private Highscores tabellone;
-        #endregion
-        #region Metodi privati per l'inizializzazione del menù
+        
+        
         private UIEssentials.MenuItem Initialize1P()
         {
             UIEssentials.MenuItem nuovo = new UIEssentials.MenuItem("1 Player", false, null, null);
@@ -88,9 +88,9 @@ namespace GameMenus
             pointer = 0;
             upperItem = null;
         }
-        #endregion
+        
 
-        #region Metodi privati per il caricamento delle risorse: PauseMenu, LoadingScreen, GameScreen
+        
         private void LoadingScreenSetup()
         {
             ResourceDirectory root = this.container.getResourceDirectory;
@@ -128,9 +128,9 @@ namespace GameMenus
             pm.BindToGameScreen(game);
             container.addScene(GameConstraints.PauseMenu.ID, pm);
         }
-        #endregion
+        
 
-        #region Metodi privati per le azioni generiche del menù, tipo cambio di scena, cambio volume, e così via
+        
         private void changePixelsHue(Bitmap img, bool variation)
         {
             if (img != null)
@@ -151,7 +151,7 @@ namespace GameMenus
         private static void pickLevel()
         {
             tryFileName = null;
-            #region Creo un file dialog
+            
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.AddExtension = false;
             ofd.DefaultExt = ".bin";
@@ -163,8 +163,8 @@ namespace GameMenus
             ofd.RestoreDirectory = true;
             ofd.InitialDirectory = GameApp.CurDir() + GameConstraints.OtherPaths.Levels + @"\";
             ofd.Multiselect = false;
-            #endregion
-            #region Controllo se il filename è buono
+            
+            
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 string bonDir = GameApp.CurDir() + GameConstraints.OtherPaths.Bonuses + @"\";
@@ -177,11 +177,11 @@ namespace GameMenus
                 else
                     MessageBox.Show("Il file deve essere in formato .bin e deve stare nei seguenti path:\n- " + bonDir + "\n- " + lvlDir);
             }
-            #endregion
+            
         }
-        #endregion
+        
 
-        #region Metodi per la gestione degli eventi e delle scelte del menù
+        
         /// <summary>
         /// Gestisce il movimento della rotellina.
         /// </summary>
@@ -268,9 +268,9 @@ namespace GameMenus
                 }
             }
         }
-        #endregion
+        
 
-        #region Costruttori
+        
         /// <summary>
         /// Crea un menù principale di gioco a partire dal contenitore di scene
         /// </summary>
@@ -291,8 +291,8 @@ namespace GameMenus
 
             tabellone = hsri.Content;
         }
-        #endregion
+        
     }
 
-    #endregion
+    
 }

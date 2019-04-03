@@ -19,33 +19,33 @@ namespace GameEngine.Utils
             Matrix m = new Matrix();
             switch(o)
             {
-                #region Caso UP
+                
                 case (KulaLevel.Orientation.Up):
                     {
                         m.Rotate(180.0f, MatrixOrder.Append);
                         break;
                     }
-                #endregion
-                #region Caso LEFT
+                
+                
                 case (KulaLevel.Orientation.Left):
                     {
                         m.Rotate(90.0f, MatrixOrder.Append);
                         break;
                     }
-                #endregion
-                #region Caso RIGHT
+                
+                
                 case (KulaLevel.Orientation.Right):
                     {
                         m.Rotate(-90.0f, MatrixOrder.Append);
                         break;
                     }
-                #endregion
-                #region Default case
+                
+                
                 default:
                     {
                         break;
                     }
-                #endregion
+                
             }
             return m;
         }

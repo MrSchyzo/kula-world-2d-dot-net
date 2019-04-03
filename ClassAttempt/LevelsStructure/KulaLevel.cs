@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace LevelsStructure
 {
-    #region KulaLevel: Classe per mantenere le informazioni statiche del livello
+    
     /// <summary>
     /// Questa classe rappresenta un calco per creare i livelli di gioco, basandosi su due file che contengono informazioni.
     /// La classe è pure serializzabile, così è possibile salvarne lo stato.
@@ -17,7 +17,7 @@ namespace LevelsStructure
     public class KulaLevel
     {
         //Definizione degli orientamenti
-        #region
+        
         /// <summary>
         /// Enumera i tipi di orientamento nel gioco.
         /// </summary>
@@ -41,10 +41,10 @@ namespace LevelsStructure
             /// </summary>
             Right
         }
-        #endregion
+        
 
         //Definizione dei tipi di tile.
-        #region
+        
         /// <summary>
         /// Enumera i tipi di tile inseribili nella griglia del KulaLevel.
         /// </summary>
@@ -63,10 +63,10 @@ namespace LevelsStructure
             /// </summary>
             Enemy
         }
-        #endregion
+        
 
         //Definizione dei tipi di superficie.
-        #region
+        
         /// <summary>
         /// Enumera tutti i tipi di superficie attaccabili ai blocchi.
         /// </summary>
@@ -109,10 +109,10 @@ namespace LevelsStructure
             /// </summary>
             NoJump
         }
-        #endregion
+        
 
         //Definizione delle superfici di gioco.
-        #region
+        
         /// <summary>
         /// Questa classe rappresenta una superficie del blocco.
         /// La parte del teleport può essere solo impostata via proprietà.
@@ -121,7 +121,7 @@ namespace LevelsStructure
         public class Surface
         {
             //Variabili private.
-            #region
+            
             private Orientation direction;
             private Surface nextTeleport;
             private Block myBlock;
@@ -129,10 +129,10 @@ namespace LevelsStructure
             private SurfaceType type;
             private uint sPer;
             private uint sBeg;
-            #endregion
+            
 
             //Proprietà pubbliche (get & set)
-            #region
+            
             /// <summary>
             /// Restituisce o imposta il tipo della superficie.
             /// </summary>
@@ -195,10 +195,10 @@ namespace LevelsStructure
                         value.AddIncomingTeleport(this);
                 }
             }
-            #endregion
+            
 
             //Metodi pubblici: BindToBlock, AddSource, RemoveSource
-            #region
+            
             /// <summary>
             /// Assegna la superficie ad un blocco.
             /// </summary>
@@ -233,10 +233,10 @@ namespace LevelsStructure
             {
                 sources.Clear();
             }
-            #endregion
+            
 
             //Costruttori
-            #region
+            
             /// <summary>
             /// Crea una superficie da allegare ad un blocco. La parte del teleport può essere solo impostata via proprietà.
             /// </summary>
@@ -264,10 +264,10 @@ namespace LevelsStructure
                 this.direction = direction;
                 this.sources = new List<Surface>();
             }
-            #endregion
+            
 
             //Proprietà solo get
-            #region
+            
             /// <summary>
             /// Indica la direzione in cui si trova il blocco su cui questa superficie poggia (dove è per la superficie il "basso"?).
             /// </summary>
@@ -315,12 +315,12 @@ namespace LevelsStructure
                     else return null;
                 }
             }
-            #endregion
+            
         }
-        #endregion
+        
 
         //Definizione di maptile
-        #region
+        
         /// <summary>
         /// Questa classe rappresenta tutti i pezzi della mappa che occupano un'intera cella della griglia.
         /// </summary>
@@ -328,7 +328,7 @@ namespace LevelsStructure
         public abstract class MapTile
         {
             //Variabili protected
-            #region
+            
             /// <summary>
             /// Coordinate della tile
             /// </summary>
@@ -341,18 +341,18 @@ namespace LevelsStructure
             /// Tipo della tile
             /// </summary>
             protected TileType tileType; //Tipo della tile: 0 = Blocco, 1 = Posizionabile, 2 = Nemico
-            #endregion
+            
 
             //Proprietà get-set: Type
-            #region
+            
             /// <summary>
             /// Restituisce il tipo specifico di una tile.
             /// </summary>
             public byte Type { get; set; } //Tipo specifico della tile.
-            #endregion
+            
 
             //Proprietà get: X, Y, TileType, Orientation
-            #region
+            
             /// <summary>
             /// Restituisce in quale colonna della mappa si trova la tile.
             /// </summary>
@@ -384,7 +384,7 @@ namespace LevelsStructure
             {
                 get { return orientation; }
             }
-            #endregion
+            
 
             /// <summary>
             /// Metodo pubblico: modifica le coordinate del blocco.
@@ -396,10 +396,10 @@ namespace LevelsStructure
                 coords = new Pair<byte>(X, Y);
             }
         }
-        #endregion
+        
 
         //Definizione di oggetto piazzabile
-        #region
+        
         /// <summary>
         /// Questa classe rappresenta tutti gli oggetti piazzabili (e raccoglibili) del gioco.
         /// </summary>
@@ -449,10 +449,10 @@ namespace LevelsStructure
                 orientation = to;
             }
         }
-        #endregion
+        
 
         //Definizione di blocco
-        #region
+        
         /// <summary>
         /// Questa classe rappresenta tutti i tipi di blocchi del livello in cui è possibile attaccare delle superfici.
         /// </summary>
@@ -464,7 +464,7 @@ namespace LevelsStructure
             private SortedDictionary<Orientation, Surface> surfs = new SortedDictionary<Orientation, Surface>();
 
             //Proprietà get-set: DisappearBegin, DisappearPeriod
-            #region
+            
             /// <summary>
             /// Restituisce i millisecondi prima che parta la fase di intermittenza (dedicata ai blocchi intermittenti)
             /// </summary>
@@ -489,10 +489,10 @@ namespace LevelsStructure
                         dPer = value;
                 }
             }
-            #endregion
+            
 
             //Costruttori
-            #region
+            
             /// <summary>
             /// Crea un blocco specificando dove si trova, quali superfici contiene e il tipo del blocco.
             /// </summary>
@@ -542,10 +542,10 @@ namespace LevelsStructure
                     s.BindToBlock(this);
                 orientation = KulaLevel.Orientation.Down;
             }
-            #endregion
+            
 
             //Metodi pubblici: GetSurfaceAt
-            #region
+            
             /// <summary>
             /// Restituisce la superficie della faccia specificata.
             /// </summary>
@@ -559,10 +559,10 @@ namespace LevelsStructure
                 else
                     return null;
             }
-            #endregion
+            
 
             //Proprietà get: Surfaces
-            #region
+            
             /// <summary>
             /// Restituisce i riferimenti alle superfici che costituiscono il blocco.
             /// </summary>
@@ -570,12 +570,12 @@ namespace LevelsStructure
             {
                 get { return surfs.Values.ToArray<Surface>(); }
             }
-            #endregion
+            
         }
-        #endregion
+        
 
         //Definizione di nemici
-        #region
+        
         /// <summary>
         /// Rappresenta tutti i nemici del gioco.
         /// </summary>
@@ -586,7 +586,7 @@ namespace LevelsStructure
             private byte eRan = 0;
 
             //Proprietà get-set: Period, Range
-            #region
+            
             /// <summary>
             /// Restituisce il periodo di ciclo del nemico.
             /// </summary>
@@ -611,10 +611,10 @@ namespace LevelsStructure
                         eRan = value;
                 }
             }
-            #endregion
+            
 
             //Costruttori
-            #region
+            
             /// <summary>
             /// Costruisce un nemico indicando l'orientamento, il tipo, la distanza percorribile e il periodo di ripetizione.
             /// </summary>
@@ -646,7 +646,7 @@ namespace LevelsStructure
                 this.Period = 2000;
                 this.tileType = TileType.Enemy;
             }
-            #endregion
+            
 
             /// <summary>
             /// Cambia l'orientamento del nemico (dove è per lui il basso?)
@@ -657,14 +657,14 @@ namespace LevelsStructure
                 orientation = to;
             }
         }
-        #endregion
+        
 
 
         /*Definizione finale di livello*/
-        #region
+        
 
         //Proprietà get-set: StartingSeconds, LossPenalty, Theme, NextLevel, Width, Height, IsBonus
-        #region
+        
         /// <summary>
         /// Secondi di partenza del livello
         /// </summary>
@@ -693,17 +693,17 @@ namespace LevelsStructure
         /// Indica se il livello è un bonus
         /// </summary>
         public bool IsBonus { get; set; }
-        #endregion
+        
 
         //Variabili private: blocks, enemies, placeables
-        #region
+        
         private List<Block> blocks;
         private List<Enemy> enemies;
         private List<Placeable> placeables;
-        #endregion
+        
 
         //Metodi privati: tryLoadLevel
-        #region
+        
         /// <summary>
         /// Carica le informazioni del file binario dal file .bin
         /// </summary>
@@ -751,10 +751,10 @@ namespace LevelsStructure
                 Application.Exit();
             }
         }
-        #endregion
+        
 
         //Costruttori
-        #region
+        
         /// <summary>
         /// Resitituisce un livello utilizzando i due file utili per definirlo. Inoltre va specificato se il livello è un bonus o no.
         /// (Se è bonus, i files vengono cercati in «CurrentDir»\BONUSLEVELS, altrimenti in «CurrentDir»\LEVELS)
@@ -784,10 +784,10 @@ namespace LevelsStructure
             placeables = new List<Placeable>();
             IsBonus = false;
         }
-        #endregion
+        
 
         //Proprietà get: HasNext, Blocks, Placeables, Enemies
-        #region
+        
         /// <summary>
         /// Restituisce se il seguente livello ha livelli successivi.
         /// </summary>
@@ -816,9 +816,9 @@ namespace LevelsStructure
         {
             get { return enemies; }
         }
-        #endregion
+        
 
-        #endregion
+        
     }
-    #endregion
+    
 }

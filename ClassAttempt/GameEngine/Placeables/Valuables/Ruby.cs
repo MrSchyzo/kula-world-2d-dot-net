@@ -2,7 +2,7 @@
 
 namespace GameEngine.Placeables.Valuables
 {
-    #region Classi di tutti i "valuables"
+    
     public class Ruby : Valuable
     {
         public Ruby(int idX, int idY, float persp, Bitmap tex)
@@ -12,5 +12,5 @@ namespace GameEngine.Placeables.Valuables
             sound = "Gem";
         }
     }
-    #endregion
+    
 }

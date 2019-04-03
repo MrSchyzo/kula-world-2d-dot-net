@@ -4,13 +4,13 @@ using System.Drawing.Drawing2D;
 
 namespace GameUtils
 {
-    #region ExtensionMethods: classe statica per avere metodi di deep cloning tra oggetti serializzabili.
-    #endregion
+    
+    
 
-    #region MatrixUtils: classe statica con metodi di utilità per le trasformazioni matriciali sui punti
+    
     public static class MatrixUtils
     {
-        #region Metodi privati che creano un wrap per la TransformPoints
+        
         private static PointF[] pointf(PointF p)
         {
             return new PointF[] { new PointF(p.X, p.Y) };
@@ -29,9 +29,9 @@ namespace GameUtils
         {
             return new Point[] { new Point((int)p.X, (int)p.Y) };
         }
-        #endregion
+        
 
-        #region Metodi pubblici per la trasformazione di un punto
+        
         public static PointF TransformPointF(Matrix m, PointF p)
         {
             if (m == null || p == null)
@@ -64,7 +64,7 @@ namespace GameUtils
             m.TransformPoints(pt);
             return pt[0];
         }
-        #endregion
+        
 
         public static PointF RoundPoint(PointF a)
         {
@@ -77,5 +77,5 @@ namespace GameUtils
         }
         
     }
-    #endregion
+    
 }

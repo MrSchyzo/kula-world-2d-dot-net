@@ -5,10 +5,10 @@ using System.Text.RegularExpressions;
 
 namespace ResourcesBasics
 {
-    #region ResourceItem: Classe basilare per creare file "logici"
-    #endregion
+    
+    
 
-    #region ResourceDirectory: Classe che implementa un meccanismo non gerarchico di directory logiche che conterranno ResourceItem
+    
     /// <summary>
     /// Questa classe crea una Directory "Logica" delle risorse condivisibili dalle varie scene.
     /// È possibile creare nuove Folder all'interno di questa classe, e, su ogni folder, è possibile aggiungere o rimuovere risorse.
@@ -269,5 +269,5 @@ namespace ResourcesBasics
                 return null;
         }
     }
-    #endregion
+    
 }

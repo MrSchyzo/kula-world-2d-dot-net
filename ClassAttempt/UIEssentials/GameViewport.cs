@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace UIEssentials
 {
-    #region GameViewport: Controllo grafico che rappresenta la viewport del gioco.
+    
     /// <summary>
     /// Questa classe rappresenta la viewport del gioco. Contiene uno SceneContainer che può essere manipolato direttamente.
     /// Inoltre, è possibile fermare la viewport e farla ripartire. Dispatcha gli eventi che riceve allo SceneContainer.
@@ -192,21 +192,21 @@ namespace UIEssentials
         /// </summary>
         public void Go()
         {
-            #region Variabili per il calcolo del delta
+            
             long cur = 0;
             long delta = 0;
             long now = 0;
-            #endregion
-            #region Variabili per la diagnostica
+            
+            
             double cycles = 0;
             double seconds = 0;
             long maxTime = 0;
             long minTime = long.MaxValue;
-            #endregion
+            
             this.timer.Start();
             this.isFrozen = false;
             this.scenes.Begin();
-            #region GameLoop: input, update, draw
+            
             while (!this.isFrozen)
             {
                 cur = this.timer.ElapsedMilliseconds;
@@ -218,23 +218,23 @@ namespace UIEssentials
                 cur = now;
                 if (delta < this.mspF)
                     Thread.Sleep(this.mspF - (int)delta);
-                #region Parte di diagnostica
+                
                 if (++cycles % 14000 == 0)
                     GC.Collect();
                 if (delta > maxTime)
                     maxTime = delta;
                 if (delta < minTime)
                     minTime = delta;
-                #endregion
+                
             }
-            #endregion
-            #region Messaggio di diagnostica dei cicli medi al secondo
+            
+            
             seconds = cur / 1000.0;
             cycles /= seconds;
             MessageBox.Show("Avg Cycles per second: " + cycles + "\nSlowest cycle: " + maxTime + "ms\nFastest cycle: " + minTime + "ms.", "Game Loop Diagnostics");
-            #endregion
+            
         }
     }
-    #endregion
+    
 
 }

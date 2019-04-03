@@ -2,10 +2,7 @@
 
 namespace GameUtils
 {
-    #region MatrixUtils: classe statica con metodi di utilità per le trasformazioni matriciali sui punti
-    #endregion
-
-    #region FileNames: classe statica che restituisce il nome di file "notevoli"
+    
     /// <summary>
     /// Classe statica che restituisce il nome di file notevoli
     /// </summary>
@@ -50,5 +47,5 @@ namespace GameUtils
             get { return "HighScores.bin"; }
         }
     }
-    #endregion
+    
 }

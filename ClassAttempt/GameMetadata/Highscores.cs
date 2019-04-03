@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace GameMetadata
 {
 
-    #region Highscores: classe che incorpora i punteggi più alti
+    
     /// <summary>
     /// Highscores: classe che incorpora i punteggi più alti, è modificabile
     /// </summary>
@@ -18,7 +18,7 @@ namespace GameMetadata
         private SortedSet<Record> records;
         private int length;
 
-        #region Costruttori
+        
         /// <summary>
         /// Restituisce una tabella di punteggi alti in maniera standard: massimo 10 record.
         /// </summary>
@@ -39,9 +39,9 @@ namespace GameMetadata
             length = len;
             records = new SortedSet<Record>();
         }
-        #endregion
+        
 
-        #region [PRIVATE] Metodi che implementano quelli pubblici
+        
         private bool addRecord(Record r)
         {
             long x = r.Score;
@@ -55,9 +55,9 @@ namespace GameMetadata
             else
                 return records.Add(r);
         }
-        #endregion
+        
 
-        #region [PUBLIC] Manipolazione dei record
+        
         /// <summary>
         /// Prova ad aggiungere un record ai punteggi più alti: restituisce true se l'aggiunta è stata effettuata
         /// </summary>
@@ -69,9 +69,9 @@ namespace GameMetadata
             Record nuovo = new Record(score, player);
             return addRecord(nuovo);
         }
-        #endregion
+        
 
-        #region [PUBLIC] Salvataggio e caricamento dei punteggi alti
+        
 		/// <summary>
 		/// Salva lo stato del tabellone dei punteggi alti nella memoria secondaria: se ciò ha successo viene restituito true
 		/// </summary>
@@ -122,9 +122,9 @@ namespace GameMetadata
             }
             return new Highscores();
         }
-	    #endregion
+	    
 
-        #region [PUBLIC] Mostra i punteggi alti
+        
         /// <summary>
         /// Mostra il tabellone
         /// </summary>
@@ -162,7 +162,7 @@ namespace GameMetadata
         {
             get { return records.Count; } 
         }
-        #endregion
+        
     }
-    #endregion
+    
 }

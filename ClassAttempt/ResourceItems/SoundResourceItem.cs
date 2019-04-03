@@ -5,10 +5,10 @@ using System.Windows.Forms;
 
 namespace ResourceItems
 {
-    #region ImageResourceItem: classe che incorpora un'immagine nei file "logici".
-    #endregion
+    
+    
 
-    #region SoundResourceItem: classe che incorpora dei file sonori in file "logici" (N.B. Per ogni SMP c'è un thread a parte)
+    
     /// <summary>
     /// ResourceItem specializzato nel trattare Bitmaps: è possibile caricare e scaricare un suono, oltre che a avviarlo sia ciclicamente che non.
     /// Il caricamento della risorsa è sincrono!
@@ -157,5 +157,5 @@ namespace ResourceItems
             return sound.SetVolume(v);
         }
     }
-    #endregion
+    
 }

@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace GameUtils
 {
 
-    #region Definizione della classe statica Interaction
+    
     public static class Interaction
     {
         /// <summary>
@@ -115,5 +115,5 @@ namespace GameUtils
             return dialogResult;
         }
     }
-    #endregion
+    
 }

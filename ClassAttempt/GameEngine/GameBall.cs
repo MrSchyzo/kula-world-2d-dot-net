@@ -14,17 +14,17 @@ namespace GameEngine
      */
     public class Ball
     {
-        #region Variabili di stato della palla: posizione, rotazione, vita, velocità, stato e texture
+        
         private bool movingRight = true;
         private bool isGoingToMove = false;
         private bool needToFall = false;
-        #region Variabili per il cambiamento di faccia
+        
         private int phase = 0;
         private Stopwatch cf_timer = new Stopwatch();
         private long lastMoment = 0;
         float rotaz = 90f;
         private bool toTheLeft = false;
-        #endregion
+        
         private double startingX = Constants.BlockWidth / 2f;
         private double startingY = Constants.BlockWidth / 2f;
         private float startingRot = 0;
@@ -41,21 +41,21 @@ namespace GameEngine
         private Bitmap srcLight = new Bitmap(1, 1);
         private Bitmap finalLight;
         private GameScreen game;
-        #endregion
+        
 
-        #region Animatori
+        
         private XYTextureRotationAnimator xyrotatorAnim;
         private Animator lifeAnim;
         private Animator rotAnim;
         private Animator scaleXAnim;
         private Animator scaleYAnim;
-        #endregion
+        
 
-        #region Hash di utilità per le collisioni
+        
         private SortedDictionary<SurfType, bool> foundSurfaces;
-        #endregion
+        
 
-        #region Proprietà only Get
+        
         public float Radium
         {
             get
@@ -123,10 +123,10 @@ namespace GameEngine
         {
             get { return state; }
         }
-        #endregion
+        
 
-        #region Metodi privati di utilità
-        #region Metodi per verificare la possibilità di movimento
+        
+        
         private bool canIJump(long thisTime)
         {
             bool goodState =
@@ -160,8 +160,8 @@ namespace GameEngine
             bool isSteady = (xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime) == 0);
             return goodState && isSteady;
         }
-        #endregion
-        #region Metodi di aggiornamento dello stato
+        
+        
         //Questo metodo è fatto proprio per il bug della rotazione
         private void bugRecovery(int relX)
         {
@@ -212,7 +212,7 @@ namespace GameEngine
                     else
                         rotaz = 90f;
 
-                    #region Cambio gli animatori
+                    
                     xyrotatorAnim.ChangeAnimator(
                         0,
                         new LinearBoundedAnimator(
@@ -228,7 +228,7 @@ namespace GameEngine
                             Math.Round(centerY),
                             thisTime)
                             );
-                    #endregion
+                    
 
                     lastMoment = cf_timer.ElapsedMilliseconds;
                 }
@@ -242,7 +242,7 @@ namespace GameEngine
         }
         private void updateProperties(long thisTime)
         {
-            #region Devo cadere?
+            
             if (needToFall && !IsStateAlso(BallState.ChangingFace))
             {
                 blockAll(thisTime);
@@ -259,16 +259,16 @@ namespace GameEngine
                 state |= BallState.Flying;
                 needToFall = false;
             }
-            #endregion
+            
 
-            #region Controllo se sto scivolando
+            
             if (IsStateAlso(BallState.Sliding))
                 xyrotatorAnim.ChangeAnimator(2, new SteadyAnimator(texRot, thisTime));
             else
                 xyrotatorAnim.BindTextureRotationToMovement(true);
-            #endregion
+            
 
-            #region Aggiorno tutte le proprietà
+            
             life = (float)lifeAnim.CalculateValue(thisTime);
             texRot = (float)xyrotatorAnim.CalcolateTexRot(thisTime);
             centerX = (float)xyrotatorAnim.CalculateX(thisTime, true);
@@ -277,7 +277,7 @@ namespace GameEngine
             while (rot < 0) rot += 360f; //Non mi piace se l'angolo è negativo!
             scaleX = Math.Min(Math.Max((float)scaleXAnim.CalculateValue(thisTime), 0.85f), 1f);
             scaleY = Math.Min(Math.Max((float)scaleYAnim.CalculateValue(thisTime), 0.85f), 1f);
-            #endregion
+            
         }
         private bool lifeControl(long thisTime)
         {
@@ -292,7 +292,7 @@ namespace GameEngine
         }
         private void centeringControl(long thisTime)
         {
-            #region Evito di stare fermo se sono in sliding
+            
             if (IsStateAlso(BallState.Sliding) && (Math.Abs(xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime)) < 0.256))
             {
                 Console.WriteLine("Devo scivolare!");
@@ -308,7 +308,7 @@ namespace GameEngine
                         )
                    );
             }
-            #endregion
+            
             int relativeX = getRelativeX(thisTime) - ((int)(Constants.BlockWidth/2f));
             float maxRegion = Constants.BlockWidth * Constants.JumpableBlockRatio;
             if (Math.Abs(maxRegion) > Math.Abs(relativeX) && !isThisStateAlso(state, BallState.Sliding) && !isGoingToMove)
@@ -333,7 +333,7 @@ namespace GameEngine
 
                 PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(offset, 0)));
 
-                #region Sposto la palla dove devo
+                
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new SteadyAnimator(
@@ -346,7 +346,7 @@ namespace GameEngine
                         Math.Round(centerY + off.Y),
                         thisTime)
                         );
-                #endregion
+                
 
                 int block = game.CheckBlocks(false);
                 changeFace(false, block, offset, thisTime);
@@ -361,7 +361,7 @@ namespace GameEngine
 
                 PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(offset, 0)));
 
-                #region Sposto la palla dove devo
+                
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new SteadyAnimator(
@@ -374,7 +374,7 @@ namespace GameEngine
                         Math.Round(centerY + off.Y),
                         thisTime)
                         );
-                #endregion
+                
 
                 if (relX == -32)
                 {
@@ -386,15 +386,15 @@ namespace GameEngine
                 changeFace(true, block, offset, thisTime);
             }
         }
-        #endregion
-        #region Altri metodi
+        
+        
         private bool isThisStateAlso(BallState thisState, BallState also)
         {
             return (int)(thisState | also) == (int)thisState;
         }
         private void prepareTexture()
         {
-            #region Ricreo la texture della palla e la sua luce
+            
             if (finalTex != null)
                 finalTex.Dispose();
             finalTex = new Bitmap(srcTex, new Size((int)(Constants.BlockWidth / 2f),(int)(Constants.BlockWidth / 2f)));
@@ -402,36 +402,36 @@ namespace GameEngine
             if (finalLight != null)
                 finalLight.Dispose();
             finalLight = new Bitmap(srcLight, new Size((int)(Constants.BlockWidth / 2f), (int)(Constants.BlockWidth / 2f)));
-            #endregion
+            
 
-            #region Preparo il contesto grafico per ricreare la texture, clippando pure (evito di disegnare rettangoli)
+            
             Graphics g = Graphics.FromImage(finalTex);
             GraphicsPath gp = new GraphicsPath();
             Rectangle textureBounds = new Rectangle(0, 0, finalTex.Width, finalTex.Height);
             gp.AddEllipse(textureBounds);
             g.Clip = new Region(gp);
             g.FillRectangle(new SolidBrush(Color.Blue), textureBounds);
-            #endregion
-            #region Preparo la rotazione della texture
+            
+            
             Matrix m = new Matrix();
             m.RotateAt(texRot, new PointF(finalTex.Width / 2f, finalTex.Height / 2f));
             g.Transform = m;
-            #endregion
+            
             g.DrawImage(srcTex, textureBounds);
-            #region Preparo l'eventuale ustione della palla
+            
             float multiplier = (1f - life / 100f);
             if (multiplier < 0)
                 multiplier = 0f;
             else if (multiplier > 1)
                 multiplier = 1f;
             int alpha = (int)(255f * multiplier);
-            #endregion
+            
             g.FillEllipse(new SolidBrush(Color.FromArgb(alpha, Color.Red)), textureBounds);
-            #region Ripreparo la rotazione per il riflesso
+            
             m.Reset();
             m.RotateAt(rot, new PointF(finalLight.Width / 2f, finalLight.Height / 2f));
             g.Transform = m;
-            #endregion
+            
             g.DrawImage(finalLight, textureBounds);
             g.Dispose();
         }
@@ -449,8 +449,8 @@ namespace GameEngine
 
             return ret;
         }
-        #endregion
-        #region Metodi di inizializzazione
+        
+        
         private void setVariables()
         {
             centerX = startingX;
@@ -474,8 +474,8 @@ namespace GameEngine
             foundSurfaces.Add(SurfType.Forced, isThisStateAlso(state, BallState.GroundForced));
             foundSurfaces.Add(SurfType.Ice, isThisStateAlso(state, BallState.Sliding));
         }
-        #endregion
-        #region Interpretazione comandi
+        
+        
         private void commandDispatcher(long thisTime, Command c)
         {
             isGoingToMove = false;
@@ -514,7 +514,7 @@ namespace GameEngine
                 m.Rotate((float)-rotAnim.CalculateValue(thisTime));
                 offs = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, offs));
 
-                #region Preparo verticalmente il salto
+                
                 xyrotatorAnim.ChangeAnimator(
                    1,
                    new ParabolicToLinearAnimator(
@@ -525,8 +525,8 @@ namespace GameEngine
                        Constants.MaxVerticalSpeed
                        )
                 );
-                #endregion
-                #region Preparo orizzontalmente il salto
+                
+                
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new LinearBoundedAnimator(
@@ -537,7 +537,7 @@ namespace GameEngine
                         )
                     );
                 updateProperties(thisTime);
-                #endregion
+                
             }
         }
         private void startMove(long thisTime, bool goRight)
@@ -549,7 +549,7 @@ namespace GameEngine
                     d = 1;
                 else
                     d = -1;
-                #region Preparo l'animazione per lo spostamento laterale
+                
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new ParabolicToLinearAnimator(
@@ -561,16 +561,16 @@ namespace GameEngine
                         )
                     );
                 xyrotatorAnim.BindTextureRotationToMovement(true);
-                #endregion
+                
                 movingRight = goRight;
             }
             if (goRight != xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime) < 0)
                 isGoingToMove = true;
         }
-        #endregion
-        #endregion
         
-        #region Costruttori
+        
+        
+        
         public Ball()
         {
             //Costruttore vuoto
@@ -590,9 +590,9 @@ namespace GameEngine
             setAnimators(0);
             setFoundSurfaces();
         }
-        #endregion
+        
 
-        #region Metodi pubblici per l'aggiornamento e il disegno della palla
+        
         /// <summary>
         /// Aggiorna lo stato della palla durante il gioco
         /// </summary>
@@ -606,7 +606,7 @@ namespace GameEngine
             if (IsStateAlso(BallState.ChangingFace))
             {
                 //TODO da continuare
-                #region Caso spostamento verso il vertice
+                
                 if (phase == 0)
                 {
                     long now = cf_timer.ElapsedMilliseconds;
@@ -619,7 +619,7 @@ namespace GameEngine
 
                         PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(0, Constants.BlockWidth / 4f)));
 
-                        #region Modifico il movimento della palla nella rotazione attorno al vertice
+                        
                         xyrotatorAnim.ChangeAnimator(
                             0,
                             new QuarterRotationAnimator(
@@ -649,7 +649,7 @@ namespace GameEngine
                                 Math.Round(texRot),
                                 thisTime)
                                 );
-                        #endregion
+                        
 
                         rotAnim = new LinearBoundedAnimator(
                         Math.Round(rot),
@@ -661,8 +661,8 @@ namespace GameEngine
                         lastMoment = cf_timer.ElapsedMilliseconds;
                     }
                 }
-                #endregion
-                #region Caso rotazione
+                
+                
                 else if (phase == 1)
                 {
                     long now = cf_timer.ElapsedMilliseconds;
@@ -673,7 +673,7 @@ namespace GameEngine
                         if (toTheLeft)
                             speed *= -1;
 
-                        #region Sistemo le animazioni
+                        
                         xyrotatorAnim.ChangeAnimator(
                             0,
                             new LinearBoundedAnimator(
@@ -690,7 +690,7 @@ namespace GameEngine
                                 thisTime
                                 )
                                 );
-                        #endregion
+                        
 
                         phase = 2;
                         lastMoment = cf_timer.ElapsedMilliseconds;
@@ -720,7 +720,7 @@ namespace GameEngine
                         }
                     }
                 }
-                #endregion
+                
             }
             else
             {
@@ -741,22 +741,22 @@ namespace GameEngine
         /// <param name="e">Contesto grafico in input</param>
         public void Draw(Graphics e)
         {
-            #region Preparo le coordinate per la palla e la sua regione di disegno
+            
             float x = Constants.BlockWidth * Constants.ViewportXTiles * Constants.ViewportBallXRatio;
             float y = Constants.BlockWidth * Constants.ViewportYTiles * Constants.ViewportBallYRatio;
             RectangleF b = new RectangleF(x - Radium + (2 - 2 * scaleX) * Radium, y - Radium + (2 - 2 * scaleY) * Radium, 2 * scaleX * Radium, 2 * scaleY * Radium);
-            #endregion
-            #region Preparo la texture della palla.
+            
+            
             prepareTexture();
-            #endregion
-            #region Disegno la palla con la texture modificata.
+            
+            
             e.DrawEllipse(Pens.Black, b);
             e.DrawImage(finalTex, b);
-            #endregion
+            
         }
-        #endregion
+        
 
-        #region Metodi pubblici per la modifica delle proprietà statiche della palla
+        
         public void SetTexture(Bitmap tex)
         {
             if (tex != null)
@@ -774,18 +774,18 @@ namespace GameEngine
             startingRot = rotation;
             this.texRot = texRot;
         }
-        #endregion
+        
 
-        #region Metodi pubblici per la modifica dello stato dinamico della palla
-        #region Metodi di reset
+        
+        
         public void ResetState(long thisTime)
         {
             setVariables();
             setAnimators(0);
             setFoundSurfaces();
         }
-        #endregion
-        #region Metodi di dispatching al gamescreen
+        
+        
         public void ModifyScore(long amount)
         {
             game.ModScore(amount);
@@ -826,8 +826,8 @@ namespace GameEngine
         {
             game.PlaySound(smp);
         }
-        #endregion
-        #region Metodi di semplice modifica di stato
+        
+        
         public void SetState(BallState s, bool val)
         {
             if (val)
@@ -847,8 +847,8 @@ namespace GameEngine
         {
             state |= BallState.Exiting;
         }
-        #endregion
-        #region Metodi di modifica ricevuti da un blocco
+        
+        
         public void BounceLateral(double offX, long thisTime)
         {
             float h = Math.Sign(offX);
@@ -857,7 +857,7 @@ namespace GameEngine
             persp.Rotate(-this.rot);
             PointF offset = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(persp, new PointF((float)offX, 0)));
 
-            #region Preparo le animazioni nuove
+            
             xyrotatorAnim.ChangeAnimator(
                 0, 
                 new LinearBoundedAnimator(
@@ -880,7 +880,7 @@ namespace GameEngine
 
             scaleXAnim = new ParabolicUnboundedAnimator(1, thisTime, 0.00003f, -0.003f);
             movingRight = (h >= 0);
-            #endregion
+            
             state |= BallState.Flying;
 
         }
@@ -890,7 +890,7 @@ namespace GameEngine
             persp.Rotate(-this.rot);
             PointF offset = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(persp, new PointF(0, (float)offY)));
 
-            #region Preparo le animazioni nuove
+            
             double speed = Math.Abs(xyrotatorAnim.GetAnimation(1).GetCurrentSpeed(thisTime));
             xyrotatorAnim.ChangeAnimator(
                 1,
@@ -912,7 +912,7 @@ namespace GameEngine
                     )
                 );
             xyrotatorAnim.BindTextureRotationToMovement(true);
-            #endregion
+            
             
             scaleYAnim = new ParabolicUnboundedAnimator(1, thisTime, 0.00003f, -0.003f);
             state |= BallState.Flying;
@@ -939,8 +939,8 @@ namespace GameEngine
             //TODO: E se nel mentre cambia faccia?!
             needToFall = true;
         }
-        #endregion
-        #region Metodi ricevuti da una superficie o un piazzabile
+        
+        
         public void RampJump(long thisTime)
         {
             if (canIRumpJump(thisTime))
@@ -959,7 +959,7 @@ namespace GameEngine
                 m.Rotate((float)-rotAnim.CalculateValue(thisTime));
                 offs = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, offs));
 
-                #region Preparo verticalmente il salto
+                
                 xyrotatorAnim.ChangeAnimator(
                    1,
                    new ParabolicToLinearAnimator(
@@ -970,8 +970,8 @@ namespace GameEngine
                        Constants.MaxVerticalSpeed
                        )
                 );
-                #endregion
-                #region Preparo orizzontalmente il salto
+                
+                
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new LinearBoundedAnimator(
@@ -981,7 +981,7 @@ namespace GameEngine
                         670
                         )
                     );
-                #endregion
+                
 
                 updateProperties(thisTime);
                 game.PlaySound("Ramp");
@@ -1043,10 +1043,10 @@ namespace GameEngine
             xyrotatorAnim.ChangePerspective(rot, thisTime, true);
             rotAnim = new SteadyAnimator(rot, thisTime);
         }
-        #endregion
-        #endregion
+        
+        
 
-        #region Metodi pubblici per modificare la gestione delle collisioni con le superfici
+        
 		public void SetFoundSurface(SurfType st, bool b)
         {
             if (foundSurfaces.ContainsKey(st))
@@ -1061,9 +1061,9 @@ namespace GameEngine
                 throw new KeyNotFoundException("In IsFoundSurface(...) the surface type is not treated");
             return b;
         }
-	    #endregion
+	    
 
-        #region Metodi pubblici di debugging
+        
         public string printState(long thisTime)
         {
             float spX = (float)xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime);
@@ -1082,6 +1082,6 @@ namespace GameEngine
 
             return res;
         }
-        #endregion
+        
     }
 }

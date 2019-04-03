@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UIEssentials
 {
 
-    #region MenuItem: classe basilare per costruire Menù a gerarchia.
+    
     /// <summary>
     /// MenuItem rappresenta una classe basilare per costruire Menù a gerarchia: MenuItem è una singola voce del Menù e
     /// può contenere riferimenti a eventuali elementi figli. Con tale MenuItem è possibile consultare i riferimenti ai
@@ -247,6 +247,6 @@ namespace UIEssentials
             return testo;
         }
     }
-    #endregion
+    
 
 }

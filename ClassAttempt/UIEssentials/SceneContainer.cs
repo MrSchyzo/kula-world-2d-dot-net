@@ -7,7 +7,7 @@ using System.Linq;
 namespace UIEssentials
 {
 
-    #region SceneContainer: rappresenta una collezione di scene che dispatcha i metodi Draw e Update alla scena ritenuta attiva in quel momento.
+    
     /// <summary>
     /// Questa classe rappresenta una collezione di scene che dispatcha i metodi Draw e Update alla scena ritenuta attiva in quel momento.
     /// Il cambio di scena attiva blocca automaticamente la scena uscente e fa partire la scena selezionata. Le scene devono essere associate ad un ID.
@@ -245,6 +245,6 @@ namespace UIEssentials
             }
         }
     }
-    #endregion
+    
 
 }

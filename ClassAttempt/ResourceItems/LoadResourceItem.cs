@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace ResourceItems
 {
-    #region SoundResourceItem: classe che incorpora dei file sonori in file "logici" (N.B. Per ogni SMP c'è un thread a parte)
-    #endregion
+    
+    
 
-    #region LoadResourceItem: Metarisorsa utile a caricare e scaricare i livelli del gioco (è incluso il caricamento automatico dei temi)
+    
     /// <summary>
     /// Classe che incorpora una metarisorsa utile a caricare e scaricare i livelli del gioco (è incluso il caricamento automatico dei temi)
     /// </summary>
@@ -31,7 +31,7 @@ namespace ResourceItems
         /// </summary>
         public bool IsBatchLoading { get; set; }
 
-        #region Costruttori
+        
         /// <summary>
         /// Inizializza un LoadResourceItem collegato alla ResourceDirectory data.
         /// </summary>
@@ -46,9 +46,9 @@ namespace ResourceItems
                 themes2Keep = new List<string>();
             }
         }
-        #endregion
+        
 
-        #region Metodo per caricare tutti i file multimediali da un path
+        
         /// <summary>
         /// Carica tutti i file bmp/png e wav/mp3 di una cartella (tale path deve già contenere il backslash finale, prima del nome del file).
         /// </summary>
@@ -66,9 +66,9 @@ namespace ResourceItems
                     root.InsertFile(logicPathDest, f, new SoundResourceItem(realPathSource + f));
             }
         }
-        #endregion
+        
 
-        #region Metodi privati per il caricamento dei livelli e dei temi
+        
         private KulaLevel InsertLevel(ResourceInfo rInfo)
         {
             string logdir = rInfo.LogicDirectory;
@@ -107,9 +107,9 @@ namespace ResourceItems
                     throw new Exception(Theme + " theme is not known!");
             }
         }
-        #endregion
+        
 
-        #region Metodi pubblici di impostazione del LoadResourceItem
+        
         /// <summary>
         /// Imposta il filename del successivo livello da caricare.
         /// </summary>
@@ -171,9 +171,9 @@ namespace ResourceItems
         {
             themes2Keep.Clear();
         }
-        #endregion
+        
 
-        #region Metodi pubblici per processare i livelli da caricare.
+        
         /// <summary>
         /// Carica il livello indicato dal corrente LoadResourceItem, restituisce TRUE se e solo se il livello è stato caricato
         /// correttamente E il livello ha un successore. Il LoadResourceItem, se il caricamento ha avuto buon termine, si imposta automaticamente
@@ -224,18 +224,18 @@ namespace ResourceItems
         /// </summary>
         public void FlushAllCachedLevelsAndThemes()
         {
-            #region Rimuovo i livelli in cache
+            
             root.FlushDirectory(GameConstraints.OtherPaths.CachedLevelsDir);
-            #endregion
-            #region Rimuovo i temi che non sono da conservare
+            
+            
             foreach (string theme in GameConstraints.GameThemes.ThemeLogicDirectories)
                 if (!themes2Keep.Contains(theme) && root.ContainsDirectory(theme))
                     root.RemoveDirectory(theme);
-            #endregion
+            
         }
-        #endregion
+        
 
-        #region Metodi ereditati dalla superclasse
+        
         /// <summary>
         /// Non implementato. Inutile.
         /// </summary>
@@ -253,7 +253,7 @@ namespace ResourceItems
         {
             Console.WriteLine("Metodo LoadResourceItem.Unload() NON implementato, perché non utile");
         }
-        #endregion
+        
     }
-    #endregion
+    
 }

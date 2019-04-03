@@ -3,7 +3,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GameUtils
 {
-    #region ExtensionMethods: classe statica per avere metodi di deep cloning tra oggetti serializzabili.
+    
     /// <summary>
     /// Classe statica che contiene un metodo per fare la deep copy di oggetti serializzabili.
     /// </summary>
@@ -26,5 +26,5 @@ namespace GameUtils
             }
         }
     }
-    #endregion
+    
 }

@@ -2,10 +2,10 @@
 
 namespace UIEssentials
 {
-    #region KeyboardMouseEventID: Enumerazione per simbolizzare gli eventi ascoltabili dal gioco.
-    #endregion
+    
+    
 
-    #region KeyboardMouseEventArgs: Wrapper che ingloba MouseEventArgs o KeyEventArgs
+    
     /// <summary>
     /// Questa classe è un wrapper che ingloba MouseEventArgs o KeyEventArgs
     /// </summary>
@@ -97,6 +97,6 @@ namespace UIEssentials
             get { return mEvt; }
         }
     }
-    #endregion
+    
 
 }

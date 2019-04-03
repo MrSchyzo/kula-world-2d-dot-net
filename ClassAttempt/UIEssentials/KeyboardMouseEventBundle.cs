@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace UIEssentials
 {
-    #region KeyboardMouseEventArgs: Wrapper che ingloba MouseEventArgs o KeyEventArgs
-    #endregion
+    
+    
 
-    #region KeyboardMouseEventBundle: una coda FIFO di eventi che possono essere relativi al mouse oppure alla tastiera.
+    
     /// <summary>
     /// Questa classe è una coda FIFO di eventi che possono essere relativi al mouse oppure alla tastiera.
     /// Si può aggiungere eventi in coda e estrarli dalla testa.
@@ -49,6 +49,6 @@ namespace UIEssentials
                 return null;
         }
     }
-    #endregion
+    
 
 }

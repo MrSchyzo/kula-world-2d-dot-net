@@ -7,10 +7,10 @@ using System.Drawing;
 
 namespace UIEssentials
 {
-    #region MenuItem: classe basilare per costruire Menù a gerarchia.
-    #endregion
+    
+    
 
-    #region IIndipendentlyAnimable: rappresenta degli oggetti animabili indipendentemente (hanno la loro timeline indipendente).
+    
     /// <summary>
     /// Questa classe rappresenta degli oggetti animabili indipendentemente (hanno la loro timeline indipendente).
     /// </summary>
@@ -106,6 +106,6 @@ namespace UIEssentials
             }
         }
     }
-    #endregion
+    
 
 }

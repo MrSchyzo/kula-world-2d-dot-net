@@ -2,7 +2,7 @@
 
 namespace GameMetadata
 {
-    #region Record: classe privata che incorpora le informazioni per i punteggi alti, immutabile e ordinabile secondo punteggio -> data -> nome
+    
     [Serializable()]
 	class Record : IComparable
     {
@@ -10,7 +10,7 @@ namespace GameMetadata
         private long score;
         private DateTime timestamp;
 
-        #region Costruttori
+        
         public Record(long punti, string player)
         {
             if (player == null)
@@ -19,9 +19,9 @@ namespace GameMetadata
             score = punti;
             timestamp = DateTime.UtcNow;
         }
-        #endregion
+        
 
-        #region Proprietà only-get: Score, Player, Date
+        
         public long Score
         {
             get { return score; }
@@ -36,9 +36,9 @@ namespace GameMetadata
         {
             get { return timestamp.Add(new TimeSpan(0, 0, 0)); }
         }
-        #endregion
+        
 
-        #region Metodi pubblici per l'ordinamento
+        
         public int CompareTo(object comp)
         {
             if (comp == null)
@@ -67,7 +67,7 @@ namespace GameMetadata
         {
             return score.GetHashCode() + name.GetHashCode() + timestamp.GetHashCode();
         }
-        #endregion
+        
     } 
-    #endregion
+    
 }

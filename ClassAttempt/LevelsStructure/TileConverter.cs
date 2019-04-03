@@ -5,10 +5,10 @@ using System.Linq;
 namespace LevelsStructure
 {
 
-    #region KulaLevel: Classe per mantenere le informazioni statiche del livello
-    #endregion
+    
+    
 
-    #region TileConverter: classe statica per la conversione di tipi di oggetti del gioco
+    
     /// <summary>
     /// Classe statica utilizzata per convertire tipi specifici di tile da stringhe a byte e viceversa.
     /// </summary>
@@ -17,7 +17,7 @@ namespace LevelsStructure
         /// <summary>
         /// Array contenente i SurfaceType possibili.
         /// </summary>
-        #region
+        
         public static readonly KulaLevel.SurfaceType[] surfaces =
             new KulaLevel.SurfaceType[9]
             {
@@ -31,12 +31,12 @@ namespace LevelsStructure
                 KulaLevel.SurfaceType.NoJump,
                 KulaLevel.SurfaceType.Exit
             };
-        #endregion
+        
 
         /// <summary>
         /// Array contenente i tipi di blocchi possibili.
         /// </summary>
-        #region
+        
         public static readonly string[] blocks =
             new string[6]
             {
@@ -47,12 +47,12 @@ namespace LevelsStructure
                 "Fire",
                 "Destructible"
             };
-        #endregion
+        
 
         /// <summary>
         /// Array contenente i tipi di oggetti posizionabili possibili.
         /// </summary>
-        #region
+        
         public static readonly string[] placeables =
             new string[14]
             {
@@ -71,19 +71,19 @@ namespace LevelsStructure
                 "Gravity Changer",
                 "Spawn Point"
             };
-        #endregion
+        
 
         /// <summary>
         /// Array contenente i tipi di nemici possibili.
         /// </summary>
-        #region
+        
         public static readonly string[] enemies =
             new string[2]
             {
                 "SinusoidalEnemy",
                 "Jumper"
             };
-        #endregion
+        
 
         /// <summary>
         /// Restituisce l'array contenente i tipi specifici di un dato tipo di tile, sottoforma di stringa
@@ -103,7 +103,7 @@ namespace LevelsStructure
         }
 
         //Metodi statici di conversione dei tipi: FromStringSpecificType, FromByteSpecificByte, StringToSurfaceType, SurfaceTypeToString
-        #region
+        
         /// <summary>
         /// Restituisce la stringa relativa al tipo specifico di tile indicato in input. Viene restituita la stringa vuota
         /// in caso di mancata conversione.
@@ -215,7 +215,7 @@ namespace LevelsStructure
             else
                 return KulaLevel.Orientation.Up;
         }
-        #endregion
+        
     }
-    #endregion
+    
 }

@@ -1,10 +1,10 @@
 ﻿namespace UIEssentials
 {
-    #region GameViewport: Controllo grafico che rappresenta la viewport del gioco.
-    #endregion
+    
+    
 
 
-    #region KeyboardMouseEventID: Enumerazione per simbolizzare gli eventi ascoltabili dal gioco.
+    
     /// <summary>
     /// Enumerazione che serve a simbolizzare gli eventi ascoltabili dal gioco
     /// </summary>
@@ -35,6 +35,6 @@
         /// </summary>
         Key_Up
     }
-    #endregion
+    
 
 }

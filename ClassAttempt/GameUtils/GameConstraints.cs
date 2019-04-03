@@ -2,10 +2,10 @@
 
 namespace GameUtils
 {
-    #region FileNames: classe statica che restituisce il nome di file "notevoli"
-    #endregion
+    
+    
 
-    #region GameConstraints: classe statica che restituisce costanti utili per il gioco.
+    
     /// <summary>
     /// Contiene costanti utili per la localizzazione (a partire dalla cartella dell'applicazione) delle risorse di gioco.
     /// </summary>
@@ -461,5 +461,5 @@ namespace GameUtils
             }
         }
     }
-    #endregion
+    
 }

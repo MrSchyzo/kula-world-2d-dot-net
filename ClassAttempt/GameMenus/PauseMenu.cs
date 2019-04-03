@@ -9,13 +9,13 @@ using UIMainClasses;
 
 namespace GameMenus
 {
-    #region PauseMenu: Classe che rappresenta il menù di pausa durante il gioco.
+    
     /// <summary>
     /// Questa classe rappresenta il menù di pausa.
     /// </summary>
     public class PauseMenu : GameMenu
     {
-        #region Metodi privati per l'impostazione del menù
+        
         private UIEssentials.MenuItem InitializeOPT()
         {
             UIEssentials.MenuItem nuovo = new UIEssentials.MenuItem("Options", false, null, null);
@@ -61,9 +61,9 @@ namespace GameMenus
             pointer = 0;
             upperItem = null;
         }
-        #endregion
+        
 
-        #region Metodi privati per le azioni generiche del menù, tipo cambio di scena, cambio volume, e così via
+        
         private void changePixelsHue(Bitmap img, bool variation)
         {
             if (img != null)
@@ -81,9 +81,9 @@ namespace GameMenus
             }
         }
 
-        #endregion
+        
 
-        #region Metodi per la gestione degli eventi e delle scelte del menù
+        
         /// <summary>
         /// Gestisce il movimento della rotellina.
         /// </summary>
@@ -150,9 +150,9 @@ namespace GameMenus
                 }
             }
         }
-        #endregion
+        
 
-        #region Costruttori.
+        
         /// <summary>
         /// Restituisce un menù di pausa che sarà collegato al contenitore di scene.
         /// </summary>
@@ -166,7 +166,7 @@ namespace GameMenus
             updateText();
             LoadAndGatherResources();
         }
-        #endregion
+        
 
         /// <summary>
         /// Disegna lo stato del menù di pausa
@@ -189,5 +189,5 @@ namespace GameMenus
                 throw new ArgumentNullException("The input gamescreen is a null pointer reference.");
         }
     }
-    #endregion
+    
 }

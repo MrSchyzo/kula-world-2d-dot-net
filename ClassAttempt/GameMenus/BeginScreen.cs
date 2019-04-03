@@ -13,7 +13,7 @@ using UIEssentials;
 
 namespace GameLoadingScreens
 {
-    #region BeginScreen: Classe che rappresenta la schermata iniziale del gioco.
+    
     /// <summary>
     /// Questa classe rappresenta la schermata iniziale del gioco, prima del menù principale. È necessario specificare l'ID del menù principale nel container.
     /// </summary>
@@ -219,5 +219,5 @@ namespace GameLoadingScreens
             GC.Collect();
         }
     }
-    #endregion
+    
 }
