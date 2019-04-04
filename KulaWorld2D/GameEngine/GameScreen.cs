@@ -540,7 +540,7 @@ namespace GameEngine
                 total += (after - now);
                 PrintToConsole("Drawing Background: " + GameApp.TicksToMillis(after - now) + " milliseconds,\n");
                 now = timer.ElapsedTicks;
-                drawPrompt(e); ;
+                drawPrompt(e);
                 after = timer.ElapsedTicks;
                 total += (after - now);
                 PrintToConsole("Drawing Prompt: " + GameApp.TicksToMillis(after - now) + " milliseconds,\n");
