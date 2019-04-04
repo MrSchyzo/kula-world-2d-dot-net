@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using GameCore;
 using System.Diagnostics;
 using System;
 using System.IO;
@@ -7,7 +6,7 @@ using System.IO;
 /// <summary>
 /// Classe per il test del gioco
 /// </summary>
-public class Sandbox
+public class App
 {
     static void Main()
     {

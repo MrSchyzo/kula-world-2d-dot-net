@@ -3,16 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameCore", "ClassAttempt\GameCore.csproj", "{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{97C4F84D-DDE0-407C-BB00-726BE1803518} = {97C4F84D-DDE0-407C-BB00-726BE1803518}
-		{915244D3-C80B-4DF9-A2FA-E55C2B772C21} = {915244D3-C80B-4DF9-A2FA-E55C2B772C21}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{0A21E03F-9D85-4188-B46D-D749B59D4280}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0} = {2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App", "App\App.csproj", "{0A21E03F-9D85-4188-B46D-D749B59D4280}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameUtils", "GameUtils\GameUtils.csproj", "{97C4F84D-DDE0-407C-BB00-726BE1803518}"
 EndProject
@@ -73,12 +64,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}.a|Any CPU.ActiveCfg = a|Any CPU
-		{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}.a|Any CPU.Build.0 = a|Any CPU
-		{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FDA2A1C-B1AF-47A7-9F17-7A99B3659CC0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A21E03F-9D85-4188-B46D-D749B59D4280}.a|Any CPU.ActiveCfg = a|Any CPU
 		{0A21E03F-9D85-4188-B46D-D749B59D4280}.a|Any CPU.Build.0 = a|Any CPU
 		{0A21E03F-9D85-4188-B46D-D749B59D4280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

@@ -1,8 +1,8 @@
 ﻿digraph G {
 
-  "Core" -> "Utils"
-  "Core" -> "Menus"
-  "Core" -> "UIEssentials"
+  "App" -> "Utils"
+  "App" -> "Menus"
+  "App" -> "UIEssentials"
 
   "Engine" -> "Metadata"
   "Engine" -> "Utils"
@@ -30,8 +30,6 @@
   "ResourceItems" -> "LevelsStructure"
   "ResourceItems" -> "MultimediaClasses"
   "ResourceItems" -> "ResourcesBasics"
-
-  "Sandbox" -> "Core"
   
   "UIEssentials" -> "Utils"
   "UIEssentials" -> "MultimediaClasses"

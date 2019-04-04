@@ -7,11 +7,12 @@
     <ProjectGuid>{0A21E03F-9D85-4188-B46D-D749B59D4280}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sandbox</RootNamespace>
-    <AssemblyName>Sandbox</AssemblyName>
+    <RootNamespace>App</RootNamespace>
+    <AssemblyName>KW2D</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>D:\Games\Platform Genre\KulaWorld2D\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,7 +28,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -74,7 +74,8 @@
     <None Include="Sandbox_ChiaveTemporanea.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeFile1.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="KulaGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -107,9 +108,17 @@
     <Content Include="Game.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassAttempt\GameCore.csproj">
-      <Project>{2fda2a1c-b1af-47a7-9f17-7a99b3659cc0}</Project>
-      <Name>GameCore</Name>
+    <ProjectReference Include="..\GameMenus\GameMenus.csproj">
+      <Project>{a4208f15-284b-4e42-9434-e97bc7ec184a}</Project>
+      <Name>GameMenus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameUtils\GameUtils.csproj">
+      <Project>{97c4f84d-dde0-407c-bb00-726be1803518}</Project>
+      <Name>GameUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIEssentials\UIEssentials.csproj">
+      <Project>{915244d3-c80b-4df9-a2fa-e55c2b772c21}</Project>
+      <Name>UIEssentials</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
