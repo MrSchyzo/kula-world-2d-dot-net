@@ -1,0 +1,48 @@
+﻿digraph G {
+
+  "Core" -> "Utils"
+  "Core" -> "Menus"
+  "Core" -> "UIEssentials"
+
+  "Engine" -> "Metadata"
+  "Engine" -> "Utils"
+  "Engine" -> "LevelsStructure"
+  "Engine" -> "MultimediaClasses"
+  "Engine" -> "ResourceItems"
+  "Engine" -> "ResourcesBasics"
+  "Engine" -> "UIEssentials"
+
+  "Menus" -> "Engine"
+  "Menus" -> "Metadata"
+  "Menus" -> "Utils"
+  "Menus" -> "MultimediaClasses"
+  "Menus" -> "ResourceItems"
+  "Menus" -> "ResourcesBasics"
+  "Menus" -> "UIEssentials"
+  "Menus" -> "UIMainClasses"
+
+  "Metadata" -> "Utils"
+
+  "LevelsStructure" -> "Utils"
+  
+  "ResourceItems" -> "Metadata"
+  "ResourceItems" -> "Utils"
+  "ResourceItems" -> "LevelsStructure"
+  "ResourceItems" -> "MultimediaClasses"
+  "ResourceItems" -> "ResourcesBasics"
+
+  "Sandbox" -> "Core"
+  
+  "UIEssentials" -> "Utils"
+  "UIEssentials" -> "MultimediaClasses"
+  "UIEssentials" -> "ResourcesBasics"
+  "UIEssentials" -> "ResourceItems"
+
+  "UIMainClasses" -> "Engine"
+  "UIMainClasses" -> "Utils"
+  "UIMainClasses" -> "MultimediaClasses"
+  "UIMainClasses" -> "ResourceItems"
+  "UIMainClasses" -> "ResourcesBasics"
+  "UIMainClasses" -> "UIEssentials"
+  
+}
