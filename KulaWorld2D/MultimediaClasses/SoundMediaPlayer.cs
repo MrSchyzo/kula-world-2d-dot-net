@@ -4,11 +4,6 @@ using WMPLib;
 
 namespace MultimediaClasses
 {
-
-    
-    
-
-    
     /// <summary>
     /// Classe che incorpora un WindowsMediaPlayer con le principali caratteristiche di un SoundPlayer
     /// </summary>
