@@ -7,10 +7,10 @@ namespace GameUtils
     /// </summary>
     /// <typeparam name="T">Tipo istanziato dei due elementi della coppia</typeparam>
     [Serializable()]
-    public class Pair<T> : IComparable where T : IComparable
+    public class Pair<T> : IComparable<Pair<T>> where T : IComparable
     {
-        private T first;
-        private T second;
+        public T First { get; private set; }
+        public T Second { get; private set; }
 
         /// <summary>
         /// Inizializza una coppia immutabile di valori confrontabili.
@@ -19,24 +19,8 @@ namespace GameUtils
         /// <param name="secondVal">Secondo valore della coppia</param>
         public Pair(T firstVal, T secondVal)
         {
-            first = firstVal;
-            second = secondVal;
-        }
-
-        /// <summary>
-        /// Restituisce il primo valore della coppia
-        /// </summary>
-        public T FirstValue
-        {
-            get { return first; }
-        }
-
-        /// <summary>
-        /// Restituisce il secondo valore della coppia
-        /// </summary>
-        public T SecondValue
-        {
-            get { return second; }
+            First = firstVal;
+            Second = secondVal;
         }
 
         /// <summary>
@@ -44,12 +28,12 @@ namespace GameUtils
         /// </summary>
         /// <param name="obj">Oggetto comparabile in input</param>
         /// <returns></returns>
-        public int CompareTo(object obj)
+        public int CompareTo(Pair<T> obj)
         {
-            Pair<T> other = (Pair<T>)obj;
+            Pair<T> other = obj;
             int compare;
-            if ((compare = first.CompareTo(other.FirstValue)) == 0)
-                return second.CompareTo(other.SecondValue);
+            if ((compare = First.CompareTo(other.First)) == 0)
+                return Second.CompareTo(other.Second);
             else
                 return compare;
         }

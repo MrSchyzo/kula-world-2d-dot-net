@@ -357,7 +357,7 @@ namespace LevelsStructure
             /// </summary>
             public byte X
             {
-                get { return coords.FirstValue; }
+                get { return coords.First; }
             }
 
             /// <summary>
@@ -365,7 +365,7 @@ namespace LevelsStructure
             /// </summary>
             public byte Y
             {
-                get { return coords.SecondValue; }
+                get { return coords.Second; }
             }
 
             /// <summary>
