@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B8B6F867-870C-4CFD-A453-F76A66F7AC1F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GameEngine</RootNamespace>
+    <AssemblyName>GameEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GameMetadata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameMetadata\bin\Release\GameMetadata.dll</HintPath>
+    </Reference>
+    <Reference Include="LevelsStructure">
+      <HintPath>..\LevelsStructure\bin\Release\LevelsStructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MultimediaClasses">
+      <HintPath>..\MultimediaClasses\bin\Release\MultimediaClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="ResourceItems, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ResourceItems\bin\Release\ResourceItems.dll</HintPath>
+    </Reference>
+    <Reference Include="ResourcesBasics">
+      <HintPath>..\ResourcesBasics\bin\Release\ResourcesBasics.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIEssentials">
+      <HintPath>..\UIEssentials\bin\Release\UIEssentials.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actor.cs" />
+    <Compile Include="Animators\AlternateAnimator.cs" />
+    <Compile Include="Animators\XYTextureRotationAnimator.cs" />
+    <Compile Include="Animators\LinearBoundedAnimator.cs" />
+    <Compile Include="Animators\LinearUnboundedAnimator.cs" />
+    <Compile Include="Animators\MultiAnimator.cs" />
+    <Compile Include="Animators\ParabolicToLinearAnimator.cs" />
+    <Compile Include="Animators\ParabolicUnboundedAnimator.cs" />
+    <Compile Include="Animators\QuarterRotationAnimator.cs" />
+    <Compile Include="Animators\SinusoidalAnimator.cs" />
+    <Compile Include="Animators\SteadyAnimator.cs" />
+    <Compile Include="Animators\Animator.cs" />
+    <Compile Include="Utils\CollisionUtil.cs" />
+    <Compile Include="Enumerations\BallState.cs" />
+    <Compile Include="Enumerations\Command.cs" />
+    <Compile Include="Enumerations\DeathType.cs" />
+    <Compile Include="Enumerations\BlockReaction.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\DestructibleBlock.cs" />
+    <Compile Include="Blocks\FireBlock.cs" />
+    <Compile Include="Blocks\IceBlock.cs" />
+    <Compile Include="Blocks\IndestructibleBlock.cs" />
+    <Compile Include="Blocks\IntermittentBlock.cs" />
+    <Compile Include="Blocks\NormalBlock.cs" />
+    <Compile Include="Blocks\TransparentBlock.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="GameBall.cs" />
+    <Compile Include="GameEnemy.cs" />
+    <Compile Include="Enumerations\GameState.cs" />
+    <Compile Include="Enumerations\GameScreenState.cs" />
+    <Compile Include="GameScreen.cs" />
+    <Compile Include="Placeables\Placeable.cs" />
+    <Compile Include="Placeables\Valuables\Bronze.cs" />
+    <Compile Include="Placeables\Valuables\Diamond.cs" />
+    <Compile Include="Placeables\Valuables\Emerald.cs" />
+    <Compile Include="Placeables\Fruit.cs" />
+    <Compile Include="Placeables\Glasses.cs" />
+    <Compile Include="Placeables\Glasshour.cs" />
+    <Compile Include="Placeables\Valuables\Gold.cs" />
+    <Compile Include="Placeables\GravityChanger.cs" />
+    <Compile Include="Placeables\Key.cs" />
+    <Compile Include="Placeables\Valuables\Ruby.cs" />
+    <Compile Include="Placeables\Valuables\Sapphire.cs" />
+    <Compile Include="Placeables\Valuables\Silver.cs" />
+    <Compile Include="Placeables\SlowPill.cs" />
+    <Compile Include="Placeables\Valuables\Valuable.cs" />
+    <Compile Include="Enumerations\PromptType.cs" />
+    <Compile Include="Utils\MiscUtilities.cs" />
+    <Compile Include="Utils\RotationUtilities.cs" />
+    <Compile Include="Surfaces\ContactSurface.cs" />
+    <Compile Include="Surfaces\Exit.cs" />
+    <Compile Include="Surfaces\Fire.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Surfaces\GroundForced.cs" />
+    <Compile Include="Surfaces\Ice.cs" />
+    <Compile Include="Surfaces\Ramp.cs" />
+    <Compile Include="Surfaces\Spikes.cs" />
+    <Compile Include="Surfaces\Surface.cs" />
+    <Compile Include="Enumerations\SurfType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameUtils\GameUtils.csproj">
+      <Project>{97c4f84d-dde0-407c-bb00-726be1803518}</Project>
+      <Name>GameUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
