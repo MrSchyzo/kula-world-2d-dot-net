@@ -60,7 +60,7 @@ namespace GameEngine.Surfaces
             Matrix m = new Matrix();
             float rot = -RotationUtilities.getAngleFromDownOrientation(o);
             m.Rotate(rot);
-            off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, off));
+            off = m.TransformAndThenRound(off);
 
             float cX = d / 2.0f + d * idxX;
             float cY = d / 2.0f + d * idxY;

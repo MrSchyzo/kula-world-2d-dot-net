@@ -299,19 +299,19 @@ namespace LevelsStructure
             {
                 get
                 {
-                    if (myBlock != null)
-                    {
-                        if (direction == KulaLevel.Orientation.Down)
-                            return new Pair<byte>(myBlock.X, (byte)(myBlock.Y - 1));
-                        else if (direction == KulaLevel.Orientation.Left)
-                            return new Pair<byte>((byte)(myBlock.X - 1), myBlock.Y);
-                        else if (direction == KulaLevel.Orientation.Right)
-                            return new Pair<byte>((byte)(myBlock.X + 1), myBlock.Y);
-                        else if (direction == KulaLevel.Orientation.Up)
-                            return new Pair<byte>(myBlock.X, (byte)(myBlock.Y + 1));
-                        else return null;
-                    }
-                    else return null;
+                    if (myBlock == null)
+                        throw new NullReferenceException("Il blocco è un riferimento null!");
+
+                    if (direction == KulaLevel.Orientation.Down)
+                        return new Pair<byte>(myBlock.X, (byte)(myBlock.Y - 1));
+                    else if (direction == KulaLevel.Orientation.Left)
+                        return new Pair<byte>((byte)(myBlock.X - 1), myBlock.Y);
+                    else if (direction == KulaLevel.Orientation.Right)
+                        return new Pair<byte>((byte)(myBlock.X + 1), myBlock.Y);
+                    else if (direction == KulaLevel.Orientation.Up)
+                        return new Pair<byte>(myBlock.X, (byte)(myBlock.Y + 1));
+                    else
+                        return new Pair<byte>(myBlock.X, myBlock.Y);
                 }
             }
             
@@ -357,7 +357,7 @@ namespace LevelsStructure
             /// </summary>
             public byte X
             {
-                get { return coords.FirstValue; }
+                get { return coords.First; }
             }
 
             /// <summary>
@@ -365,7 +365,7 @@ namespace LevelsStructure
             /// </summary>
             public byte Y
             {
-                get { return coords.SecondValue; }
+                get { return coords.Second; }
             }
 
             /// <summary>

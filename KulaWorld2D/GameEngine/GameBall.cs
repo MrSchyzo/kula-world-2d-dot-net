@@ -167,7 +167,7 @@ namespace GameEngine
         {
             Matrix m = new Matrix();
             m.Rotate(-rot);
-            PointF offset = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(1, 0)));
+            PointF offset = m.TransformPointF(new PointF(1, 0));
 
             centerX += offset.X;
             centerY += offset.Y;
@@ -329,10 +329,9 @@ namespace GameEngine
                 //TODO: Sono a destra e vado a destra
                 float offset = -relX + maxR;
                 Matrix m = new Matrix();
-                m.Rotate(-this.rot);
+                m.Rotate(-rot);
 
-                PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(offset, 0)));
-
+                PointF off = m.TransformPointF(new PointF(offset, 0));
                 
                 xyrotatorAnim.ChangeAnimator(
                     0,
@@ -359,7 +358,7 @@ namespace GameEngine
                 Matrix m = new Matrix();
                 m.Rotate(-this.rot);
 
-                PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(offset, 0)));
+                PointF off = m.TransformAndThenRound(new PointF(offset, 0));
 
                 
                 xyrotatorAnim.ChangeAnimator(
@@ -510,15 +509,15 @@ namespace GameEngine
                 state |= BallState.Flying;
 
                 Matrix m = new Matrix();
-                PointF offs = new PointF(0, -2);
+                PointF off = new PointF(0, -2);
                 m.Rotate((float)-rotAnim.CalculateValue(thisTime));
-                offs = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, offs));
+                off = m.TransformAndThenRound(off);
 
                 
                 xyrotatorAnim.ChangeAnimator(
                    1,
                    new ParabolicToLinearAnimator(
-                       Math.Round(centerY + offs.Y),
+                       Math.Round(centerY + off.Y),
                        thisTime,
                        Constants.GravityY,
                        Constants.NormalJumpYSpeed,
@@ -530,7 +529,7 @@ namespace GameEngine
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new LinearBoundedAnimator(
-                        Math.Round(centerX + offs.X),
+                        Math.Round(centerX + off.X),
                         thisTime,
                         d * Constants.NormalJumpXSpeed,
                         475
@@ -615,9 +614,9 @@ namespace GameEngine
                     {
                         //Ho finito di spostarmi, rotazione
                         Matrix m = new Matrix();
-                        m.Rotate(-this.rot);
+                        m.Rotate(-rot);
 
-                        PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(0, Constants.BlockWidth / 4f)));
+                        PointF off = m.TransformAndThenRound(new PointF(0, Constants.BlockWidth / 4f));
 
                         
                         xyrotatorAnim.ChangeAnimator(
@@ -854,8 +853,8 @@ namespace GameEngine
             float h = Math.Sign(offX);
 
             Matrix persp = new Matrix();
-            persp.Rotate(-this.rot);
-            PointF offset = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(persp, new PointF((float)offX, 0)));
+            persp.Rotate(-rot);
+            PointF offset = persp.TransformAndThenRound(new PointF((float)offX, 0));
 
             
             xyrotatorAnim.ChangeAnimator(
@@ -888,7 +887,7 @@ namespace GameEngine
         {
             Matrix persp = new Matrix();
             persp.Rotate(-this.rot);
-            PointF offset = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(persp, new PointF(0, (float)offY)));
+            PointF offset = persp.TransformAndThenRound(new PointF(0, (float)offY));
 
             
             double speed = Math.Abs(xyrotatorAnim.GetAnimation(1).GetCurrentSpeed(thisTime));
@@ -924,7 +923,7 @@ namespace GameEngine
             Matrix persp = new Matrix();
             persp.Rotate(-this.rot);
 
-            PointF offset = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(persp, new PointF(0, (float)offY)));
+            PointF offset = persp.TransformAndThenRound(new PointF(0, (float)offY));
             centerX += offset.X;
             centerY += offset.Y;
 
@@ -955,15 +954,15 @@ namespace GameEngine
                 state |= BallState.Flying;
 
                 Matrix m = new Matrix();
-                PointF offs = new PointF(0, -2);
+                PointF off = new PointF(0, -2);
                 m.Rotate((float)-rotAnim.CalculateValue(thisTime));
-                offs = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, offs));
+                off = m.TransformAndThenRound(off);
 
                 
                 xyrotatorAnim.ChangeAnimator(
                    1,
                    new ParabolicToLinearAnimator(
-                       Math.Round(centerY + offs.Y),
+                       Math.Round(centerY + off.Y),
                        thisTime,
                        Constants.GravityY,
                        Constants.RampJumpYSpeed,
@@ -975,7 +974,7 @@ namespace GameEngine
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new LinearBoundedAnimator(
-                        Math.Round(centerX + offs.X),
+                        Math.Round(centerX + off.X),
                         thisTime,
                         d * Constants.RampJumpXSpeed,
                         670

@@ -10,10 +10,6 @@ using System.Windows.Forms;
 
 namespace GameUtils
 {
-    
-    
-
-    
     /// <summary>
     /// Contiene metodi utili a tutte le classi
     /// </summary>
