@@ -719,8 +719,8 @@ namespace GameEngine
 
             //Console.WriteLine("Ball @" + ball.Center);
 
-            PointF offH = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(checkOffsetX, 0)));
-            PointF offL = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(checkOffsetX, checkOffsetY)));
+            PointF offH = m.TransformAndThenRound(new PointF(checkOffsetX, 0));
+            PointF offL = m.TransformAndThenRound(new PointF(checkOffsetX, checkOffsetY));
 
             Pair<int> high = new Pair<int>(ballX + (int)(offH.X), ballY + (int)(offH.Y));
             Pair<int> low = new Pair<int>(ballX + (int)(offL.X), ballY + (int)(offL.Y));
@@ -762,7 +762,7 @@ namespace GameEngine
 
             //Console.WriteLine("Ball @" + ball.Center);
 
-            PointF off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, new PointF(checkOffsetX, checkOffsetY)));
+            PointF off = m.TransformAndThenRound(new PointF(checkOffsetX, checkOffsetY));
             ;
             Pair<int> block = new Pair<int>(ballX + (int)(off.X), ballY + (int)(off.Y));
 

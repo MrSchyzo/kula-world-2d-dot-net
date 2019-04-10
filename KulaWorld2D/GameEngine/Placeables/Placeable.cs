@@ -81,7 +81,8 @@ namespace GameEngine.Placeables
             PointF off = new PointF(0, (d - dimX)/2.0f - 4.0f);
             Matrix m = new Matrix();
             m.Rotate(-perspective);
-            off = MatrixUtils.RoundPoint(MatrixUtils.TransformPointF(m, off));
+            off = m.TransformAndThenRound(off);
+
             float cX = d / 2.0f + d*idxX;
             float cY = d / 2.0f + d*idxY;
             return new PointF((float)Math.Round(cX + off.X), (float)Math.Round(cY + off.Y));
