@@ -623,7 +623,7 @@ namespace EditorViewPort
         {
             string v = "10";
             string v1 = "10";
-            if (Interaction.DoubleTextInputBox("Insert the level size", "Width (2 - 100): ", "Height (2 - 100): ", ref v, ref v1) == DialogResult.OK)
+            if (LvlEditor.Interaction.DoubleTextInputBox("Insert the level size", "Width (2 - 100): ", "Height (2 - 100): ", ref v, ref v1) == DialogResult.OK)
             {
                 byte w;
                 byte h;
