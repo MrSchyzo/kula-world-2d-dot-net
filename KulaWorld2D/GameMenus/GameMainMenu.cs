@@ -11,6 +11,7 @@ using System.Threading;
 using System.Windows.Forms;
 using UIEssentials;
 using UIMainClasses;
+using MenuItem = UIEssentials.MenuItem;
 
 namespace GameMenus
 {
@@ -26,14 +27,14 @@ namespace GameMenus
         private Highscores tabellone;
         
         
-        private UIEssentials.MenuItem Initialize1P()
+        private MenuItem Initialize1P()
         {
-            UIEssentials.MenuItem nuovo = new UIEssentials.MenuItem("1 Player", false, null, null);
+            MenuItem nuovo = new MenuItem("1 Player", false, null, null);
 
-            UIEssentials.MenuItem ng = new UIEssentials.MenuItem(nuovo, "New Game", false, null, null);
-            //UIEssentials.MenuItem lg = new UIEssentials.MenuItem(nuovo, "Load Game", false, null, null);
-            UIEssentials.MenuItem tl = new UIEssentials.MenuItem(nuovo, "Try Level", false, null, null);
-            UIEssentials.MenuItem back = new UIEssentials.MenuItem(nuovo, "Back", false, null, null);
+            MenuItem ng = new MenuItem(nuovo, "New Game", false, null, null);
+            //MenuItem lg = new MenuItem(nuovo, "Load Game", false, null, null);
+            MenuItem tl = new MenuItem(nuovo, "Try Level", false, null, null);
+            MenuItem back = new MenuItem(nuovo, "Back", false, null, null);
 
             nuovo.appendChild(ng);
             //nuovo.appendChild(lg);
@@ -43,25 +44,25 @@ namespace GameMenus
             return nuovo;
         }
 
-        private UIEssentials.MenuItem InitializeOPT()
+        private MenuItem InitializeOPT()
         {
-            UIEssentials.MenuItem nuovo = new UIEssentials.MenuItem("Options", false, null, null);
+            MenuItem nuovo = new MenuItem("Options", false, null, null);
             nuovo.isEditable = false;
 
 
             IntSlider fx = new IntSlider(0, 100, 10);
-            UIEssentials.MenuItem ng = new UIEssentials.MenuItem(nuovo, "Sound Effects", false, fx, null);
+            MenuItem ng = new MenuItem(nuovo, "Sound Effects", false, fx, null);
             ng.setValueType(2);
 
             IntSlider cd = new IntSlider(0, 100, 10);
-            UIEssentials.MenuItem lg = new UIEssentials.MenuItem(nuovo, "Music", false, cd, null);
+            MenuItem lg = new MenuItem(nuovo, "Music", false, cd, null);
             lg.setValueType(2);
 
             IntSlider fps = new IntSlider(10, 140, 20);
-            UIEssentials.MenuItem tl = new UIEssentials.MenuItem(nuovo, "FPS Ceiling", false, fps, null);
+            MenuItem tl = new MenuItem(nuovo, "FPS Ceiling", false, fps, null);
             tl.setValueType(2);
 
-            UIEssentials.MenuItem back = new UIEssentials.MenuItem(nuovo, "Back", false, null, null);
+            MenuItem back = new MenuItem(nuovo, "Back", false, null, null);
 
             nuovo.appendChild(ng);
             nuovo.appendChild(lg);
@@ -73,12 +74,12 @@ namespace GameMenus
 
         private void ItemsSetup()
         {
-            rtLevelItems = new List<UIEssentials.MenuItem>();
+            rtLevelItems = new List<MenuItem>();
 
-            UIEssentials.MenuItem OneP = Initialize1P();
-            UIEssentials.MenuItem Opts = InitializeOPT();
-            UIEssentials.MenuItem Scores = new UIEssentials.MenuItem("High Scores", false, null, null);
-            UIEssentials.MenuItem LvlEditor = new UIEssentials.MenuItem("Level Editor", false, null, null);
+            MenuItem OneP = Initialize1P();
+            MenuItem Opts = InitializeOPT();
+            MenuItem Scores = new MenuItem("High Scores", false, null, null);
+            MenuItem LvlEditor = new MenuItem("Level Editor", false, null, null);
 
             rtLevelItems.Add(OneP);
             rtLevelItems.Add(Opts);
@@ -196,7 +197,7 @@ namespace GameMenus
         /// Gestisce la scelta di un item del menù
         /// </summary>
         /// <param name="chosen">Menuitem scelto</param>
-        protected override void HandleChoice(UIEssentials.MenuItem chosen)
+        protected override void HandleChoice(MenuItem chosen)
         {
             base.HandleChoice(chosen);
             if (chosen != null)

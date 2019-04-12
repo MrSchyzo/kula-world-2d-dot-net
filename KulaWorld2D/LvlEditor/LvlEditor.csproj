@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LvlEditor</RootNamespace>
     <AssemblyName>LvlEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditorViewPort.cs" />
+    <Compile Include="Interaction.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +69,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -82,17 +85,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LvlEditor.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\GameUtils\GameUtils.csproj">
-      <Project>{97c4f84d-dde0-407c-bb00-726be1803518}</Project>
+      <Project>{97C4F84D-DDE0-407C-BB00-726BE1803518}</Project>
       <Name>GameUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\LevelsStructure\LevelsStructure.csproj">
-      <Project>{f52d0bda-e0c8-4d50-b060-4d5986fc9806}</Project>
+      <Project>{F52D0BDA-E0C8-4D50-B060-4D5986FC9806}</Project>
       <Name>LevelsStructure</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LvlEditor.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
