@@ -14,11 +14,11 @@ public class KulaGame
     {
         gameViewport = new GameViewport(75, null);
         this.containingForm = f;
-        f.ClientSize = new Size(480, 320);
+        f.ClientSize = new Size(600, 450);
         f.FormBorderStyle = FormBorderStyle.Sizable;
         f.MaximizeBox = false;
         f.MinimizeBox = false;
-        f.MaximumSize = new Size(800, 600);
+        f.MaximumSize = new Size(1200, 900);
         f.MinimumSize = new Size(480, 320);
         f.Text = "K2D 0.0.b";
         f.Resize += f_Resized;

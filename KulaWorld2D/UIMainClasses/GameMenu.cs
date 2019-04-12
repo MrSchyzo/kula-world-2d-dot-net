@@ -11,6 +11,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 using UIEssentials;
+using MenuItem = UIEssentials.MenuItem;
 
 namespace UIMainClasses
 {
@@ -24,15 +25,15 @@ namespace UIMainClasses
         /// <summary>
         /// Menu di livello più alto
         /// </summary>
-        protected List<UIEssentials.MenuItem> rtLevelItems;
+        protected List<MenuItem> rtLevelItems;
         /// <summary>
         /// Menu corrente
         /// </summary>
-        protected List<UIEssentials.MenuItem> curLevelItems;
+        protected List<MenuItem> curLevelItems;
         /// <summary>
         /// Puntatore al menu della gerarchia superiore
         /// </summary>
-        protected UIEssentials.MenuItem upperItem;
+        protected MenuItem upperItem;
         /// <summary>
         /// Puntatore all'elemento del menu corrente
         /// </summary>
@@ -121,10 +122,10 @@ namespace UIMainClasses
         /// Restituisce l'item indicato dall'intero p.
         /// </summary>
         /// <param name="p">Intero che indica l'elemento da restituire</param>
-        protected UIEssentials.MenuItem getItem(int p)
+        protected MenuItem getItem(int p)
         {
             if (p >= 0 && p < curLevelItems.Count)
-                return curLevelItems.ElementAt<UIEssentials.MenuItem>(p);
+                return curLevelItems.ElementAt<MenuItem>(p);
             else
                 return null;
         }
@@ -177,7 +178,7 @@ namespace UIMainClasses
              */
             for (int j = 0; j < curLevelItems.Count; j++)
             {
-                UIEssentials.MenuItem i = curLevelItems.ElementAt<UIEssentials.MenuItem>(j);
+                MenuItem i = curLevelItems.ElementAt<MenuItem>(j);
 
                 Font ft = new Font("Verdana", desiredFont, FontStyle.Bold);
                 Size curCell = TextRenderer.MeasureText(i.ToString(), ft);
@@ -198,7 +199,7 @@ namespace UIMainClasses
             cellY = 0;
             for (int j = 0; j < curLevelItems.Count; j++)
             {
-                UIEssentials.MenuItem i = curLevelItems.ElementAt<UIEssentials.MenuItem>(j);
+                MenuItem i = curLevelItems.ElementAt<MenuItem>(j);
 
                 Font ft = new Font("Verdana", desiredFont, FontStyle.Bold);
                 Size curCell = TextRenderer.MeasureText(i.ToString(), ft);
@@ -475,7 +476,7 @@ namespace UIMainClasses
         /// <param name="hd">Immagine che rappresenta lo header </param>
         /// <param name="bg">Immagine che rappresenta lo sfondo </param>
         /// <param name="sc">Contenitore della scena a cui collegarsi </param>
-        public GameMenu(SceneContainer sc, List<UIEssentials.MenuItem> l, Bitmap hd, Bitmap bg, Bitmap cur)
+        public GameMenu(SceneContainer sc, List<MenuItem> l, Bitmap hd, Bitmap bg, Bitmap cur)
         {
             if (l != null)
                 if (l.Count != 0)
@@ -491,11 +492,11 @@ namespace UIMainClasses
         }
 
         /// <summary>
-        /// Crea un menù a partire dalla sola lista di UIEssentials.MenuItem
+        /// Crea un menù a partire dalla sola lista di MenuItem
         /// </summary>
         /// <param name="l">Menù Antenato nella gerarchia</param>
         /// <param name="sc">Contenitore della scena a cui collegare il menù</param>
-        public GameMenu(SceneContainer sc, List<UIEssentials.MenuItem> l)
+        public GameMenu(SceneContainer sc, List<MenuItem> l)
         {
             if (l != null && l.Count != 0)
             {
@@ -550,7 +551,7 @@ namespace UIMainClasses
         /// </summary>
         protected void increaseVoice()
         {
-            UIEssentials.MenuItem l = getItem(pointer);
+            MenuItem l = getItem(pointer);
             if (l.isEditable)
             {
                 l.increaseDoubleValue();
@@ -566,7 +567,7 @@ namespace UIMainClasses
         /// </summary>
         protected void decreaseVoice()
         {
-            UIEssentials.MenuItem l = getItem(pointer);
+            MenuItem l = getItem(pointer);
             if (l.isEditable)
             {
                 l.decreaseDoubleValue();
@@ -582,8 +583,8 @@ namespace UIMainClasses
         /// </summary>
         protected void OpenItem()
         {
-            UIEssentials.MenuItem chosen = getItem(pointer);
-            List<UIEssentials.MenuItem> l = chosen.getChildren();
+            MenuItem chosen = getItem(pointer);
+            List<MenuItem> l = chosen.getChildren();
             if (l.Count != 0)
             {
                 curLevelItems = l;
@@ -604,7 +605,7 @@ namespace UIMainClasses
                 curLevelItems = rtLevelItems;
             else
             {
-                List<UIEssentials.MenuItem> l = upperItem.getChildren();
+                List<MenuItem> l = upperItem.getChildren();
                 curLevelItems = l;
                 upperItem = upperItem.fatherItem;
             }
@@ -618,7 +619,7 @@ namespace UIMainClasses
         /// (Overridabile): Compie un'azione in funzione al menuitem aperto.
         /// </summary>
         /// <param name="chosen">MenuItem che è stato selezionato e provoca l'azione</param>
-        protected virtual void HandleChoice(UIEssentials.MenuItem chosen)
+        protected virtual void HandleChoice(MenuItem chosen)
         {
             //TODO, questa voce provoca un'azione
         }

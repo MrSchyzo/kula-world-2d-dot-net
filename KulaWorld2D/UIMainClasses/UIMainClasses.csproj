@@ -13,43 +13,6 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
@@ -58,6 +21,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -67,22 +31,9 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameUtils">
-      <HintPath>..\GameUtils\bin\Release\GameUtils.dll</HintPath>
-    </Reference>
-    <Reference Include="MultimediaClasses">
-      <HintPath>..\MultimediaClasses\bin\Release\MultimediaClasses.dll</HintPath>
-    </Reference>
-    <Reference Include="ResourceItems, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ResourceItems\bin\Release\ResourceItems.dll</HintPath>
-    </Reference>
-    <Reference Include="ResourcesBasics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ResourcesBasics\bin\Release\ResourcesBasics.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -93,9 +44,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UIEssentials">
-      <HintPath>..\UIEssentials\bin\Release\UIEssentials.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameMenu.cs" />
@@ -103,8 +51,28 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine\GameEngine.csproj">
-      <Project>{b8b6f867-870c-4cfd-a453-f76a66f7ac1f}</Project>
+      <Project>{B8B6F867-870C-4CFD-A453-F76A66F7AC1F}</Project>
       <Name>GameEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameUtils\GameUtils.csproj">
+      <Project>{97C4F84D-DDE0-407C-BB00-726BE1803518}</Project>
+      <Name>GameUtils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MultimediaClasses\MultimediaClasses.csproj">
+      <Project>{6DAE67BE-8E9B-488F-B3BF-494CA44B1A2D}</Project>
+      <Name>MultimediaClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResourceItems\ResourceItems.csproj">
+      <Project>{9AE70008-6784-4016-9C5E-C56E910AC7D0}</Project>
+      <Name>ResourceItems</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResourcesBasics\ResourcesBasics.csproj">
+      <Project>{BA209A0C-ECC0-4C85-AC72-2DE053623F95}</Project>
+      <Name>ResourcesBasics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UIEssentials\UIEssentials.csproj">
+      <Project>{915244D3-C80B-4DF9-A2FA-E55C2B772C21}</Project>
+      <Name>UIEssentials</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
