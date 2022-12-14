@@ -42,19 +42,13 @@ namespace GameEngine
         private Bitmap finalLight;
         private GameScreen game;
         
-
-        
         private XYTextureRotationAnimator xyrotatorAnim;
         private Animator lifeAnim;
         private Animator rotAnim;
         private Animator scaleXAnim;
         private Animator scaleYAnim;
         
-
-        
         private SortedDictionary<SurfType, bool> foundSurfaces;
-        
-
         
         public float Radium
         {
@@ -124,19 +118,15 @@ namespace GameEngine
             get { return state; }
         }
         
-
-        
-        
         private bool canIJump(long thisTime)
         {
             bool goodState =
                 !isThisStateAlso(state, BallState.Flying) &&
                 !isThisStateAlso(state, BallState.GroundForced) &&
                 !isThisStateAlso(state, BallState.ChangingFace);
-            bool goodPosition = false;
             int relativeX = getRelativeX(thisTime) - ((int)(Constants.BlockWidth / 2f));
             float maxRegion = ((int)(Constants.BlockWidth / 2f)) - Constants.BlockWidth * Constants.JumpableBlockRatio;
-            goodPosition = Math.Abs(maxRegion) >= Math.Abs(relativeX);
+            bool goodPosition = Math.Abs(maxRegion) >= Math.Abs(relativeX);
             return goodState && goodPosition;
         }
         private bool canIRumpJump(long thisTime)
@@ -145,10 +135,9 @@ namespace GameEngine
                 !isThisStateAlso(state, BallState.Flying) &&
                 !isThisStateAlso(state, BallState.GroundForced) &&
                 !isThisStateAlso(state, BallState.ChangingFace);
-            bool goodPosition = false;
             int relativeX = getRelativeX(thisTime) - ((int)(Constants.BlockWidth / 2f));
             float maxRegion = ((int)(Constants.BlockWidth / 2f)) - Constants.BlockWidth * Constants.JumpableBlockRatio * 2;
-            goodPosition = Math.Abs(maxRegion) >= Math.Abs(relativeX);
+            bool goodPosition = Math.Abs(maxRegion) >= Math.Abs(relativeX);
             return goodState && goodPosition;
         }
         private bool canIMove(long thisTime)
@@ -156,8 +145,8 @@ namespace GameEngine
             bool goodState =
                 !isThisStateAlso(state, BallState.ChangingFace) &&
                 !isThisStateAlso(state, BallState.Flying) &&
-                ! IsStateAlso(BallState.Sliding);
-            bool isSteady = (xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime) == 0);
+                !IsStateAlso(BallState.Sliding);
+            bool isSteady = xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime) == 0;
             return goodState && isSteady;
         }
         
@@ -172,9 +161,9 @@ namespace GameEngine
             centerX += offset.X;
             centerY += offset.Y;
         }
+
         private void changeFace(bool toLeft, int blockDirection, float offset, long thisTime)
         {
-            
             if (blockDirection != 0)
             {
                 toTheLeft = toLeft;
@@ -189,11 +178,11 @@ namespace GameEngine
                         rotaz = 90f;
 
                     rotAnim = new LinearBoundedAnimator(
-                        (double)rot, 
-                        thisTime, 
-                        (double)-(rotaz / (Constants.SecsToChangeFace*1000)), 
+                        rot, 
+                        thisTime,
+                        -(rotaz / (Constants.SecsToChangeFace * 1000)),
                         (long)(Constants.SecsToChangeFace * 1000)
-                        );
+                    );
 
                     phase = 1;
                     lastMoment = cf_timer.ElapsedMilliseconds;
@@ -292,19 +281,15 @@ namespace GameEngine
         }
         private void centeringControl(long thisTime)
         {
-            
             if (IsStateAlso(BallState.Sliding) && (Math.Abs(xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime)) < 0.256))
             {
                 Console.WriteLine("Devo scivolare!");
-                double d = 1;
-                if (!movingRight)
-                    d *= -1;
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new LinearUnboundedAnimator(
                         Math.Round(centerX),
                         thisTime,
-                        d * 0.256
+                        movingRight ? 0.256 : -0.256
                         )
                    );
             }
@@ -360,7 +345,6 @@ namespace GameEngine
 
                 PointF off = m.TransformAndThenRound(new PointF(offset, 0));
 
-                
                 xyrotatorAnim.ChangeAnimator(
                     0,
                     new SteadyAnimator(
@@ -393,7 +377,6 @@ namespace GameEngine
         }
         private void prepareTexture()
         {
-            
             if (finalTex != null)
                 finalTex.Dispose();
             finalTex = new Bitmap(srcTex, new Size((int)(Constants.BlockWidth / 2f),(int)(Constants.BlockWidth / 2f)));
@@ -402,15 +385,12 @@ namespace GameEngine
                 finalLight.Dispose();
             finalLight = new Bitmap(srcLight, new Size((int)(Constants.BlockWidth / 2f), (int)(Constants.BlockWidth / 2f)));
             
-
-            
             Graphics g = Graphics.FromImage(finalTex);
             GraphicsPath gp = new GraphicsPath();
             Rectangle textureBounds = new Rectangle(0, 0, finalTex.Width, finalTex.Height);
             gp.AddEllipse(textureBounds);
             g.Clip = new Region(gp);
             g.FillRectangle(new SolidBrush(Color.Blue), textureBounds);
-            
             
             Matrix m = new Matrix();
             m.RotateAt(texRot, new PointF(finalTex.Width / 2f, finalTex.Height / 2f));
@@ -474,7 +454,6 @@ namespace GameEngine
             foundSurfaces.Add(SurfType.Ice, isThisStateAlso(state, BallState.Sliding));
         }
         
-        
         private void commandDispatcher(long thisTime, Command c)
         {
             isGoingToMove = false;
@@ -497,57 +476,66 @@ namespace GameEngine
                         isGoingToMove = true;
                         break;
                     }
+                case Command.JumpLeft:
+                    {
+                        startMove(thisTime, false);
+                        isGoingToMove = true;
+                        tryJump(thisTime);
+                        break;
+                    }
+                case Command.JumpRight:
+                    {
+                        startMove(thisTime, true);
+                        isGoingToMove = true;
+                        tryJump(thisTime);
+                        break;
+                    }
                 default:
                      break;
             }
         }
+
         private void tryJump(long thisTime)
         {
-            if (canIJump(thisTime))
-            {
-                double d = Math.Sign(xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime));
-                state |= BallState.Flying;
+            if (!canIJump(thisTime)) return;
 
-                Matrix m = new Matrix();
-                PointF off = new PointF(0, -2);
-                m.Rotate((float)-rotAnim.CalculateValue(thisTime));
-                off = m.TransformAndThenRound(off);
+            double d = Math.Sign(xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime));
+            state |= BallState.Flying;
 
-                
-                xyrotatorAnim.ChangeAnimator(
-                   1,
-                   new ParabolicToLinearAnimator(
-                       Math.Round(centerY + off.Y),
-                       thisTime,
-                       Constants.GravityY,
-                       Constants.NormalJumpYSpeed,
-                       Constants.MaxVerticalSpeed
-                       )
+            Matrix m = new Matrix();
+            PointF off = new PointF(0, -2);
+            m.Rotate((float)-rotAnim.CalculateValue(thisTime));
+            off = m.TransformAndThenRound(off);
+
+            xyrotatorAnim.ChangeAnimator(
+               1,
+               new ParabolicToLinearAnimator(
+                   Math.Round(centerY + off.Y),
+                   thisTime,
+                   Constants.GravityY,
+                   Constants.NormalJumpYSpeed,
+                   Constants.MaxVerticalSpeed
+                   )
+            );
+
+            xyrotatorAnim.ChangeAnimator(
+                0,
+                new LinearBoundedAnimator(
+                    Math.Round(centerX + off.X),
+                    thisTime,
+                    d * Constants.NormalJumpXSpeed,
+                    475
+                    )
                 );
-                
-                
-                xyrotatorAnim.ChangeAnimator(
-                    0,
-                    new LinearBoundedAnimator(
-                        Math.Round(centerX + off.X),
-                        thisTime,
-                        d * Constants.NormalJumpXSpeed,
-                        475
-                        )
-                    );
-                updateProperties(thisTime);
-                
-            }
+            updateProperties(thisTime);
+
+            return;
         }
         private void startMove(long thisTime, bool goRight)
         {
             if (canIMove(thisTime))
             {
-                double d = 0;
-                if (goRight)
-                    d = 1;
-                else
-                    d = -1;
+                double d = goRight ? 1 : -1;
                 
                 xyrotatorAnim.ChangeAnimator(
                     0,
@@ -555,7 +543,7 @@ namespace GameEngine
                         Math.Round(centerX),
                         thisTime,
                         d * 0.0128,
-                        0,
+                        d * Double.Epsilon,
                         0.256
                         )
                     );
@@ -600,135 +588,130 @@ namespace GameEngine
         public void Update(long thisTime, Command c)
         {
             updateProperties(thisTime);
+
             if (!lifeControl(thisTime))
                 return;
-            if (IsStateAlso(BallState.ChangingFace))
-            {
-                //TODO da continuare
-                
-                if (phase == 0)
-                {
-                    long now = cf_timer.ElapsedMilliseconds;
 
-                    if (now - lastMoment > 125)
-                    {
-                        //Ho finito di spostarmi, rotazione
-                        Matrix m = new Matrix();
-                        m.Rotate(-rot);
-
-                        PointF off = m.TransformAndThenRound(new PointF(0, Constants.BlockWidth / 4f));
-
-                        
-                        xyrotatorAnim.ChangeAnimator(
-                            0,
-                            new QuarterRotationAnimator(
-                                Math.Round(centerX + off.X),
-                                thisTime,
-                                (long)(Constants.SecsToChangeFace * 1000),
-                                rotaz > 0,
-                                true,
-                                Constants.BlockWidth / 4f
-                                )
-                                );
-
-                        xyrotatorAnim.ChangeAnimator(
-                            1,
-                            new QuarterRotationAnimator(
-                                Math.Round(centerY + off.Y),
-                                thisTime,
-                                (long)(Constants.SecsToChangeFace * 1000),
-                                rotaz > 0,
-                                false,
-                                Constants.BlockWidth / 4f
-                                )
-                                );
-                        xyrotatorAnim.ChangeAnimator(
-                            2,
-                            new SteadyAnimator(
-                                Math.Round(texRot),
-                                thisTime)
-                                );
-                        
-
-                        rotAnim = new LinearBoundedAnimator(
-                        Math.Round(rot),
-                        thisTime,
-                        (double)-(rotaz / (Constants.SecsToChangeFace * 1000)),
-                        (long)(Constants.SecsToChangeFace * 1000)
-                        );
-                        phase = 1;
-                        lastMoment = cf_timer.ElapsedMilliseconds;
-                    }
-                }
-                
-                
-                else if (phase == 1)
-                {
-                    long now = cf_timer.ElapsedMilliseconds;
-                    if (now - lastMoment > Constants.SecsToChangeFace * 1000)
-                    {
-                        float speed = 0.256f;
-                        this.ChangeGravity((float)Math.Round(rot), thisTime);
-                        if (toTheLeft)
-                            speed *= -1;
-
-                        
-                        xyrotatorAnim.ChangeAnimator(
-                            0,
-                            new LinearBoundedAnimator(
-                                Math.Round(centerX),
-                                thisTime,
-                                speed,
-                                125)
-                                );
-
-                        xyrotatorAnim.ChangeAnimator(
-                            1,
-                            new SteadyAnimator(
-                                Math.Round(centerY),
-                                thisTime
-                                )
-                                );
-                        
-
-                        phase = 2;
-                        lastMoment = cf_timer.ElapsedMilliseconds;
-                    }
-                }
-                else if (phase == 2)
-                {
-                    long now = cf_timer.ElapsedMilliseconds;
-                    if (now - lastMoment > 125)
-                    {
-                        blockAll(thisTime);
-                        SetState(BallState.ChangingFace, false);
-                        if (IsStateAlso(BallState.Sliding))
-                        {
-                            double d = 1;
-                            if (!movingRight)
-                                d *= -1;
-
-                            xyrotatorAnim.ChangeAnimator(
-                            0,
-                            new LinearUnboundedAnimator(
-                                Math.Round(centerX),
-                                thisTime,
-                                d * 0.256
-                                )
-                           );
-                        }
-                    }
-                }
-                
-            }
-            else
+            if (!IsStateAlso(BallState.ChangingFace))
             {
                 commandDispatcher(thisTime, c);
                 if (!isThisStateAlso(state, BallState.Flying))
                 {
                     centeringControl(thisTime);
                     changingFaceControl(thisTime);
-                    //TODO da continuare?
+                }
+                return;
+            }
+
+            if (phase == 0)
+            {
+                long now = cf_timer.ElapsedMilliseconds;
+
+                if (now - lastMoment > 125)
+                {
+                    //Ho finito di spostarmi, rotazione
+                    Matrix m = new Matrix();
+                    m.Rotate(-rot);
+
+                    PointF off = m.TransformAndThenRound(new PointF(0, Constants.BlockWidth / 4f));
+
+
+                    xyrotatorAnim.ChangeAnimator(
+                        0,
+                        new QuarterRotationAnimator(
+                            Math.Round(centerX + off.X),
+                            thisTime,
+                            (long)(Constants.SecsToChangeFace * 1000),
+                            rotaz > 0,
+                            true,
+                            Constants.BlockWidth / 4f
+                            )
+                            );
+
+                    xyrotatorAnim.ChangeAnimator(
+                        1,
+                        new QuarterRotationAnimator(
+                            Math.Round(centerY + off.Y),
+                            thisTime,
+                            (long)(Constants.SecsToChangeFace * 1000),
+                            rotaz > 0,
+                            false,
+                            Constants.BlockWidth / 4f
+                            )
+                            );
+                    xyrotatorAnim.ChangeAnimator(
+                        2,
+                        new SteadyAnimator(
+                            Math.Round(texRot),
+                            thisTime)
+                            );
+
+
+                    rotAnim = new LinearBoundedAnimator(
+                    Math.Round(rot),
+                    thisTime,
+                    (double)-(rotaz / (Constants.SecsToChangeFace * 1000)),
+                    (long)(Constants.SecsToChangeFace * 1000)
+                    );
+                    phase = 1;
+                    lastMoment = cf_timer.ElapsedMilliseconds;
+                }
+            }
+            else if (phase == 1)
+            {
+                long now = cf_timer.ElapsedMilliseconds;
+                if (now - lastMoment > Constants.SecsToChangeFace * 1000)
+                {
+                    float speed = 0.256f;
+                    this.ChangeGravity((float)Math.Round(rot), thisTime);
+                    if (toTheLeft)
+                        speed *= -1;
+
+
+                    xyrotatorAnim.ChangeAnimator(
+                        0,
+                        new LinearBoundedAnimator(
+                            Math.Round(centerX),
+                            thisTime,
+                            speed,
+                            125)
+                            );
+
+                    xyrotatorAnim.ChangeAnimator(
+                        1,
+                        new SteadyAnimator(
+                            Math.Round(centerY),
+                            thisTime
+                            )
+                            );
+
+
+                    phase = 2;
+                    lastMoment = cf_timer.ElapsedMilliseconds;
+                }
+            }
+            else if (phase == 2)
+            {
+                long now = cf_timer.ElapsedMilliseconds;
+                if (now - lastMoment > 125)
+                {
+                    blockAll(thisTime);
+                    SetState(BallState.ChangingFace, false);
+                    if (IsStateAlso(BallState.Sliding))
+                    {
+                        double d = 1;
+                        if (!movingRight)
+                            d *= -1;
+
+                        xyrotatorAnim.ChangeAnimator(
+                        0,
+                        new LinearUnboundedAnimator(
+                            Math.Round(centerX),
+                            thisTime,
+                            d * 0.256
+                            )
+                        );
+                    }
                 }
             }
         }
@@ -745,9 +728,7 @@ namespace GameEngine
             float y = Constants.BlockWidth * Constants.ViewportYTiles * Constants.ViewportBallYRatio;
             RectangleF b = new RectangleF(x - Radium + (2 - 2 * scaleX) * Radium, y - Radium + (2 - 2 * scaleY) * Radium, 2 * scaleX * Radium, 2 * scaleY * Radium);
             
-            
             prepareTexture();
-            
             
             e.DrawEllipse(Pens.Black, b);
             e.DrawImage(finalTex, b);
@@ -847,7 +828,6 @@ namespace GameEngine
             state |= BallState.Exiting;
         }
         
-        
         public void BounceLateral(double offX, long thisTime)
         {
             float h = Math.Sign(offX);
@@ -942,51 +922,47 @@ namespace GameEngine
         
         public void RampJump(long thisTime)
         {
-            if (canIRumpJump(thisTime))
-            {
-                double d = Math.Sign(xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime));
+            if (!canIRumpJump(thisTime)) return;
 
-                if (d == 0 && movingRight)
-                    d = 1;
-                else if (d == 0 && !movingRight)
-                    d = -1;
+            double d = Math.Sign(xyrotatorAnim.GetAnimation(0).GetCurrentSpeed(thisTime));
 
-                state |= BallState.Flying;
+            if (d == 0 && movingRight)
+                d = 1;
+            else if (d == 0 && !movingRight)
+                d = -1;
 
-                Matrix m = new Matrix();
-                PointF off = new PointF(0, -2);
-                m.Rotate((float)-rotAnim.CalculateValue(thisTime));
-                off = m.TransformAndThenRound(off);
+            state |= BallState.Flying;
 
-                
-                xyrotatorAnim.ChangeAnimator(
-                   1,
-                   new ParabolicToLinearAnimator(
-                       Math.Round(centerY + off.Y),
-                       thisTime,
-                       Constants.GravityY,
-                       Constants.RampJumpYSpeed,
-                       Constants.MaxVerticalSpeed
-                       )
+            Matrix m = new Matrix();
+            PointF off = new PointF(0, -2);
+            m.Rotate((float)-rotAnim.CalculateValue(thisTime));
+            off = m.TransformAndThenRound(off);
+
+            xyrotatorAnim.ChangeAnimator(
+               1,
+               new ParabolicToLinearAnimator(
+                   Math.Round(centerY + off.Y),
+                   thisTime,
+                   Constants.GravityY,
+                   Constants.RampJumpYSpeed,
+                   Constants.MaxVerticalSpeed
+                   )
+            );
+
+            xyrotatorAnim.ChangeAnimator(
+                0,
+                new LinearBoundedAnimator(
+                    Math.Round(centerX + off.X),
+                    thisTime,
+                    d * Constants.RampJumpXSpeed,
+                    670
+                    )
                 );
-                
-                
-                xyrotatorAnim.ChangeAnimator(
-                    0,
-                    new LinearBoundedAnimator(
-                        Math.Round(centerX + off.X),
-                        thisTime,
-                        d * Constants.RampJumpXSpeed,
-                        670
-                        )
-                    );
-                
 
-                updateProperties(thisTime);
-                game.PlaySound("Ramp");
-            }
-            
+            updateProperties(thisTime);
+            game.PlaySound("Ramp");
         }
+
         public void StartBallModify(SurfType st, long thisTime)
         {
             switch (st)

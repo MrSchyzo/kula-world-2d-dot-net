@@ -5,6 +5,8 @@
         Left,
         Right,
         Jump,
+        JumpLeft,
+        JumpRight,
         Nothing
     }
 }
