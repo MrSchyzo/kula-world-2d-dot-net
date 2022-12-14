@@ -22,7 +22,6 @@ namespace GameMenus
             MenuItem nuovo = new MenuItem("Options", false, null, null);
             nuovo.isEditable = false;
 
-
             IntSlider fx = new IntSlider(0, 100, 10);
             MenuItem ng = new MenuItem(nuovo, "Sound Effects", false, fx, null);
             ng.setValueType(2);
@@ -31,7 +30,7 @@ namespace GameMenus
             MenuItem lg = new MenuItem(nuovo, "Music", false, cd, null);
             lg.setValueType(2);
 
-            IntSlider fps = new IntSlider(10, 140, 20);
+            IntSlider fps = new IntSlider(10, 500, 20);
             MenuItem tl = new MenuItem(nuovo, "FPS Ceiling", false, fps, null);
             tl.setValueType(2);
 
@@ -62,8 +61,6 @@ namespace GameMenus
             pointer = 0;
             upperItem = null;
         }
-        
-
         
         private void changePixelsHue(Bitmap img, bool variation)
         {

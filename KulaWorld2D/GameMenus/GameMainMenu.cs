@@ -58,7 +58,7 @@ namespace GameMenus
             MenuItem lg = new MenuItem(nuovo, "Music", false, cd, null);
             lg.setValueType(2);
 
-            IntSlider fps = new IntSlider(10, 140, 20);
+            IntSlider fps = new IntSlider(10, 500, 20);
             MenuItem tl = new MenuItem(nuovo, "FPS Ceiling", false, fps, null);
             tl.setValueType(2);
 
