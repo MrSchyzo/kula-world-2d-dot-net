@@ -38,8 +38,6 @@ namespace MultimediaClasses
             return (rdy);
         }
         
-
-        
         private void ConstructorsMutualPart()
         {
             path = null;
@@ -67,21 +65,20 @@ namespace MultimediaClasses
         
         void player_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (e != null && e.Argument != null)
-            {
-                PlayerArgs arg = (PlayerArgs)e.Argument;
-                int volume = arg.Volume;
-                if (arg.Operation == SoundMediaPlayerOperation.ChangeVolume)
-                    setVol(volume);
-                else if (arg.Operation == SoundMediaPlayerOperation.Pause)
-                    pause();
-                else if (arg.Operation == SoundMediaPlayerOperation.Play)
-                    play(volume);
-                else if (arg.Operation == SoundMediaPlayerOperation.PlayLooping)
-                    playLooping(volume);
-                else if (arg.Operation == SoundMediaPlayerOperation.Stop)
-                    stop();
-            }
+            if (e?.Argument == null) return;
+            
+            PlayerArgs arg = (PlayerArgs)e.Argument;
+            int volume = arg.Volume;
+            if (arg.Operation == SoundMediaPlayerOperation.ChangeVolume)
+                setVol(volume);
+            else if (arg.Operation == SoundMediaPlayerOperation.Pause)
+                pause();
+            else if (arg.Operation == SoundMediaPlayerOperation.Play)
+                play(volume);
+            else if (arg.Operation == SoundMediaPlayerOperation.PlayLooping)
+                playLooping(volume);
+            else if (arg.Operation == SoundMediaPlayerOperation.Stop)
+                stop();
         }
 
         bool setVol(int v)
@@ -337,6 +334,12 @@ namespace MultimediaClasses
             //playLooping(100);
             if (!player.IsBusy)
                 player.RunWorkerAsync(new PlayerArgs(-1, SoundMediaPlayerOperation.PlayLooping));
+            else
+            {
+                player.CancelAsync();
+                player.RunWorkerAsync(new PlayerArgs(-1, SoundMediaPlayerOperation.PlayLooping));
+                Console.WriteLine("BUSY");
+            }
         }
 
         /// <summary>
@@ -348,6 +351,8 @@ namespace MultimediaClasses
             //playLooping(vol);
             if (!player.IsBusy)
                 player.RunWorkerAsync(new PlayerArgs(vol, SoundMediaPlayerOperation.PlayLooping));
+            else
+                Console.WriteLine("BUSY");
         }
 
         /// <summary>

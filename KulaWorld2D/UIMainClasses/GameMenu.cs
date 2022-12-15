@@ -12,6 +12,7 @@ using System.Linq;
 using System.Windows.Forms;
 using UIEssentials;
 using MenuItem = UIEssentials.MenuItem;
+using System.Drawing.Text;
 
 namespace UIMainClasses
 {
@@ -137,6 +138,8 @@ namespace UIMainClasses
         /// </summary>
         protected void updateText()
         {
+            InstalledFontCollection collection = new InstalledFontCollection();
+
             //Setup del canvas dove scrivere il testo e delle regioni che toccano il testo
             if (text == null)
                 text = new Bitmap(480, 360);
@@ -180,7 +183,7 @@ namespace UIMainClasses
             {
                 MenuItem i = curLevelItems.ElementAt<MenuItem>(j);
 
-                Font ft = new Font("Verdana", desiredFont, FontStyle.Bold);
+                Font ft = new Font("Calibri", desiredFont, FontStyle.Bold);
                 Size curCell = TextRenderer.MeasureText(i.ToString(), ft);
 
                 if (curCell.Width > txtW || curCell.Height > cellHeight)
@@ -201,7 +204,7 @@ namespace UIMainClasses
             {
                 MenuItem i = curLevelItems.ElementAt<MenuItem>(j);
 
-                Font ft = new Font("Verdana", desiredFont, FontStyle.Bold);
+                Font ft = new Font("Calibri", desiredFont, FontStyle.Bold);
                 Size curCell = TextRenderer.MeasureText(i.ToString(), ft);
 
                 cellH = curCell.Height;
@@ -211,7 +214,7 @@ namespace UIMainClasses
                 Rectangle txtBox = new Rectangle(cellX, cellY, cellW, cellH);
                 textBoxes.Add(txtBox);
 
-                p.AddString(i.ToString(), new FontFamily("Verdana"), (int)FontStyle.Bold, desiredFont, txtBox, sf);
+                p.AddString(i.ToString(), new FontFamily("Calibri"), (int)FontStyle.Bold, desiredFont, txtBox, sf);
                 p.FillMode = FillMode.Winding;
                 p.CloseAllFigures();
 
@@ -613,8 +616,6 @@ namespace UIMainClasses
             updateText();
         }
         
-
-        
         /// <summary>
         /// (Overridabile): Compie un'azione in funzione al menuitem aperto.
         /// </summary>
@@ -803,8 +804,7 @@ namespace UIMainClasses
         {
             timer.Start();
             updateText();
-            if (bgMusic != null)
-                bgMusic.PlayLooping(this.container.VolumeMusic);
+            bgMusic?.PlayLooping(this.container.VolumeMusic);
         }
 
         /// <summary>

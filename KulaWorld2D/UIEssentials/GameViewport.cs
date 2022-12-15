@@ -34,6 +34,7 @@ namespace UIEssentials
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             this.scenes.Draw(g);
         }
 

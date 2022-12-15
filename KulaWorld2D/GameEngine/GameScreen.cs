@@ -153,9 +153,8 @@ namespace GameEngine
             bonuses = FileNames.AllBonusLevelsFileName;
             isBonus = false;
             IsTryingLevel = false;
-
-
         }
+
         private void bindToContainer(SceneContainer sc)
         {
             container = sc;

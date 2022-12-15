@@ -835,7 +835,6 @@ namespace GameEngine
             Matrix persp = new Matrix();
             persp.Rotate(-rot);
             PointF offset = persp.TransformAndThenRound(new PointF((float)offX, 0));
-
             
             xyrotatorAnim.ChangeAnimator(
                 0, 
@@ -869,7 +868,6 @@ namespace GameEngine
             persp.Rotate(-this.rot);
             PointF offset = persp.TransformAndThenRound(new PointF(0, (float)offY));
 
-            
             double speed = Math.Abs(xyrotatorAnim.GetAnimation(1).GetCurrentSpeed(thisTime));
             xyrotatorAnim.ChangeAnimator(
                 1,
@@ -891,7 +889,6 @@ namespace GameEngine
                     )
                 );
             xyrotatorAnim.BindTextureRotationToMovement(true);
-            
             
             scaleYAnim = new ParabolicUnboundedAnimator(1, thisTime, 0.00003f, -0.003f);
             state |= BallState.Flying;
