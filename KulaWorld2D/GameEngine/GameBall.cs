@@ -577,9 +577,9 @@ namespace GameEngine
             setAnimators(0);
             setFoundSurfaces();
         }
-        
 
-        
+
+        long count = 0;
         /// <summary>
         /// Aggiorna lo stato della palla durante il gioco
         /// </summary>
@@ -587,6 +587,11 @@ namespace GameEngine
         /// <param name="c">Comando da passare alla palla</param>
         public void Update(long thisTime, Command c)
         {
+            if (++count%1 == 0)
+            {
+                Console.WriteLine($"Ball has xyRotation = {xyrotatorAnim.GetAnimation(2).CalculateValue(thisTime)}");
+            }
+
             updateProperties(thisTime);
 
             if (!lifeControl(thisTime))
@@ -835,7 +840,7 @@ namespace GameEngine
             Matrix persp = new Matrix();
             persp.Rotate(-rot);
             PointF offset = persp.TransformAndThenRound(new PointF((float)offX, 0));
-            
+
             xyrotatorAnim.ChangeAnimator(
                 0, 
                 new LinearBoundedAnimator(
@@ -843,7 +848,7 @@ namespace GameEngine
                     thisTime, 
                     h * 0.064, 
                     250)
-                    );
+                );
             xyrotatorAnim.ChangeAnimator(
                 1, 
                 new ParabolicToLinearAnimator(
@@ -853,7 +858,7 @@ namespace GameEngine
                     xyrotatorAnim.GetAnimation(1).GetCurrentSpeed(thisTime), 
                     Constants.MaxVerticalSpeed
                     )
-                    );
+                );
             xyrotatorAnim.BindTextureRotationToMovement(true);
 
             scaleXAnim = new ParabolicUnboundedAnimator(1, thisTime, 0.00003f, -0.003f);
@@ -889,7 +894,7 @@ namespace GameEngine
                     )
                 );
             xyrotatorAnim.BindTextureRotationToMovement(true);
-            
+
             scaleYAnim = new ParabolicUnboundedAnimator(1, thisTime, 0.00003f, -0.003f);
             state |= BallState.Flying;
 
