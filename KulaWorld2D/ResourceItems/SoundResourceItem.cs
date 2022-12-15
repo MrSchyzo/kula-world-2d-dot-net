@@ -5,10 +5,6 @@ using System.Windows.Forms;
 
 namespace ResourceItems
 {
-    
-    
-
-    
     /// <summary>
     /// ResourceItem specializzato nel trattare Bitmaps: è possibile caricare e scaricare un suono, oltre che a avviarlo sia ciclicamente che non.
     /// Il caricamento della risorsa è sincrono!

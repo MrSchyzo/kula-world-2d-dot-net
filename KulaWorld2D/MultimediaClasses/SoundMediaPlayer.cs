@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Threading;
 using WMPLib;
 
 namespace MultimediaClasses
@@ -7,10 +9,11 @@ namespace MultimediaClasses
     /// <summary>
     /// Classe che incorpora un WindowsMediaPlayer con le principali caratteristiche di un SoundPlayer
     /// </summary>
-    public class SoundMediaPlayer
+    public class SoundMediaPlayer: IDisposable
     {
         private WindowsMediaPlayer audio;
         private BackgroundWorker player;
+        private ConcurrentQueue<PlayerArgs> executionBuffer = new ConcurrentQueue<PlayerArgs>();
         string path;
         
         private bool isEmpty()
@@ -61,24 +64,33 @@ namespace MultimediaClasses
             player.DoWork += player_DoWork;
         }
         
-
-        
         void player_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (e?.Argument == null) return;
+            PlayerArgs arg;
+
+            if (e?.Argument as PlayerArgs != null)
+            {
+                executionBuffer.Enqueue(e.Argument as PlayerArgs);
+            }
             
-            PlayerArgs arg = (PlayerArgs)e.Argument;
-            int volume = arg.Volume;
-            if (arg.Operation == SoundMediaPlayerOperation.ChangeVolume)
-                setVol(volume);
-            else if (arg.Operation == SoundMediaPlayerOperation.Pause)
-                pause();
-            else if (arg.Operation == SoundMediaPlayerOperation.Play)
-                play(volume);
-            else if (arg.Operation == SoundMediaPlayerOperation.PlayLooping)
-                playLooping(volume);
-            else if (arg.Operation == SoundMediaPlayerOperation.Stop)
-                stop();
+            while(executionBuffer.TryDequeue(out arg))
+            {
+                Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}: {arg.Operation} for {path}");
+
+                int volume = arg.Volume;
+                if (arg.Operation == SoundMediaPlayerOperation.ChangeVolume)
+                    setVol(volume);
+                else if (arg.Operation == SoundMediaPlayerOperation.Pause)
+                    pause();
+                else if (arg.Operation == SoundMediaPlayerOperation.Play)
+                    play(volume);
+                else if (arg.Operation == SoundMediaPlayerOperation.PlayLooping)
+                    playLooping(volume);
+                else if (arg.Operation == SoundMediaPlayerOperation.Stop)
+                    stop();
+
+                Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}: END {arg.Operation} for {path}");
+            }
         }
 
         bool setVol(int v)
@@ -212,7 +224,15 @@ namespace MultimediaClasses
             }
         }
         
-
+        void executeCommand(PlayerArgs args)
+        {
+            if (player.IsBusy)
+            {
+                executionBuffer.Enqueue(args);
+                return;
+            }
+            player.RunWorkerAsync(args);
+        }
         
         /// <summary>
         /// Inizializza un riproduttore audio senza riferimenti.
@@ -245,8 +265,6 @@ namespace MultimediaClasses
                 }
             }
         }
-        
-
         
         /// <summary>
         /// Carica il file presente nel pathname identificato dalla proprietà SoundLocation.
@@ -312,8 +330,7 @@ namespace MultimediaClasses
         /// </summary>
         public void Play()
         {
-            if (!player.IsBusy)
-                player.RunWorkerAsync(new PlayerArgs(-1, SoundMediaPlayerOperation.Play));
+            executeCommand(new PlayerArgs(-1, SoundMediaPlayerOperation.Play));
         }
 
         /// <summary>
@@ -322,8 +339,7 @@ namespace MultimediaClasses
         /// <param name="vol"></param>
         public void Play(int vol)
         {
-            if (!player.IsBusy)
-                player.RunWorkerAsync(new PlayerArgs(vol, SoundMediaPlayerOperation.Play));
+            executeCommand(new PlayerArgs(vol, SoundMediaPlayerOperation.Play));
         }
 
         /// <summary>
@@ -332,14 +348,7 @@ namespace MultimediaClasses
         public void PlayLooping()
         {
             //playLooping(100);
-            if (!player.IsBusy)
-                player.RunWorkerAsync(new PlayerArgs(-1, SoundMediaPlayerOperation.PlayLooping));
-            else
-            {
-                player.CancelAsync();
-                player.RunWorkerAsync(new PlayerArgs(-1, SoundMediaPlayerOperation.PlayLooping));
-                Console.WriteLine("BUSY");
-            }
+            executeCommand(new PlayerArgs(-1, SoundMediaPlayerOperation.PlayLooping));
         }
 
         /// <summary>
@@ -349,10 +358,7 @@ namespace MultimediaClasses
         public void PlayLooping(int vol)
         {
             //playLooping(vol);
-            if (!player.IsBusy)
-                player.RunWorkerAsync(new PlayerArgs(vol, SoundMediaPlayerOperation.PlayLooping));
-            else
-                Console.WriteLine("BUSY");
+            executeCommand(new PlayerArgs(vol, SoundMediaPlayerOperation.PlayLooping));
         }
 
         /// <summary>
@@ -360,8 +366,7 @@ namespace MultimediaClasses
         /// </summary>
         public void Pause()
         {
-            if (!player.IsBusy)
-                player.RunWorkerAsync(new PlayerArgs(-1, SoundMediaPlayerOperation.Pause));
+            executeCommand(new PlayerArgs(-1, SoundMediaPlayerOperation.Pause));
         }
 
         /// <summary>
@@ -369,8 +374,7 @@ namespace MultimediaClasses
         /// </summary>
         public bool Stop()
         {
-            if (!player.IsBusy)
-                player.RunWorkerAsync(new PlayerArgs(-1, SoundMediaPlayerOperation.Stop));
+            executeCommand(new PlayerArgs(-1, SoundMediaPlayerOperation.Stop));
             return true;
         }
 
@@ -390,7 +394,6 @@ namespace MultimediaClasses
                         audio.controls.stop();
                         path = null;
                         audio.URL = path;
-                        GC.Collect();
                     }
                     catch (ArgumentException e)
                     {
@@ -412,8 +415,7 @@ namespace MultimediaClasses
         /// <returns>true se e solo se l'impostazione del volume ha avuto successo.</returns>
         public bool SetVolume(int v)
         {
-            if (!player.IsBusy)
-                player.RunWorkerAsync(new PlayerArgs(v, SoundMediaPlayerOperation.ChangeVolume));
+            executeCommand(new PlayerArgs(v, SoundMediaPlayerOperation.ChangeVolume));
             return true;
         }
         

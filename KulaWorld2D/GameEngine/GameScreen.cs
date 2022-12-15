@@ -1058,7 +1058,7 @@ namespace GameEngine
             ImageResourceItem lightmap = (ImageResourceItem)dir.GetFile(myDir, "LightBall.png");
 
             bgImage = GameApp.ResizeImg(bgImg.Content, 500, 500);
-            bgMusic.Stop();
+            if (bgMusic != bg.Content) bgMusic.Stop();
             bgMusic = bg.Content;
             ball.SetTexture(boll.Content);
             ball.SetLightMap(lightmap.Content);

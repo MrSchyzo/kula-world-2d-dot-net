@@ -138,8 +138,6 @@ namespace UIMainClasses
         /// </summary>
         protected void updateText()
         {
-            InstalledFontCollection collection = new InstalledFontCollection();
-
             //Setup del canvas dove scrivere il testo e delle regioni che toccano il testo
             if (text == null)
                 text = new Bitmap(480, 360);
