@@ -860,7 +860,7 @@ namespace GameEngine
             movingRight = (h >= 0);
             
             state |= BallState.Flying;
-
+            game.PlaySound("Bounce");
         }
         public void BounceDown(double offY, long thisTime)
         {

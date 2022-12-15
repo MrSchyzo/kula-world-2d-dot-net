@@ -75,8 +75,6 @@ namespace MultimediaClasses
             
             while(executionBuffer.TryDequeue(out arg))
             {
-                Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}: {arg.Operation} for {path}");
-
                 int volume = arg.Volume;
                 if (arg.Operation == SoundMediaPlayerOperation.ChangeVolume)
                     setVol(volume);
@@ -88,8 +86,6 @@ namespace MultimediaClasses
                     playLooping(volume);
                 else if (arg.Operation == SoundMediaPlayerOperation.Stop)
                     stop();
-
-                Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId}: END {arg.Operation} for {path}");
             }
         }
 
