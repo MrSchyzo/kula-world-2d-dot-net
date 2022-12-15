@@ -10,10 +10,9 @@ public class App
 {
     static void Main()
     {
-        Form f = new Form();
         Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
         Console.WriteLine(Directory.GetCurrentDirectory());
-        KulaGame g = new KulaGame(f);
+        KulaGame g = new KulaGame(new Form());
         try 
         {
             g.Begin();

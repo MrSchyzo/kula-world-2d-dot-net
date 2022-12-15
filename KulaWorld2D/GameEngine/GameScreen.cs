@@ -66,19 +66,22 @@ namespace GameEngine
         private bool needToUpdateFrame = true;
         private void handleKeyDown(KeyEventArgs e)
         {
-            if (gsState == GameScreenState.InGame)
-            {
-                if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
-                    cmd = Command.Left;
-                else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
-                    cmd = Command.Right;
-                else if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up || e.KeyCode == Keys.Space)
-                    cmd = Command.Jump;
-                else if (e.KeyCode == Keys.Escape && !ball.IsStateAlso(BallState.ChangingFace)) //Bug: se uno pausa quando cambio faccia, exception!
-                    container.changeScene(GameConstraints.PauseMenu.ID);
-                else if (e.KeyCode == Keys.F1)
-                    inDebug = !inDebug;
-            }
+            if (gsState != GameScreenState.InGame) return;
+
+            if (e.KeyCode == Keys.A || e.KeyCode == Keys.Left)
+                cmd = Command.Left;
+            else if (e.KeyCode == Keys.D || e.KeyCode == Keys.Right)
+                cmd = Command.Right;
+            else if (e.KeyCode == Keys.W || e.KeyCode == Keys.Up || e.KeyCode == Keys.Space)
+                cmd = Command.Jump;
+            else if (e.KeyCode == Keys.Q)
+                cmd = Command.JumpLeft;
+            else if (e.KeyCode == Keys.E)
+                cmd = Command.JumpRight;
+            else if (e.KeyCode == Keys.Escape && !ball.IsStateAlso(BallState.ChangingFace)) //Pausing and unpausing during rotation breaks stuff, I'll find out why
+                container.changeScene(GameConstraints.PauseMenu.ID);
+            else if (e.KeyCode == Keys.F1)
+                inDebug = !inDebug;
         }
 
         private void handleKeyUp(KeyEventArgs e)
@@ -150,9 +153,8 @@ namespace GameEngine
             bonuses = FileNames.AllBonusLevelsFileName;
             isBonus = false;
             IsTryingLevel = false;
-
-
         }
+
         private void bindToContainer(SceneContainer sc)
         {
             container = sc;
@@ -803,7 +805,7 @@ namespace GameEngine
         }
         private T element<T>(int i, List<T> l)
         {
-            return l.ElementAt<T>(i);
+            return l.ElementAt(i);
         }
         private List<Bitmap> allTheImagesAreLoaded(List<string> imgs)
         {
@@ -1056,7 +1058,7 @@ namespace GameEngine
             ImageResourceItem lightmap = (ImageResourceItem)dir.GetFile(myDir, "LightBall.png");
 
             bgImage = GameApp.ResizeImg(bgImg.Content, 500, 500);
-            bgMusic.Stop();
+            if (bgMusic != bg.Content) bgMusic.Stop();
             bgMusic = bg.Content;
             ball.SetTexture(boll.Content);
             ball.SetLightMap(lightmap.Content);

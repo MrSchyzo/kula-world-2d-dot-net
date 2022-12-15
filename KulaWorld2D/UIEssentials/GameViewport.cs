@@ -18,13 +18,13 @@ namespace UIEssentials
             * scenes = SceneContainer utilizzato e manipolabile
             * isFrozen = variabile per far fermare il gameloop
             * timer = timer utilizzato per il "benchmark"
-            * mspF = valore in funzione di fpsRate (= 1000 / fpsRate)
+            * msPerFrame = valore in funzione di fpsRate (= 1000 / fpsRate)
             */
         private byte fpsRate;
         private SceneContainer scenes;
         private bool isFrozen;
         private Stopwatch timer;
-        private int mspF;
+        private int msPerFrame;
         private KeyboardMouseEventBundle queue;
 
         /// <summary>
@@ -34,6 +34,7 @@ namespace UIEssentials
         protected override void OnPaint(PaintEventArgs e)
         {
             Graphics g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             this.scenes.Draw(g);
         }
 
@@ -129,7 +130,7 @@ namespace UIEssentials
             if (FPS <= 10)
                 FPS = 10;
             this.fpsRate = FPS;
-            this.mspF = 1000 / this.fpsRate;
+            this.msPerFrame = 1000 / this.fpsRate;
 
             //Creo il cronometro utile per la temporizzazione.
             this.timer = new Stopwatch();
@@ -173,7 +174,7 @@ namespace UIEssentials
                 if (value <= 10)
                     value = 10;
                 this.fpsRate = value;
-                this.mspF = 1000 / this.fpsRate;
+                this.msPerFrame = 1000 / this.fpsRate;
             }
         }
 
@@ -192,11 +193,9 @@ namespace UIEssentials
         /// </summary>
         public void Go()
         {
-            
             long cur = 0;
             long delta = 0;
             long now = 0;
-            
             
             double cycles = 0;
             double seconds = 0;
@@ -216,18 +215,15 @@ namespace UIEssentials
                 now = this.timer.ElapsedMilliseconds;
                 delta = now - cur;
                 cur = now;
-                if (delta < this.mspF)
-                    Thread.Sleep(this.mspF - (int)delta);
+                if (delta < this.msPerFrame)
+                    Thread.Sleep(this.msPerFrame - (int)delta);
                 
-                if (++cycles % 14000 == 0)
-                    GC.Collect();
                 if (delta > maxTime)
                     maxTime = delta;
                 if (delta < minTime)
                     minTime = delta;
-                
+                cycles++;
             }
-            
             
             seconds = cur / 1000.0;
             cycles /= seconds;

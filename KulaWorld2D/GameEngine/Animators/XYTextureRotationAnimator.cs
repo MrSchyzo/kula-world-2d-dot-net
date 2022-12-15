@@ -136,7 +136,8 @@ namespace GameEngine.Animators
         public void BindTextureRotationToMovement(bool val)
         {
             bindTexRotToMovement = val;
-            animTexRot = new ParabolicToLinearAnimator(animTexRot.CalculateValue(animX.GetStartingTime()), animX.GetStartingTime(), -0.02, 0.09, 1.08);
+            if (animX is ParabolicToLinearAnimator)
+                animTexRot = new ParabolicToLinearAnimator(animTexRot.CalculateValue(animX.GetStartingTime()), animX.GetStartingTime(), -0.02, 0.09, 1.08);
         }
         public Animator GetAnimation(byte whichOne)
         {   

@@ -230,7 +230,7 @@ namespace GameUtils
             
             Size txtBox = box.Size;
             float desiredFont = txtBox.Height / 1.8f;
-            Font f = new Font("Verdana", desiredFont, FontStyle.Bold);
+            Font f = new Font("Calibri", desiredFont, FontStyle.Bold);
             Size cell = TextRenderer.MeasureText(s, f, txtBox, format);
 
             if (cell.Width > txtBox.Width || cell.Height > txtBox.Height)
@@ -242,7 +242,7 @@ namespace GameUtils
             }
 
             GraphicsPath p = new GraphicsPath();
-            p.AddString(s, new FontFamily("Verdana"), (int)FontStyle.Bold, desiredFont, box, sf);
+            p.AddString(s, new FontFamily("Calibri"), (int)FontStyle.Bold, desiredFont, box, sf);
             p.FillMode = FillMode.Winding;
             p.CloseAllFigures();
             e.FillPath(new SolidBrush(Color.FromArgb(180, 220, 220, 220)), p);

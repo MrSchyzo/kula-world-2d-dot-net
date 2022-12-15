@@ -12,7 +12,7 @@ public class KulaGame
 
     private void formSetup(Form f)
     {
-        gameViewport = new GameViewport(75, null);
+        gameViewport = new GameViewport(144, null);
         this.containingForm = f;
         f.ClientSize = new Size(600, 450);
         f.FormBorderStyle = FormBorderStyle.Sizable;
