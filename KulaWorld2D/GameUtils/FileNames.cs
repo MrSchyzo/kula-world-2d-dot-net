@@ -46,6 +46,10 @@ namespace GameUtils
         {
             get { return "HighScores.bin"; }
         }
+
+        public static bool EndsWithIgnoreCase(this string s, string other) => s.EndsWith(other, System.StringComparison.InvariantCultureIgnoreCase);
+        public static bool StartsWithIgnoreCase(this string s, string other) => s.StartsWith(other, System.StringComparison.InvariantCultureIgnoreCase);
+        public static bool EqualsIgnoreCase(this string s, string other) => s.Equals(other, System.StringComparison.InvariantCultureIgnoreCase);
     }
     
 }

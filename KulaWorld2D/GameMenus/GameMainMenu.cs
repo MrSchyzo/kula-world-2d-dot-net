@@ -134,25 +134,24 @@ namespace GameMenus
         
         private void changePixelsHue(Bitmap img, bool variation)
         {
-            if (img != null)
-            {
-                Color c;
-                for (int i = 0; i < img.Height; i++)
-                    for (int j = 0; j < img.Width; j++)
-                    {
-                        c = img.GetPixel(j, i);
-                        if (variation)
-                            img.SetPixel(j, i, Color.FromArgb(c.A, c.G, c.B, c.R));
-                        else
-                            img.SetPixel(j, i, Color.FromArgb(c.A, c.B, c.R, c.G));
-                    }
-            }
+            if (img == null) return;
+
+            Color c;
+            for (int i = 0; i < img.Height; i++)
+                for (int j = 0; j < img.Width; j++)
+                {
+                    c = img.GetPixel(j, i);
+                    if (variation)
+                        img.SetPixel(j, i, Color.FromArgb(c.A, c.G, c.B, c.R));
+                    else
+                        img.SetPixel(j, i, Color.FromArgb(c.A, c.B, c.R, c.G));
+                }
         }
 
         private static void pickLevel()
         {
             tryFileName = null;
-            
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.AddExtension = false;
             ofd.DefaultExt = ".bin";
@@ -164,25 +163,23 @@ namespace GameMenus
             ofd.RestoreDirectory = true;
             ofd.InitialDirectory = GameApp.CurDir() + GameConstraints.OtherPaths.Levels + @"\";
             ofd.Multiselect = false;
-            
-            
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                string bonDir = GameApp.CurDir() + GameConstraints.OtherPaths.Bonuses + @"\";
-                string lvlDir = GameApp.CurDir() + GameConstraints.OtherPaths.Levels + @"\";
-                if ((ofd.FileName.StartsWith(bonDir) || ofd.FileName.StartsWith(lvlDir)) && ofd.FileName.EndsWith(".bin"))
-                {
-                    int lastSlash = ofd.FileName.LastIndexOf(@"\");
-                    tryFileName = ofd.FileName.Substring(lastSlash + 1);
-                }
-                else
-                    MessageBox.Show("Il file deve essere in formato .bin e deve stare nei seguenti path:\n- " + bonDir + "\n- " + lvlDir);
-            }
-            
-        }
-        
 
-        
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+
+            string bonDir = GameApp.CurDir() + GameConstraints.OtherPaths.Bonuses + @"\";
+            string lvlDir = GameApp.CurDir() + GameConstraints.OtherPaths.Levels + @"\";
+            if ((ofd.FileName.StartsWithIgnoreCase(bonDir) || ofd.FileName.StartsWithIgnoreCase(lvlDir)) && ofd.FileName.EndsWithIgnoreCase(".bin"))
+            {
+                int lastSlash = ofd.FileName.LastIndexOf(@"\");
+                tryFileName = ofd.FileName.Substring(lastSlash + 1);
+            }
+            else
+                MessageBox.Show("Il file deve essere in formato .bin e deve stare nei seguenti path:\n- " + bonDir + "\n- " + lvlDir);
+
+        }
+
+
+
         /// <summary>
         /// Gestisce il movimento della rotellina.
         /// </summary>

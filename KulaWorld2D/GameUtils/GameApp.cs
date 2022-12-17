@@ -55,16 +55,17 @@ namespace GameUtils
         /// <returns>L'immagine bitmap, se l'esito è positivo; altrimenti restituisce null</returns>
         public static Bitmap ResizeImg(Bitmap input, int width, int height)
         {
-            if (input != null && width > 0 && height > 0)
+            if (input == null || width <= 0 || height <= 0)
             {
-                Bitmap a = new Bitmap(width, height);
-                Graphics g = Graphics.FromImage(a);
-
-                g.DrawImage(input, new Rectangle(0, 0, a.Width, a.Height));
-                g.Dispose();
-                return a;
+                return null;
             }
-            return null;
+
+            Bitmap a = new Bitmap(width, height);
+            Graphics g = Graphics.FromImage(a);
+
+            g.DrawImage(input, new Rectangle(0, 0, a.Width, a.Height));
+            g.Dispose();
+            return a;
         }
 
         /// <summary>
@@ -77,23 +78,25 @@ namespace GameUtils
         /// <returns></returns>
         public static Bitmap copyImgPiece(Bitmap input, Rectangle piece, Size outputSize)
         {
-            if (input != null && piece != null && outputSize != null)
+            if (input == null)
             {
-                Rectangle imgR = new Rectangle(0, 0, input.Width, input.Height);
-                if (imgR.Contains(piece) && (!outputSize.IsEmpty))
-                {
-                    Bitmap output = new Bitmap(piece.Width, piece.Height);
+                return null;
+            }
 
-                    /*uso drawimage per scrivere sopra l'immagine che sarà data come output*/
-                    Graphics g = Graphics.FromImage(output);
-                    g.DrawImage(input, new Point(-piece.X, -piece.Y));
-                    g.Dispose();
+            Rectangle imgR = new Rectangle(0, 0, input.Width, input.Height);
+            if (imgR.Contains(piece) && (!outputSize.IsEmpty))
+            {
+                Bitmap output = new Bitmap(piece.Width, piece.Height);
 
-                    Bitmap output2 = GameApp.ResizeImg(output, outputSize.Width, outputSize.Height);
-                    output.Dispose();
-                    output = null;
-                    return output2;
-                }
+                /*uso drawimage per scrivere sopra l'immagine che sarà data come output*/
+                Graphics g = Graphics.FromImage(output);
+                g.DrawImage(input, new Point(-piece.X, -piece.Y));
+                g.Dispose();
+
+                Bitmap output2 = GameApp.ResizeImg(output, outputSize.Width, outputSize.Height);
+                output.Dispose();
+                output = null;
+                return output2;
             }
             return null;
         }
@@ -135,7 +138,7 @@ namespace GameUtils
         /// <returns></returns>
         public static Point RectangleCentre(Rectangle input)
         {
-            if (input != null && (!input.IsEmpty))
+            if (!input.IsEmpty)
                 return new Point(input.X + (input.Width / 2), input.Y + (input.Height / 2));
             return new Point();
         }
@@ -147,7 +150,7 @@ namespace GameUtils
         /// <returns></returns>
         public static PointF RectangleFCentre(RectangleF input)
         {
-            if (input != null && (!input.IsEmpty))
+            if (!input.IsEmpty)
                 return new PointF(input.X + (input.Width / 2), input.Y + (input.Height / 2));
             return new PointF();
         }
@@ -167,35 +170,36 @@ namespace GameUtils
         public static Rectangle zoomedAndSizedRectangleOf(Rectangle input, float offsetRatioX, float offsetRatioY, float widthRatio, float heightRatio, bool centralPositioning)
         {
             //Controllo sugli input, non voglio rettangoli vuoti o inesistenti
-            if (input != null && (!input.IsEmpty) && (widthRatio * heightRatio != 0))
+            if (input == null || input.IsEmpty || widthRatio * heightRatio == 0)
             {
-                //Sistemo i width e height ratio, devono essere positivi
-                widthRatio = Math.Abs(widthRatio);
-                heightRatio = Math.Abs(heightRatio);
-
-                //Memorizzo in floating i 4 parametri del rettangolo di input
-                float inW = (float)input.Width;
-                float inH = (float)input.Height;
-                float inX = (float)input.X;
-                float inY = (float)input.Y;
-
-                //Determino larghezza e altezza del rettangolo
-                float w = inW * widthRatio;
-                float h = inH * heightRatio;
-
-                //Preparo il punto in cui posizionare il rettangolo, se è al centro, mi sposto in diagonale in alto a sinistra
-                float x = inX, y = inY;
-                if (centralPositioning)
-                {
-                    x += -w / 2.0f;
-                    y += -h / 2.0f;
-                }
-                x += (inW * offsetRatioX);
-                y += (inH * offsetRatioY);
-
-                return new Rectangle((int)x, (int)y, (int)w, (int)h);
+                return new Rectangle();
             }
-            return new Rectangle();
+
+            //Sistemo i width e height ratio, devono essere positivi
+            widthRatio = Math.Abs(widthRatio);
+            heightRatio = Math.Abs(heightRatio);
+
+            //Memorizzo in floating i 4 parametri del rettangolo di input
+            float inW = (float)input.Width;
+            float inH = (float)input.Height;
+            float inX = (float)input.X;
+            float inY = (float)input.Y;
+
+            //Determino larghezza e altezza del rettangolo
+            float w = inW * widthRatio;
+            float h = inH * heightRatio;
+
+            //Preparo il punto in cui posizionare il rettangolo, se è al centro, mi sposto in diagonale in alto a sinistra
+            float x = inX, y = inY;
+            if (centralPositioning)
+            {
+                x += -w / 2.0f;
+                y += -h / 2.0f;
+            }
+            x += (inW * offsetRatioX);
+            y += (inH * offsetRatioY);
+
+            return new Rectangle((int)x, (int)y, (int)w, (int)h);
         }
 
         /// <summary>
@@ -230,6 +234,8 @@ namespace GameUtils
             
             Size txtBox = box.Size;
             float desiredFont = txtBox.Height / 1.8f;
+            if (txtBox.Width*txtBox.Height == 0) return;
+
             Font f = new Font("Calibri", desiredFont, FontStyle.Bold);
             Size cell = TextRenderer.MeasureText(s, f, txtBox, format);
 
