@@ -752,18 +752,11 @@ namespace GameEngine
             Matrix m = new Matrix();
             m.Rotate(-ball.Rotation);
 
-            //Console.WriteLine("Ball @" + ball.Center);
-
             PointF offH = m.TransformAndThenRound(new PointF(checkOffsetX, 0));
             PointF offL = m.TransformAndThenRound(new PointF(checkOffsetX, checkOffsetY));
 
             Pair<int> high = new Pair<int>(ballX + (int)(offH.X), ballY + (int)(offH.Y));
             Pair<int> low = new Pair<int>(ballX + (int)(offL.X), ballY + (int)(offL.Y));
-            //Console.WriteLine("HighBlock + " + offH +" @" + highBlock);
-            //Console.WriteLine("LowBlock + " + offL + " @" + lowBlock);
-
-            //Pair<int> high = new Pair<int>((int)(highBlock.X / Constants.BlockWidth), (int)(highBlock.Y / Constants.BlockWidth));
-            //Pair<int> low = new Pair<int>((int)(lowBlock.X / Constants.BlockWidth), (int)(lowBlock.Y / Constants.BlockWidth));
 
             Block gb;
             if (blocks.TryGetValue(high, out gb) && gb.IsEnabled)

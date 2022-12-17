@@ -156,21 +156,7 @@ namespace GameLoadingScreens
         /// <param name="bundle"></param>
         public override void HandleEvent(KeyboardMouseEventBundle bundle)
         {
-            KeyboardMouseEventArgs received = bundle.extractEvent();
-            if (received == null)
-                Console.WriteLine("Nessun evento ricevuto.");
-            else
-            {
-                if (received.isKeyEvent)
-                    Console.WriteLine(received.getEventType.ToString() + " ricevuto.");
-                else
-                {
-                    MouseEventArgs e = received.mouseEvent;
-                    int x = e.X;
-                    int y = e.Y;
-                    Console.WriteLine(received.getEventType.ToString() + @" (x: " + x + @", y: " + y + ")" + " ricevuto.");
-                }
-            }
+            bundle.extractEvent();
         }
 
         /// <summary>

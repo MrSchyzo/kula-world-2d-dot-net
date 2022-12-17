@@ -268,7 +268,6 @@ namespace UIMainClasses
                 float viewportY = (float)(((double)clipRegion.Height) / 3.0);
                 float viewportW = ((float)clipRegion.Width) / ((float)2.0);
                 float viewportH = ((float)clipRegion.Height) / ((float)1.5);
-                //Console.WriteLine("Drawing: (" + viewportX + ", " + viewportY + ", " + viewportW + ", " + viewportH + "\n In: " + clipRegion.ToString());
                 RectangleF txtRect = new RectangleF(viewportX, viewportY, viewportW, viewportH);
                 e.DrawImage(text, txtRect);
             }
