@@ -998,7 +998,6 @@ namespace GameEngine
                     {
                         if (!IsStateAlso(BallState.Burning))
                         {
-                            Console.WriteLine("BurnBabyBurn.");
                             SetState(BallState.Burning, true);
                             double l = Math.Max(lifeAnim.CalculateValue(thisTime) - 27, 0);
                             lifeAnim =
