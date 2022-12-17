@@ -578,8 +578,6 @@ namespace GameEngine
             setFoundSurfaces();
         }
 
-
-        long count = 0;
         /// <summary>
         /// Aggiorna lo stato della palla durante il gioco
         /// </summary>
@@ -587,11 +585,6 @@ namespace GameEngine
         /// <param name="c">Comando da passare alla palla</param>
         public void Update(long thisTime, Command c)
         {
-            if (++count%1 == 0)
-            {
-                Console.WriteLine($"Ball has xyRotation = {xyrotatorAnim.GetAnimation(2).CalculateValue(thisTime)}");
-            }
-
             updateProperties(thisTime);
 
             if (!lifeControl(thisTime))

@@ -64,6 +64,7 @@ namespace GameEngine
         private Bitmap bgImage;
         private Bitmap promptFrame = new Bitmap(1, 1);
         private bool needToUpdateFrame = true;
+
         private void handleKeyDown(KeyEventArgs e)
         {
             if (gsState != GameScreenState.InGame) return;
@@ -278,6 +279,7 @@ namespace GameEngine
                 drawRemainingBlocks(box, e);
             }
         }
+        
         private void drawWorld(Graphics e, bool enhanced, float tilesRange)
         {
             if (tilesRange <= 0)
@@ -319,6 +321,8 @@ namespace GameEngine
 
         private void drawScene(Graphics e)
         {
+            var toRestore = e.Transform;
+
             float
                 vpWidth = this.clipRegion.Width,
                 vpHeight = this.clipRegion.Height,
@@ -326,38 +330,67 @@ namespace GameEngine
                 worldvpHeight = Constants.ViewportYTiles * Constants.BlockWidth,
                 ratioX = (vpWidth / worldvpWidth),
                 ratioY = (vpHeight / worldvpHeight),
-                imageTilesDimension = (float)Math.Sqrt(Constants.ViewportXTiles * Constants.ViewportXTiles + Constants.ViewportYTiles * Constants.ViewportYTiles),
-                imageTileX = -(imageTilesDimension - Constants.ViewportXTiles) / 2.0f,
-                imageTileY = -(imageTilesDimension - Constants.ViewportYTiles) / 2.0f,
+                boundingSquareSide = (float)Math.Sqrt(Constants.ViewportXTiles * Constants.ViewportXTiles + Constants.ViewportYTiles * Constants.ViewportYTiles),
                 worldCenterX = worldvpWidth * Constants.ViewportBallXRatio,
                 worldCenterY = worldvpHeight * Constants.ViewportBallYRatio,
                 offX = ball.Center.X - worldCenterX,
                 offY = ball.Center.Y - worldCenterY;
-            Matrix m = new Matrix();
-            m.Scale(ratioX, ratioY);
-            m.RotateAt(ball.Rotation, new PointF(worldvpWidth / 2f, worldvpHeight / 2f));
+
+            using (var m = new Matrix())
+            {
+                drawBackground(e, m);
+
+                m.Reset();
+                m.Scale(ratioX, ratioY);
+                m.RotateAt(ball.Rotation, new PointF(worldCenterX, worldCenterY));
+                m.Translate(-offX, -offY);
+                e.Transform = m;
+                drawWorld(e, true, boundingSquareSide);
+
+                m.Reset();
+                m.Scale(ratioX, ratioY);
+                e.Transform = m;
+                ball.Draw(e);
+            }
+            e.Transform = toRestore;
+        }
+
+        private void drawBackground(Graphics e, Matrix m)
+        {
+            float
+                blockWidth = Constants.BlockWidth,
+
+                viewWidth = this.clipRegion.Width,
+                viewHeight = this.clipRegion.Height,
+                worldWidth = Constants.ViewportXTiles * blockWidth,
+                worldHeight = Constants.ViewportYTiles * blockWidth,
+
+                view2WorldRatioX = viewWidth / worldWidth,
+                view2WorldRatioY = viewHeight / worldHeight,
+
+                cropSize = 3 * Math.Max(lvlBounds.Width, lvlBounds.Height) / (blockWidth * 110),
+                
+                boundingSquareSize = (float)Math.Sqrt(Constants.ViewportXTiles * Constants.ViewportXTiles + Constants.ViewportYTiles * Constants.ViewportYTiles),
+                backgroundSize = boundingSquareSize + cropSize,
+                minOffsetX = (backgroundSize - Constants.ViewportXTiles) / 2,
+                minOffsetY = (backgroundSize - Constants.ViewportYTiles) / 2,
+
+                backgroundOffsetX = ((ball.Center.X - lvlBounds.Left) / lvlBounds.Width) * -cropSize / 2 - minOffsetX,
+                backgroundOffsetY = ((ball.Center.Y - lvlBounds.Top) / lvlBounds.Height) * -cropSize / 2 - minOffsetY;
+
+            m.Reset();
+            m.Scale(view2WorldRatioX, view2WorldRatioY);
+            m.RotateAt(ball.Rotation, new PointF(worldWidth / 2f, worldHeight / 2f));
             e.Transform = m;
             e.DrawImage(
                 bgImage,
                 new RectangleF(
-                    imageTileX * Constants.BlockWidth,
-                    imageTileY * Constants.BlockWidth,
-                    imageTilesDimension * Constants.BlockWidth,
-                    imageTilesDimension * Constants.BlockWidth
-                    )
-                    );
-            m.Reset();
-            m.Scale(ratioX, ratioY);
-            m.RotateAt(ball.Rotation, new PointF(worldCenterX, worldCenterY));
-            m.Translate(-offX, -offY);
-            e.Transform = m;
-            drawWorld(e, true, imageTilesDimension);
-            m.Reset();
-            m.Scale(ratioX, ratioY);
-            e.Transform = m;
-            ball.Draw(e);
-            m.Reset();
-            e.Transform = m;
+                    backgroundOffsetX * blockWidth,
+                    backgroundOffsetY * blockWidth,
+                    backgroundSize * blockWidth,
+                    backgroundSize * blockWidth
+                )
+            );
         }
 
         private void drawPrompt(Graphics e)
@@ -1071,7 +1104,7 @@ namespace GameEngine
             roundTime = (int)lvl.StartingSeconds * 1000;
             remainingTime = (int)lvl.StartingSeconds * 1000;
             roundPenalty = lvl.LossPenalty;
-            lvlBounds = new RectangleF(-320, -320, (lvl.Width + 10) * Constants.BlockWidth, (lvl.Height + 10) * Constants.BlockWidth);
+            lvlBounds = new RectangleF(-5 * Constants.BlockWidth, -5 * Constants.BlockWidth, (lvl.Width + 10) * Constants.BlockWidth, (lvl.Height + 10) * Constants.BlockWidth);
             remainingKeys = keys;
             timeCounter = new LinearBoundedAnimator(remainingTime, 0, -1, 120 * 1000, 0);
             if (!isBonus)
